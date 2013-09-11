@@ -3,7 +3,7 @@ package mobiliers.proxy;
 import mobiliers.mobilier;
 import mobiliers.renderer.*;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import carpentersblocks.proxy.CommonProxy;
+import mobiliers.proxy.CommonProxy;
 
 public class ClientProxy extends CommonProxy
 {

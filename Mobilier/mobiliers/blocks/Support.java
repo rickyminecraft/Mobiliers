@@ -3,8 +3,6 @@ package mobiliers.blocks;
 import java.util.List;
 
 import mobiliers.mobilier;
-import mobiliers.data.PlateauD;
-import mobiliers.data.RecipientD;
 import mobiliers.data.SupportD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

@@ -1,5 +1,10 @@
 package mobiliers.blocks;
 
+import static net.minecraftforge.common.ForgeDirection.EAST;
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+import static net.minecraftforge.common.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.ForgeDirection.WEST;
+
 import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
@@ -127,13 +132,51 @@ public class Plateau extends BlockBase
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 	}
 
+    @Override
+    /**
+     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     */
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+    {
+    	metadata &= 7;
+
+        ForgeDirection dir = ForgeDirection.getOrientation(side);
+
+        if (dir == NORTH) 
+        {
+            metadata = 5;
+        }
+        else if (dir == SOUTH) 
+        {
+            metadata = 4;
+        }
+        else if (dir == WEST) 
+        {
+            metadata = 1;
+        }
+        else if (dir == EAST) 
+        {
+            metadata = 0;
+        }
+        else if (dir == ForgeDirection.UP) //forge as mixed up -> down and down -> up
+        {
+            metadata = 2;
+        }
+        else if (dir == ForgeDirection.DOWN)
+        {
+        	metadata = 3;
+        }
+
+        return metadata;
+    }
+	
 	@Override
 	/**
 	 * Called when the block is placed in the world.
 	 */
 	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-		int data = PlateauD.PLATEAU_X_NEG;
+		int data = TE.blockMetadata;
 
 		// If shift key is down, skip auto-orientation
 		if (!entityLiving.isSneaking())
@@ -149,17 +192,29 @@ public class Plateau extends BlockBase
 			TECarpentersBlock TE_ZP = isThis(world, x, y, z + 1) ? (TECarpentersBlock) world.getBlockTileEntity(x, y, z + 1) : null;
 
 			if (TE_YN != null)
+			{
 				data = BlockProperties.getData(TE_YN);
+			}
 			else if (TE_YP != null)
+			{
 				data = BlockProperties.getData(TE_YP);
+			}
 			else if (TE_XN != null)
+			{
 				data = BlockProperties.getData(TE_XN);
+			}
 			else if (TE_XP != null)
+			{
 				data = BlockProperties.getData(TE_XP);
+			}
 			else if (TE_ZN != null)
+			{
 				data = BlockProperties.getData(TE_ZN);
+			}
 			else if (TE_ZP != null)
+			{
 				data = BlockProperties.getData(TE_ZP);
+			}
 		}
 		BlockProperties.setData(TE, data);
 	}
@@ -183,22 +238,31 @@ public class Plateau extends BlockBase
 	{
 		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
 
-		if (isBlockSolid(world, x, y, z))
-		{
-			int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getData(TE);
 
-			if (data == PlateauD.PLATEAU_Y_NEG && side == ForgeDirection.DOWN)
-				return true;
-			else if (data == PlateauD.PLATEAU_Y_POS && side == ForgeDirection.UP)
-				return true;
-			else if (data == PlateauD.PLATEAU_Z_NEG && side == ForgeDirection.NORTH)
-				return true;
-			else if (data == PlateauD.PLATEAU_Z_POS && side == ForgeDirection.SOUTH)
-				return true;
-			else if (data == PlateauD.PLATEAU_X_NEG && side == ForgeDirection.WEST)
-				return true;
-			else if (data == PlateauD.PLATEAU_X_POS && side == ForgeDirection.EAST)
-				return true;
+		if (data == PlateauD.PLATEAU_Y_NEG && side == ForgeDirection.DOWN)
+		{
+			return true;
+		}
+		else if (data == PlateauD.PLATEAU_Y_POS && side == ForgeDirection.UP)
+		{
+			return true;
+		}
+		else if (data == PlateauD.PLATEAU_Z_NEG && side == ForgeDirection.NORTH)
+		{
+			return true;
+		}
+		else if (data == PlateauD.PLATEAU_Z_POS && side == ForgeDirection.SOUTH)
+		{
+			return true;
+		}
+		else if (data == PlateauD.PLATEAU_X_NEG && side == ForgeDirection.WEST)
+		{
+			return true;
+		}
+		else if (data == PlateauD.PLATEAU_X_POS && side == ForgeDirection.EAST)
+		{
+			return true;
 		}
 		return false;
 	}

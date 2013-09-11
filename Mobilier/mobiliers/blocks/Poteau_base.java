@@ -1,10 +1,17 @@
 package mobiliers.blocks;
 
+import static net.minecraftforge.common.ForgeDirection.EAST;
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+import static net.minecraftforge.common.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.ForgeDirection.WEST;
+
 import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.mobilier;
+import mobiliers.data.PlateauD;
+import mobiliers.data.Poteau_baseD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -36,7 +43,15 @@ public class Poteau_base extends BlockBase
 	 */
 	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
 	{
-		return 0;
+		if (data == Poteau_baseD.DOWN)
+		{
+			data = Poteau_baseD.UP;
+		}
+		else
+		{
+			data = Poteau_baseD.DOWN;
+		}
+		return data;
 	}
 
 	@Override
@@ -48,6 +63,42 @@ public class Poteau_base extends BlockBase
 		return 0;
 	}
 
+    @Override
+    /**
+     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     */
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+    {
+    	metadata &= 7;
+
+        ForgeDirection dir = ForgeDirection.getOrientation(side);
+
+        if (dir == ForgeDirection.UP) //forge as mixed up -> down and down -> up
+        {
+            metadata = Poteau_baseD.DOWN;
+        }
+        else if (dir == ForgeDirection.DOWN)
+        {
+        	metadata = Poteau_baseD.UP;
+        }
+        else
+        {
+        	metadata = Poteau_baseD.DOWN;
+        }
+
+        return metadata;
+    }
+	
+	@Override
+	/**
+	 * Called when the block is placed in the world.
+	 */
+	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+	{
+		int data = TE.blockMetadata;
+		BlockProperties.setData(TE, data);
+	}
+    
 	@Override
 	/**
 	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
@@ -65,22 +116,28 @@ public class Poteau_base extends BlockBase
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		this.setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.1F, 0.8F);
-		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBounds(0.3F, 0.1F, 0.3F, 0.7F, 0.2F, 0.7F);
-		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBounds(0.375F, 0.2F, 0.375F, 0.625F, 1.0F, 0.625F);
-		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-	}
+		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
 
-	@Override
-	/**
-	 * Called when the block is placed in the world.
-	 */
-	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
-	{
-		int data = 0;
-		BlockProperties.setData(TE, data);
+		int data = BlockProperties.getData(TE);
+		switch (data)
+		{
+			case Poteau_baseD.DOWN:
+				this.setBlockBounds(0.2F, 0.0F, 0.2F, 0.8F, 0.1F, 0.8F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				this.setBlockBounds(0.3F, 0.1F, 0.3F, 0.7F, 0.2F, 0.7F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				this.setBlockBounds(0.375F, 0.2F, 0.375F, 0.625F, 1.0F, 0.625F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				break;
+			case Poteau_baseD.UP:
+				this.setBlockBounds(0.2F, 0.9F, 0.2F, 0.8F, 1.0F, 0.8F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				this.setBlockBounds(0.3F, 0.8F, 0.3F, 0.7F, 0.9F, 0.7F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.8F, 0.625F);
+				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
+				
+		}
 	}
 
 	@Override
