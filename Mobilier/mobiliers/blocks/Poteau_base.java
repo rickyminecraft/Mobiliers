@@ -1,16 +1,10 @@
 package mobiliers.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.EAST;
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-import static net.minecraftforge.common.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.ForgeDirection.WEST;
-
 import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.mobilier;
-import mobiliers.data.PlateauD;
 import mobiliers.data.Poteau_baseD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;

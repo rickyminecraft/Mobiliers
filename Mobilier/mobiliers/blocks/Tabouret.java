@@ -1,7 +1,6 @@
 package mobiliers.blocks;
 
 import java.util.List;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.mobilier;
@@ -86,6 +85,15 @@ public class Tabouret extends BlockBase
 	{
 		int data = 0;
 		BlockProperties.setData(TE, data);
+	}
+	
+	@Override
+	/**
+	 * Let people sit on right click.
+	 */
+	public boolean auxiliaryOnBlockActivated(TECarpentersBlock TE, World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
+	{
+		return BlockMountable.onBlockActivated(world, x, y, z, 	entityPlayer, 0.5F);
 	}
 
 	@Override
