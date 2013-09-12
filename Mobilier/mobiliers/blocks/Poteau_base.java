@@ -34,7 +34,7 @@ public class Poteau_base extends BlockBase
 		this.setHardness(0.2F);
 		this.setUnlocalizedName("poteau_base");
 		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:stairs/stairs");
+		this.setTextureName("carpentersblocks:general/generic");
 	}
 
 	@Override

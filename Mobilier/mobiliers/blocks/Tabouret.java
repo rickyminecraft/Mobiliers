@@ -28,7 +28,7 @@ public class Tabouret extends BlockBase
 		this.setHardness(0.2F);
 		this.setUnlocalizedName("tabouret");
 		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:stairs/stairs");
+		this.setTextureName("carpentersblocks:general/generic");
 	}
 
 	@Override

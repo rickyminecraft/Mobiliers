@@ -144,27 +144,27 @@ public class Plateau extends BlockBase
 
         if (dir == NORTH) 
         {
-            metadata = 5;
+            metadata = PlateauD.PLATEAU_Z_POS;
         }
         else if (dir == SOUTH) 
         {
-            metadata = 4;
+            metadata = PlateauD.PLATEAU_Z_NEG;
         }
         else if (dir == WEST) 
         {
-            metadata = 1;
+            metadata = PlateauD.PLATEAU_X_POS;
         }
         else if (dir == EAST) 
         {
-            metadata = 0;
+            metadata = PlateauD.PLATEAU_X_NEG;
         }
         else if (dir == ForgeDirection.UP) //forge as mixed up -> down and down -> up
         {
-            metadata = 2;
+            metadata = PlateauD.PLATEAU_Y_NEG;
         }
         else if (dir == ForgeDirection.DOWN)
         {
-        	metadata = 3;
+        	metadata = PlateauD.PLATEAU_Y_POS;
         }
 
         return metadata;
