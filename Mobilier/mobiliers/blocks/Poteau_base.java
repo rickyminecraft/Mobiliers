@@ -99,7 +99,7 @@ public class Poteau_base extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+		float[] bounds = { 0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F };
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 	}
 

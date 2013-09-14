@@ -76,16 +76,6 @@ public class Tabouret extends BlockBase
 		setBlockBounds(0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 	}
-
-	@Override
-	/**
-	 * Called when the block is placed in the world.
-	 */
-	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
-	{
-		int data = 0;
-		BlockProperties.setData(TE, data);
-	}
 	
 	@Override
 	/**

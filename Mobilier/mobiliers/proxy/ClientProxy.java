@@ -20,5 +20,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(mobilier.PlateauRenderID, new Plateau());
 		mobilier.RecipientRenderID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(mobilier.RecipientRenderID, new Recipient());
+		mobilier.EscalierRenderID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.EscalierRenderID, new Escaliers());
 	}
 }
