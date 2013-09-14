@@ -1,5 +1,7 @@
 package mobiliers.blocks;
 
+import java.util.List;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.mobilier;
@@ -7,7 +9,9 @@ import mobiliers.data.PlateauD;
 import mobiliers.data.TableD;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -32,28 +36,25 @@ public class Table extends BlockBase
 	 */
 	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
 	{
-//		if (++data > PlateauD.PLATEAU_Z_POS)
-//			data = PlateauD.PLATEAU_X_NEG;
-
-		return data;
+		int tmp = TableD.getRotation(data);
+		if (++tmp > TableD.ROTATE_1)
+			tmp = TableD.ROTATE_0;
+		TableD.setRotation(TE, tmp);
+		
+		return BlockProperties.getData(TE);
 	}
 
 	@Override
 	/**
-	 * Alternate between full 1m cube and slab.
+	 * Alternate between table style.
 	 */
 	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
 	{
 		int type = TableD.getType(data);
-		if (++type > TableD.TYPE_GLASS_1)
+		if (++type > TableD.TYPE_BAS_GLASS)
 		{
 			type = TableD.TYPE_NORMAL;
 		}
-		else
-		{
-			type = TableD.TYPE_GLASS_1;
-		}
-
 		TableD.setType(TE, type);
 		
 		return BlockProperties.getData(TE);
@@ -68,9 +69,38 @@ public class Table extends BlockBase
 		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
 
 		int data = BlockProperties.getData(TE);
-
+		int type = TableD.getType(data);
+		int Rotation = TableD.getRotation(data);
 		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+		switch (type)
+		{
+			case TableD.TYPE_NORMAL:
+			case TableD.TYPE_GLASS:
+				bounds = new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+				break;
+			case TableD.TYPE_BAS:
+			case TableD.TYPE_BAS_GLASS:
+				switch (Rotation)
+				{
+					case TableD.ROTATE_0:
+						bounds = new float[] { 0.2F, 0.0F, 0.0F, 0.8F, 0.5F, 1.0F };
+						break;
+					case TableD.ROTATE_1:
+						bounds = new float[] { 0.0F, 0.0F, 0.2F, 1.0F, 0.5F, 0.8F };
+				}
+		}
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+	}
+	
+	@Override
+	/**
+	 * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
+	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
+	 */
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
+	{
+		this.setBlockBoundsBasedOnState(world, x, y, z);
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 	}
 	
 	@Override
@@ -92,39 +122,14 @@ public class Table extends BlockBase
 	{
 		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getData(TE) & 0xC >>2;
 
-		if (side == ForgeDirection.UP)
+		if (data < TableD.TYPE_BAS && side == ForgeDirection.UP)
 		{
 			return true;
 		}
 		return false;
 	}
-
-//	@Override
-//	@SideOnly(Side.CLIENT)
-//	/**
-//	 * Returns true if the given side of this block type should be rendered, if the adjacent block is at the given
-//	 * coordinates.  Args: blockAccess, x, y, z, side
-//	 */
-//	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side)
-//	{
-//		if (isThis(blockAccess, x, y, z))
-//		{
-//			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
-//
-//			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
-//			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
-//
-//			if (haveSharedFaces(TE_adj, TE_src, side))
-//				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
-//			else
-//				return true;
-//		}
-//
-//		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
-//	}
-
 
 	@Override
 	/**
