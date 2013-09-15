@@ -1,16 +1,17 @@
 package mobiliers.renderer;
 
-import mobiliers.data.Poteau_baseD;
+import mobiliers.data.TangleD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+
 import org.lwjgl.opengl.GL11;
 
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
-public class Poteau_base extends BlockHandlerBase
+public class Tangle extends BlockHandlerBase
 {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks)
@@ -19,18 +20,15 @@ public class Poteau_base extends BlockHandlerBase
 		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 
-		for (int box = 0; box < 3; ++box)
+		for (int box = 0; box < 2; ++box)
 		{
 			switch (box)
 			{
 				case 0:
-					renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.8D, 0.1D, 0.8D);
+					renderBlocks.setRenderBounds(1.0D, 0.9D, 1.0D, 0.0D, 1.0D, 0.0D);
 					break;
 				case 1:
-					renderBlocks.setRenderBounds(0.3D, 0.1D, 0.3D, 0.7D, 0.2D, 0.7D);
-					break;
-				case 2:
-					renderBlocks.setRenderBounds(0.4D, 0.2D, 0.4D, 0.6D, 1.0D, 0.6D);
+					renderBlocks.setRenderBounds(0.8D, 0.0D, 0.1D, 0.9D, 0.9D, 0.2D);
 			}
 
 			tessellator.startDrawingQuads();
@@ -61,38 +59,47 @@ public class Poteau_base extends BlockHandlerBase
 
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
-
+	
 	@Override
 	/**
-	 * Renders barrier
+	 * Renders stairs at the given coordinates
 	 */
 	public boolean renderCarpentersBlock(TECarpentersBlock TE, RenderBlocks renderBlocks, Block srcBlock, int renderPass, int x, int y, int z)
 	{
 		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, sideRendering) : BlockProperties.getCoverBlock(TE, 6);
 
-		renderPoteau(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderTableAngle(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		return true;
 	}
-
-	private void renderPoteau(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	
+	private void renderTableAngle(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getData(tE);
 		switch (data)
 		{
-			case Poteau_baseD.DOWN:
-				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.8D, 0.1D, 0.8D);
+			case TangleD.TANGLE_X_NEG:
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.3D, 0.1D, 0.3D, 0.7D, 0.2D, 0.7D);
-				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.375, 0.2D, 0.375, 0.625, 1.0D, 0.625);
+				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.1D, 0.2D, 0.9D, 0.2D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				break;
-			case Poteau_baseD.UP:
-				renderBlocks.setRenderBounds(0.2D, 0.9D, 0.2D, 0.8D, 1.0D, 0.8D);
+			case TangleD.TANGLE_X_POS:
+
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.3D, 0.8D, 0.3D, 0.7D, 0.9D, 0.7D);
+				renderBlocks.setRenderBounds(0.8D, 0.0D, 0.8D, 0.9D, 0.9D, 0.9D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.375, 0.0D, 0.375, 0.625, 0.8D, 0.625);
+				break;
+			case TangleD.TANGLE_Z_NEG:
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.8D, 0.0D, 0.1D, 0.9D, 0.9D, 0.2D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case TangleD.TANGLE_Z_POS:
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.8D, 0.2D, 0.9D, 0.9D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		}
 	}

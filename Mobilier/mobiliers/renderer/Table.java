@@ -10,10 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.renderer.helper.RenderHelper;
-import carpentersblocks.renderer.helper.VertexHelper;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
-import carpentersblocks.util.IconHandler;
 
 public class Table extends BlockHandlerBase
 {
@@ -39,7 +37,6 @@ public class Table extends BlockHandlerBase
 					break;
 				case 3:
 					renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
-					break;
 			}
 
 			tessellator.startDrawingQuads();

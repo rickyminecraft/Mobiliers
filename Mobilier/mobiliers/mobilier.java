@@ -28,11 +28,11 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle;
 
-	public static int Poteau_baseID, TabouretID, SupportID, PlateauID, RecipientID, EscalierID, TableID;
+	public static int Poteau_baseID, TabouretID, SupportID, PlateauID, RecipientID, EscalierID, TableID, TangleID;
 
-	public static int Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID, RecipientRenderID, EscalierRenderID, TableRenderID;
+	public static int Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID, RecipientRenderID, EscalierRenderID, TableRenderID, TangleRenderID;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -47,6 +47,7 @@ public class mobilier
 		RecipientID = config.getBlock("Recipient", BaseID++).getInt(BaseID);
 		EscalierID = config.getBlock("Escalier", BaseID++).getInt(BaseID);
 		TableID = config.getBlock("Table", BaseID++).getInt(BaseID);
+		TangleID = config.getBlock("Tangle", BaseID++).getInt(BaseID);
 		config.save();
 		proxy.registerRenderInformation();
 	}
@@ -87,7 +88,12 @@ public class mobilier
 		Table = (new Table(TableID));
 		GameRegistry.registerBlock(Table, "blockTable");
 		LanguageRegistry.addName(new ItemStack(Table), "Table");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Table, 2), "XX ", "   "," XX", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Table, 2), "XXX", " U ", " U ", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock, 'U', "stickWood"));
+		
+		Tangle = (new Tangle(TangleID));
+		GameRegistry.registerBlock(Tangle, "blockTangle");
+		LanguageRegistry.addName(new ItemStack(Tangle), "Table angle");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Tangle, 2), "XXX", " U ", " U ", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock, 'U', "stickWood"));
 		
 		EntityRegistry.registerModEntity(EntityMountableBlock.class, "EntityMountableBlock", 1,  this, 250, 5, false); //pour s'asseoir
 	}

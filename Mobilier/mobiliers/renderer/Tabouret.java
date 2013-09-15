@@ -37,7 +37,6 @@ public class Tabouret extends BlockHandlerBase
 					break;
 				case 4:
 					renderBlocks.setRenderBounds(0.15D, 0.4D, 0.15D, 0.85D, 0.5D, 0.85D);
-					break;
 			}
 
 			tessellator.startDrawingQuads();

@@ -4,9 +4,6 @@ import mobiliers.data.EscaliersD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
-import net.minecraft.util.Vec3;
-
 import org.lwjgl.opengl.GL11;
 
 import carpentersblocks.renderer.BlockHandlerBase;
@@ -31,7 +28,6 @@ public class Escaliers extends BlockHandlerBase
 					break;
 				case 1:
 					renderBlocks.setRenderBounds(0.5D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-					break;
 			}
 
 			tessellator.startDrawingQuads();

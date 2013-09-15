@@ -3,7 +3,7 @@ package mobiliers.blocks;
 import java.util.List;
 
 import mobiliers.mobilier;
-import mobiliers.data.EscaliersD;
+import mobiliers.data.TangleD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,9 +19,9 @@ import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
-public class Escaliers extends BlockBase
+public class Tangle extends BlockBase
 {
-	public Escaliers(int blockID)
+	public Tangle(int blockID)
 	{
 		super(blockID, Material.wood);
 		this.setHardness(0.2F);
@@ -36,9 +36,10 @@ public class Escaliers extends BlockBase
 	 */
 	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
 	{
-		if (++data > EscaliersD.ESCALIER_Z_POS)
-			data = EscaliersD.ESCALIER_X_NEG;
-
+		if (++data > TangleD.TANGLE_Z_POS)
+		{
+			data = TangleD.TANGLE_X_NEG;
+		}
 		return data;
 	}
 
@@ -48,48 +49,7 @@ public class Escaliers extends BlockBase
 	 */
 	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
 	{
-//		if (data == PlateauD.PLATEAU_X_NEG)
-//		{
-//			switch (side)
-//			{
-//				case 0:
-//					data = PlateauD.PLATEAU_Y_POS;
-//					break;
-//				case 1:
-//					data = PlateauD.PLATEAU_Y_NEG;
-//					break;
-//				case 2:
-//					data = PlateauD.PLATEAU_Z_POS;
-//					break;
-//				case 3:
-//					data = PlateauD.PLATEAU_Z_NEG;
-//					break;
-//				case 4:
-//					data = PlateauD.PLATEAU_X_POS;
-//					break;
-//			}
-//		}
-//		else
-//		{
-//			data = PlateauD.PLATEAU_X_NEG;
-//		}
-//
-//		return data;
-		return 0;
-	}
-	
-	@Override
-	/**
-	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
-	 */
-	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
-	{
-		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
-
-		int data = BlockProperties.getData(TE);
-
-		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
-		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+		return data;
 	}
 	
 	/**
@@ -101,43 +61,53 @@ public class Escaliers extends BlockBase
 		++box;
 		switch (data)
 		{
-			case EscaliersD.ESCALIER_X_NEG:
+			case TangleD.TANGLE_X_NEG:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.4F, 0.0F, 0.5F, 0.5F, 1.0F };
+						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 					case 2:
-						return new float[] { 0.5F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.1F, 0.0F, 0.1F, 0.2F, 0.9F, 0.2F };
 				}
-			case EscaliersD.ESCALIER_X_POS:
+			case TangleD.TANGLE_X_POS:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.5F, 0.4F, 0.0F, 1.0F, 0.5F, 1.0F };
+						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 					case 2:
-						return new float[] { 0.0F, 0.9F, 0.0F, 0.5F, 1.0F, 1.0F };
+						return new float[] { 0.8F, 0.0F, 0.8F, 0.9F, 0.9F, 0.9F };
 				}
-			case EscaliersD.ESCALIER_Z_NEG:
+			case TangleD.TANGLE_Z_NEG:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.4F, 0.0F, 1.0F, 0.5F, 0.5F };
+						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 					case 2:
-						return new float[] { 0.0F, 0.9F, 0.5F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.8F, 0.0F, 0.1F, 0.9F, 0.9F, 0.2F };
 				}
-			case EscaliersD.ESCALIER_Z_POS:
+			case TangleD.TANGLE_Z_POS:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.4F, 0.5F, 1.0F, 0.5F, 1.0F };
+						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 					case 2:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 0.5F };
+						return new float[] { 0.1F, 0.0F, 0.8F, 0.2F, 0.9F, 0.9F };
 				}
 		}
 
 		return null;
 	}
 	
+	@Override
+	/**
+	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
+	 */
+	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
+	{
+		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+	}
+
 	@Override
 	/**
 	 * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
@@ -148,7 +118,7 @@ public class Escaliers extends BlockBase
 		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
 
 		int data = BlockProperties.getData(TE);
-		data &= 7;
+
 		for (int box = 0; box < 2; ++box) 
 		{
 			float[] bounds = genBounds(box, data);
@@ -184,7 +154,22 @@ public class Escaliers extends BlockBase
 		}
 		BlockProperties.setData(TE, facing);
 	}
-	
+    
+	@Override
+	/**
+	 * Checks if the block is a solid face on the given side, used by placement logic.
+	 */
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	{
+		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
+
+		if (side == ForgeDirection.UP)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	@Override
 	/**
 	 * Return true if the block is a normal, solid cube.  This
@@ -192,15 +177,6 @@ public class Escaliers extends BlockBase
 	 * others.
 	 */
 	public boolean isBlockNormalCube(World world, int x, int y, int z)
-	{
-		return false;
-	}
-	
-	@Override
-	/**
-	 * Checks if the block is a solid face on the given side, used by placement logic.
-	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
 		return false;
 	}
@@ -220,6 +196,6 @@ public class Escaliers extends BlockBase
 	 */
 	public int getRenderType()
 	{
-		return mobilier.EscalierRenderID;
+		return mobilier.TangleRenderID;
 	}
 }

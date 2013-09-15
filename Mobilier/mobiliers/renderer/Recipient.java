@@ -46,7 +46,6 @@ public class Recipient extends BlockHandlerBase
 					break;
 				case 6:
 					renderBlocks.setRenderBounds(0.45F, 0.05F, 0.30F, 0.55F, 0.3F, 0.35F);
-					break;
 			}
 
 			tessellator.startDrawingQuads();

@@ -31,7 +31,6 @@ public class Support extends BlockHandlerBase
 					break;
 				case 2:
 					renderBlocks.setRenderBounds(0.7F, 0.7F, 0.475F, 0.9F, 0.9F, 0.525F);
-					break;
 			}
 
 			tessellator.startDrawingQuads();
