@@ -22,7 +22,7 @@ public class Table extends BlockBase
 	{
 		super(blockID, Material.wood);
 		this.setHardness(0.2F);
-		this.setUnlocalizedName("plateau");
+		this.setUnlocalizedName("Table");
 		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
 		this.setTextureName("carpentersblocks:stairs/stairs");
 	}

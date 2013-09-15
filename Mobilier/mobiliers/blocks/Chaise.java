@@ -3,7 +3,8 @@ package mobiliers.blocks;
 import java.util.List;
 
 import mobiliers.mobilier;
-import mobiliers.data.TangleD;
+import mobiliers.data.ChaiseD;
+import mobiliers.data.TableD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -19,13 +20,13 @@ import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
-public class Tangle extends BlockBase
+public class Chaise extends BlockBase
 {
-	public Tangle(int blockID)
+	public Chaise(int blockID)
 	{
 		super(blockID, Material.wood);
 		this.setHardness(0.2F);
-		this.setUnlocalizedName("Table angle");
+		this.setUnlocalizedName("Chaise");
 		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
 		this.setTextureName("carpentersblocks:general/generic");
 	}
@@ -36,11 +37,14 @@ public class Tangle extends BlockBase
 	 */
 	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
 	{
-		if (++data > TangleD.TANGLE_Z_POS)
+		int tmp = ChaiseD.getRotation(data);
+		if (++tmp > ChaiseD.CHAISE_Z_POS)
 		{
-			data = TangleD.TANGLE_X_NEG;
+			tmp = ChaiseD.CHAISE_X_NEG;
 		}
-		return data;
+		ChaiseD.setRotation(TE, tmp);
+		
+		return BlockProperties.getData(TE);
 	}
 
 	@Override
@@ -49,7 +53,23 @@ public class Tangle extends BlockBase
 	 */
 	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
 	{
-		return data;
+		int type = ChaiseD.getType(data);
+		if (++type > ChaiseD.TYPE_4)
+		{
+			type = ChaiseD.TYPE_1;
+		}
+		ChaiseD.setType(TE, type);
+		
+		return BlockProperties.getData(TE);
+	}
+	
+	@Override
+	/**
+	 * Let people sit on right click.
+	 */
+	public boolean auxiliaryOnBlockActivated(TECarpentersBlock TE, World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
+	{
+		return BlockMountable.onBlockActivated(world, x, y, z, 	entityPlayer, 0.5F);
 	}
 	
 	/**
@@ -59,39 +79,40 @@ public class Tangle extends BlockBase
 	public float[] genBounds(int box, int data)
 	{
 		++box;
-		switch (data)
+		int tmp = ChaiseD.getRotation(data);
+		switch (tmp)
 		{
-			case TangleD.TANGLE_X_NEG:
+			case ChaiseD.CHAISE_X_NEG:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.7F, 0.5F, 0.3F, 0.8F, 1.0F, 0.7F };
 					case 2:
-						return new float[] { 0.1F, 0.0F, 0.1F, 0.2F, 0.9F, 0.2F };
+						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
 				}
-			case TangleD.TANGLE_X_POS:
+			case ChaiseD.CHAISE_X_POS:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.2F, 0.5F, 0.3F, 0.3F, 1.0F, 0.7F };
 					case 2:
-						return new float[] { 0.8F, 0.0F, 0.8F, 0.9F, 0.9F, 0.9F };
+						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
 				}
-			case TangleD.TANGLE_Z_NEG:
+			case ChaiseD.CHAISE_Z_NEG:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.3F, 0.5F, 0.7F, 0.7F, 1.0F, 0.8F };
 					case 2:
-						return new float[] { 0.8F, 0.0F, 0.1F, 0.9F, 0.9F, 0.2F };
+						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
 				}
-			case TangleD.TANGLE_Z_POS:
+			case ChaiseD.CHAISE_Z_POS:
 				switch (box)
 				{
 					case 1:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+						return new float[] { 0.3F, 0.5F, 0.2F, 0.7F, 1.0F, 0.3F };
 					case 2:
-						return new float[] { 0.1F, 0.0F, 0.8F, 0.2F, 0.9F, 0.9F };
+						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
 				}
 		}
 
@@ -104,7 +125,7 @@ public class Tangle extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+		float[] bounds = { 0.2F, 0.0F, 0.2F, 0.8F, 1.0F, 0.8F };
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 	}
 
@@ -161,12 +182,6 @@ public class Tangle extends BlockBase
 	 */
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
-
-		if (side == ForgeDirection.UP)
-		{
-			return true;
-		}
 		return false;
 	}
 
@@ -196,6 +211,6 @@ public class Tangle extends BlockBase
 	 */
 	public int getRenderType()
 	{
-		return mobilier.TangleRenderID;
+		return mobilier.ChaiseRenderID;
 	}
 }

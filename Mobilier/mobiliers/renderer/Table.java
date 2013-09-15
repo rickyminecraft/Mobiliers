@@ -97,8 +97,7 @@ public class Table extends BlockHandlerBase
 	
 	private void renderTable(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
 	{
-		renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+
 		renderBlocks.setRenderBounds(0.7D, 0.85D, 0.7D, 0.3D, 0.9D, 0.3D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		renderBlocks.setRenderBounds(0.65D, 0.8D, 0.65D, 0.35D, 0.85D, 0.35D);
@@ -109,12 +108,26 @@ public class Table extends BlockHandlerBase
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 	}
 	
 	private void renderTableGlass(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
 	{
 		Icon icon;
 		icon = Block.glass.getIcon(0, 0);
+		
+		renderBlocks.setRenderBounds(0.7D, 0.85D, 0.7D, 0.3D, 0.9D, 0.3D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.65D, 0.8D, 0.65D, 0.35D, 0.85D, 0.35D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.8D, 0.45D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.65D, 0.05D, 0.65D, 0.35D, 0.1D, 0.35D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		
 		renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 0.1D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		renderBlocks.setRenderBounds(0.0D, 0.9D, 0.9D, 1.0D, 1.0D, 1.0D);
@@ -130,17 +143,6 @@ public class Table extends BlockHandlerBase
 		renderBlocks.setRenderBounds(0.1D, 0.91D, 0.1D, 0.9D, 0.95D, 0.9D);
 		RenderHelper.renderFaceYNeg(renderBlocks, x, y, z, icon);
 		RenderHelper.renderFaceYPos(renderBlocks, x, y, z, icon);
-		
-		renderBlocks.setRenderBounds(0.7D, 0.85D, 0.7D, 0.3D, 0.9D, 0.3D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.65D, 0.8D, 0.65D, 0.35D, 0.85D, 0.35D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.8D, 0.45D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.65D, 0.05D, 0.65D, 0.35D, 0.1D, 0.35D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 	}
 	
 	private void renderTableBasse(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
@@ -148,6 +150,14 @@ public class Table extends BlockHandlerBase
 		int data = BlockProperties.getData(tE);
 		int Rotation = TableD.getRotation(data);
 
+		renderBlocks.setRenderBounds(0.6D, 0.45D, 0.6D, 0.4D, 0.5D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.45D, 0.45D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.6D, 0.05D, 0.6D, 0.4D, 0.1D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		switch (Rotation)
 		{
 			case TableD.ROTATE_0:
@@ -174,14 +184,6 @@ public class Table extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.1D, 0.50D, 0.3D, 0.9D, 0.55D, 0.7D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		}
-		renderBlocks.setRenderBounds(0.6D, 0.45D, 0.6D, 0.4D, 0.5D, 0.4D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.45D, 0.45D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.6D, 0.05D, 0.6D, 0.4D, 0.1D, 0.4D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 	}
 	
 	private void renderTableBasseGlass(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
@@ -191,6 +193,14 @@ public class Table extends BlockHandlerBase
 		icon = Block.glass.getIcon(0, 0);
 		int Rotation = TableD.getRotation(data);
 
+		renderBlocks.setRenderBounds(0.6D, 0.45D, 0.6D, 0.4D, 0.5D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.45D, 0.45D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.6D, 0.05D, 0.6D, 0.4D, 0.1D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		switch (Rotation)
 		{
 			case TableD.ROTATE_0:
@@ -228,13 +238,5 @@ public class Table extends BlockHandlerBase
 		RenderHelper.renderFaceYNeg(renderBlocks, x, y, z, icon);
 		RenderHelper.renderFaceYPos(renderBlocks, x, y, z, icon);
 		
-		renderBlocks.setRenderBounds(0.6D, 0.45D, 0.6D, 0.4D, 0.5D, 0.4D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.55D, 0.1D, 0.55D, 0.45D, 0.45D, 0.45D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.6D, 0.05D, 0.6D, 0.4D, 0.1D, 0.4D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-		renderBlocks.setRenderBounds(0.7D, 0.0D, 0.7D, 0.3D, 0.05D, 0.3D);
-		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 	}
 }

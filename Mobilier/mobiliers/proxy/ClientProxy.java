@@ -26,5 +26,7 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(mobilier.TableRenderID, new Table());
 		mobilier.TangleRenderID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(mobilier.TangleRenderID, new Tangle());
+		mobilier.ChaiseRenderID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.ChaiseRenderID, new Chaise());
 	}
 }
