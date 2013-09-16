@@ -1,7 +1,6 @@
 package mobiliers.renderer;
 
 import mobiliers.data.ChaiseD;
-import mobiliers.data.TableD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;

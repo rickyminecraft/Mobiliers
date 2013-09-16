@@ -1,6 +1,5 @@
 package mobiliers.data;
 
-import net.minecraft.block.material.Material;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 

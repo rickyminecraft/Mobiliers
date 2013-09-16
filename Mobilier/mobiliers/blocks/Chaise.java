@@ -4,7 +4,6 @@ import java.util.List;
 
 import mobiliers.mobilier;
 import mobiliers.data.ChaiseD;
-import mobiliers.data.TableD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

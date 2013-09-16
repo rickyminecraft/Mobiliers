@@ -1,5 +1,6 @@
 package mobiliers.renderer;
 
+import mobiliers.data.TabouretD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -76,11 +77,21 @@ public class Tabouret extends BlockHandlerBase
 	{
 		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, sideRendering) : BlockProperties.getCoverBlock(TE, 6);
 
-		renderTabouret(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		int data = BlockProperties.getData(TE);
+		int type = TabouretD.getType(data);
+		switch (type)
+		{
+			case TabouretD.TYPE_1:
+				renderTabouretBas(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case TabouretD.TYPE_2:
+				renderTabouret(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+		}
 		return true;
 	}
 
-	private void renderTabouret(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	private void renderTabouretBas(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
 	{
 		renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.3D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
@@ -91,6 +102,33 @@ public class Tabouret extends BlockHandlerBase
 		renderBlocks.setRenderBounds(0.2D, 0.0D, 0.7D, 0.3D, 0.4D, 0.8D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		renderBlocks.setRenderBounds(0.15D, 0.4D, 0.15D, 0.85D, 0.5D, 0.85D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+	}
+	
+	private void renderTabouret(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	{
+		//barres
+		renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.4D, 0.7D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.6D, 0.0D, 0.6D, 0.7D, 0.7D, 0.7D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.6D, 0.0D, 0.3D, 0.7D, 0.7D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.3D, 0.0D, 0.6D, 0.4D, 0.7D, 0.7D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		
+		//b centres
+		renderBlocks.setRenderBounds(0.4D, 0.3D, 0.3D, 0.6D, 0.4D, 0.4D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.4D, 0.3D, 0.6D, 0.6D, 0.4D, 0.7D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.6D, 0.3D, 0.4D, 0.7D, 0.4D, 0.6D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		renderBlocks.setRenderBounds(0.3D, 0.3D, 0.4D, 0.4D, 0.4D, 0.6D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		
+		//haut
+		renderBlocks.setRenderBounds(0.2D, 0.7D, 0.2D, 0.8D, 0.8D, 0.8D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 	}
 }
