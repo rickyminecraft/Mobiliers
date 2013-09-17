@@ -3,36 +3,40 @@ package mobiliers.data;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
-public class PlateauD
+public class QuartD
 {
 	/*
-	 * Type definitions
+	 * rotation definitions
 	 */
-	public final static byte 	PLATEAU_X_NEG = 0,
-								PLATEAU_X_POS = 1,
-								PLATEAU_Y_NEG = 2,
-								PLATEAU_Y_POS = 3,
-								PLATEAU_Z_NEG = 4,
-								PLATEAU_Z_POS = 5;
-	// xpos south
-	// xneg north
-	// zpos west
-	// zneg east
-	// ypos top
-	// yneg bottom
-	
+	public final static byte	XPOS = 0,
+								XPOSCENTRE = 1,
+								XNEG = 2,
+								ZNEGCENTRE = 3,
+								ZNEG = 4,
+								XNEGCENTRE = 5,
+								ZPOS = 6,
+								ZPOSCENTRE = 7,	
+								XPOSLARGE = 8,
+								XNEGLARGE = 9,
+								ZNEGLARGE = 10,
+								ZPOSLARGE = 11,
+								CENTRE = 12;
+
+
 	/*
 	 * Type definitions
 	 */
-	public final static byte	GRAND = 0,
-								PETIT = 1;
+	public final static byte	PLEIN = 0,
+								BAS = 1,
+								MILIEU = 2,
+								HAUT = 3;
 
 	/**
 	 * Returns data.
 	 */
 	public final static int getType(int data)
 	{
-		return data >>3;
+		return data >>4;
 	}
 	
 	/**
@@ -40,8 +44,8 @@ public class PlateauD
 	 */
 	public final static void setType(TECarpentersBlock TE, int type)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff7;
-		temp |= type <<3;
+		int temp = BlockProperties.getData(TE) & 0xff0f;
+		temp |= type <<4;
 		
 		BlockProperties.setData(TE, temp);
 	}
@@ -51,7 +55,7 @@ public class PlateauD
 	 */
 	public final static int getRotation(int data)
 	{
-		return data & 0x7;
+		return data & 0xF;
 	}
 	
 	/**
@@ -59,7 +63,7 @@ public class PlateauD
 	 */
 	public final static void setRotation(TECarpentersBlock TE, int Rotation)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff8;
+		int temp = BlockProperties.getData(TE) & 0xfff0;
 		temp |= Rotation;
 		
 		BlockProperties.setData(TE, temp);

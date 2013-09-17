@@ -28,11 +28,11 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart;
 
-	public static int Poteau_baseID, TabouretID, SupportID, PlateauID, RecipientID, EscalierID, TableID, TangleID, ChaiseID;
+	public static int Poteau_baseID, TabouretID, SupportID, PlateauID, RecipientID, EscalierID, TableID, TangleID, ChaiseID, QuartID;
 
-	public static int Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID, RecipientRenderID, EscalierRenderID, TableRenderID, TangleRenderID, ChaiseRenderID;
+	public static int Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID, RecipientRenderID, EscalierRenderID, TableRenderID, TangleRenderID, ChaiseRenderID, QuartRenderID;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -49,6 +49,7 @@ public class mobilier
 		TableID = config.getBlock("Table", BaseID++).getInt(BaseID);
 		TangleID = config.getBlock("Tangle", BaseID++).getInt(BaseID);
 		ChaiseID = config.getBlock("Chaise", BaseID++).getInt(BaseID);
+		QuartID = config.getBlock("Quart", BaseID++).getInt(BaseID);
 		config.save();
 		proxy.registerRenderInformation();
 	}
@@ -100,6 +101,11 @@ public class mobilier
 		GameRegistry.registerBlock(Chaise, "blockChaise");
 		LanguageRegistry.addName(new ItemStack(Chaise), "Chaise");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaise, 2), "X  ", "UU ", "XX ", 'X', "stickWood", 'U', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		
+		Quart = (new Quart(QuartID));
+		GameRegistry.registerBlock(Quart, "blockQuart");
+		LanguageRegistry.addName(new ItemStack(Quart), "Quart de bloc");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Quart, 2), "X", "X", "X", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
 		
 		EntityRegistry.registerModEntity(EntityMountableBlock.class, "EntityMountableBlock", 1,  this, 250, 5, false); //pour s'asseoir
 	}

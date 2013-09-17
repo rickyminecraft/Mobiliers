@@ -44,10 +44,11 @@ public class Plateau extends BlockBase
 	 */
 	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
 	{
-		if (++data > PlateauD.PLATEAU_Z_POS)
-			data = PlateauD.PLATEAU_X_NEG;
-
-		return data;
+		int Rotation = PlateauD.getRotation(data);
+		if (++Rotation > PlateauD.PLATEAU_Z_POS)
+			Rotation = PlateauD.PLATEAU_X_NEG;
+		PlateauD.setRotation(TE, Rotation);
+		return BlockProperties.getData(TE);
 	}
 
 	@Override
@@ -56,33 +57,14 @@ public class Plateau extends BlockBase
 	 */
 	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
 	{
-		if (data == PlateauD.PLATEAU_X_NEG)
+		int type = PlateauD.getType(data);
+		if (++type > PlateauD.PETIT)
 		{
-			switch (side)
-			{
-				case 0:
-					data = PlateauD.PLATEAU_Y_POS;
-					break;
-				case 1:
-					data = PlateauD.PLATEAU_Y_NEG;
-					break;
-				case 2:
-					data = PlateauD.PLATEAU_Z_POS;
-					break;
-				case 3:
-					data = PlateauD.PLATEAU_Z_NEG;
-					break;
-				case 4:
-					data = PlateauD.PLATEAU_X_POS;
-					break;
-			}
+			type = PlateauD.GRAND;
 		}
-		else
-		{
-			data = PlateauD.PLATEAU_X_NEG;
-		}
-
-		return data;
+		PlateauD.setType(TE, type);
+		
+		return BlockProperties.getData(TE);
 	}
 
 	@Override
@@ -94,28 +76,35 @@ public class Plateau extends BlockBase
 		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
 
 		int data = BlockProperties.getData(TE);
+		float Decalage = 0.0F;
+		int type = PlateauD.getType(data);
+		if (type == PlateauD.PETIT)
+		{
+			Decalage = 0.35F;
+		}
+ 		data = PlateauD.getRotation(data);
 
 		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
 
 		switch (data)
 		{
 			case PlateauD.PLATEAU_X_NEG:
-				bounds = new float[] { 0.0F, 0.0F, 0.0F, 0.1F, 1.0F, 1.0F };
+				bounds = new float[] { 0.0F, 0.0F + Decalage, 0.0F + Decalage, 0.1F, 1.0F - Decalage, 1.0F - Decalage};
 				break;
 			case PlateauD.PLATEAU_X_POS:
-				bounds = new float[] { 0.9F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
+				bounds = new float[] { 0.9F, 0.0F + Decalage, 0.0F + Decalage, 1.0F, 1.0F - Decalage, 1.0F - Decalage };
 				break;
 			case PlateauD.PLATEAU_Y_NEG:
-				bounds = new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 0.1F, 1.0F };
+				bounds = new float[] { 0.0F + Decalage, 0.0F, 0.0F + Decalage, 1.0F - Decalage, 0.1F, 1.0F - Decalage };
 				break;
 			case PlateauD.PLATEAU_Y_POS:
-				bounds = new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
+				bounds = new float[] { 0.0F + Decalage, 0.9F, 0.0F + Decalage, 1.0F - Decalage, 1.0F, 1.0F - Decalage };
 				break;
 			case PlateauD.PLATEAU_Z_NEG:
-				bounds = new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.1F };
+				bounds = new float[] { 0.0F + Decalage, 0.0F + Decalage, 0.0F, 1.0F - Decalage, 1.0F - Decalage, 0.1F };
 				break;
 			case PlateauD.PLATEAU_Z_POS:
-				bounds = new float[] { 0.0F, 0.0F, 0.9F, 1.0F, 1.0F, 1.0F };
+				bounds = new float[] { 0.0F + Decalage, 0.0F + Decalage, 0.9F, 1.0F - Decalage, 1.0F - Decalage, 1.0F };
 				break;
 		}
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
@@ -138,8 +127,6 @@ public class Plateau extends BlockBase
      */
 	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-    	metadata &= 7;
-
         ForgeDirection dir = ForgeDirection.getOrientation(side);
 
         if (dir == NORTH) 
@@ -239,6 +226,12 @@ public class Plateau extends BlockBase
 		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
 
 		int data = BlockProperties.getData(TE);
+		int type = PlateauD.getType(data);
+		if (type == PlateauD.PETIT)
+		{
+			return false;
+		}
+		data = PlateauD.getRotation(data);
 
 		if (data == PlateauD.PLATEAU_Y_NEG && side == ForgeDirection.DOWN)
 		{

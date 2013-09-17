@@ -1,8 +1,6 @@
 package mobiliers.blocks;
 
 import java.util.List;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.mobilier;
 import mobiliers.data.TabouretD;
 import net.minecraft.block.material.Material;
