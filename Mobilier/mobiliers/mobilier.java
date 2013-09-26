@@ -60,12 +60,12 @@ public class mobilier
 		Poteau_base = (new Poteau_base(Poteau_baseID));
 		GameRegistry.registerBlock(Poteau_base, "blockPoteau");
 		LanguageRegistry.addName(new ItemStack(Poteau_base), "Poteau");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau_base, 2), " X ", " U ", 'X', Block.fence, 'U', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau_base, 2), " X ", " U ", 'X', Block.fence, 'U', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock));
 
 		Tabouret = (new Tabouret(TabouretID));
 		GameRegistry.registerBlock(Tabouret, "blockTabouret");
 		LanguageRegistry.addName(new ItemStack(Tabouret), "Tabouret");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Tabouret, 2), "XX", "UU", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock, 'U', "stickWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Tabouret, 2), "XX", "UU", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock, 'U', "stickWood"));
 
 		Support = (new Support(SupportID));
 		GameRegistry.registerBlock(Support, "blockSupport");
@@ -80,32 +80,32 @@ public class mobilier
 		Recipient = (new Recipient(RecipientID));
 		GameRegistry.registerBlock(Recipient, "blockRecipient");
 		LanguageRegistry.addName(new ItemStack(Recipient), "Recipients");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Recipient, 2), "X", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersButton));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Recipient, 2), "X", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersButton));
 		
 		Escalier = (new Escaliers(EscalierID));
 		GameRegistry.registerBlock(Escalier, "blockEscalier");
 		LanguageRegistry.addName(new ItemStack(Escalier), "Escalier");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Escalier, 2), "XX ", "   "," XX", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Escalier, 2), "XX ", "   "," XX", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock));
 		
 		Table = (new Table(TableID));
 		GameRegistry.registerBlock(Table, "blockTable");
 		LanguageRegistry.addName(new ItemStack(Table), "Table");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Table, 2), "XXX", " U ", " U ", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock, 'U', "stickWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Table, 2), "XXX", " U ", " U ", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock, 'U', "stickWood"));
 		
 		Tangle = (new Tangle(TangleID));
 		GameRegistry.registerBlock(Tangle, "blockTangle");
 		LanguageRegistry.addName(new ItemStack(Tangle), "Table angle");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Tangle, 2), "XXX", "U  ",  "U  ", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock, 'U', "stickWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Tangle, 2), "XXX", "U  ",  "U  ", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock, 'U', "stickWood"));
 		
 		Chaise = (new Chaise(ChaiseID));
 		GameRegistry.registerBlock(Chaise, "blockChaise");
 		LanguageRegistry.addName(new ItemStack(Chaise), "Chaise");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaise, 2), "X  ", "UU ", "XX ", 'X', "stickWood", 'U', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaise, 2), "X  ", "UU ", "XX ", 'X', "stickWood", 'U', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock));
 		
 		Quart = (new Quart(QuartID));
 		GameRegistry.registerBlock(Quart, "blockQuart");
 		LanguageRegistry.addName(new ItemStack(Quart), "Quart de bloc");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Quart, 2), "X", "X", "X", 'X', carpentersblocks.CarpentersBlocks.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Quart, 2), "X", "X", "X", 'X', carpentersblocks.util.handler.BlockHandler.blockCarpentersBlock));
 		
 		EntityRegistry.registerModEntity(EntityMountableBlock.class, "EntityMountableBlock", 1,  this, 250, 5, false); //pour s'asseoir
 	}

@@ -207,7 +207,7 @@ public class Recipient extends BlockHandlerBase
 			renderBlocks.overrideBlockTexture = null;
 		}
 		
-		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, sideRendering) : BlockProperties.getCoverBlock(TE, 6);
+		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, coverRendering) : BlockProperties.getCoverBlock(TE, 6);
 
 		for (int box = 0; box < 8; ++box)
 		{

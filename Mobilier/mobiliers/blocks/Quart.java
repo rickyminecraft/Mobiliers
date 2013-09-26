@@ -17,6 +17,7 @@ import carpentersblocks.CarpentersBlocks;
 import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
+import carpentersblocks.util.handler.BlockHandler;
 
 public class Quart extends BlockBase
 {
@@ -33,21 +34,23 @@ public class Quart extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		int Rotation = QuartD.getRotation(data);
 		if (++Rotation > QuartD.CENTRE)
 			Rotation = QuartD.XPOS;
 		QuartD.setRotation(TE, Rotation);
-		return BlockProperties.getData(TE);
+		return true;
 	}
 	
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int type = QuartD.getType(data);
 		if (++type > QuartD.HAUT)
 		{
@@ -55,7 +58,7 @@ public class Quart extends BlockBase
 		}
 		QuartD.setType(TE, type);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override
@@ -155,12 +158,12 @@ public class Quart extends BlockBase
 			/*
 			 * Match block type with adjacent type if possible
 			 */
-			TECarpentersBlock TE_YN = isThis(world, x, y - 1, z) ? (TECarpentersBlock) world.getBlockTileEntity(x, y - 1, z) : null;
-			TECarpentersBlock TE_YP = isThis(world, x, y + 1, z) ? (TECarpentersBlock) world.getBlockTileEntity(x, y + 1, z) : null;
-			TECarpentersBlock TE_XN = isThis(world, x - 1, y, z) ? (TECarpentersBlock) world.getBlockTileEntity(x - 1, y, z) : null;
-			TECarpentersBlock TE_XP = isThis(world, x + 1, y, z) ? (TECarpentersBlock) world.getBlockTileEntity(x + 1, y, z) : null;
-			TECarpentersBlock TE_ZN = isThis(world, x, y, z - 1) ? (TECarpentersBlock) world.getBlockTileEntity(x, y, z - 1) : null;
-			TECarpentersBlock TE_ZP = isThis(world, x, y, z + 1) ? (TECarpentersBlock) world.getBlockTileEntity(x, y, z + 1) : null;
+			TECarpentersBlock TE_YN = (world.getBlockId(x, y - 1, z) == blockID || world.getBlockId(x, y - 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
+			TECarpentersBlock TE_YP = (world.getBlockId(x, y + 1, z) == blockID || world.getBlockId(x, y + 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
+			TECarpentersBlock TE_XN = (world.getBlockId(x - 1, y, z) == blockID || world.getBlockId(x - 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
+			TECarpentersBlock TE_XP = (world.getBlockId(x + 1, y, z) == blockID || world.getBlockId(x + 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
+			TECarpentersBlock TE_ZN = (world.getBlockId(x, y, z - 1) == blockID || world.getBlockId(x, y, z - 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
+			TECarpentersBlock TE_ZP = (world.getBlockId(x, y, z + 1) == blockID || world.getBlockId(x, y, z + 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
 
 			if (TE_YN != null)
 			{

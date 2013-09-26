@@ -31,22 +31,24 @@ public class Table extends BlockBase
 	 * Alter type.
 	 */
 	@Override
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		int tmp = TableD.getRotation(data);
 		if (++tmp > TableD.ROTATE_1)
 			tmp = TableD.ROTATE_0;
 		TableD.setRotation(TE, tmp);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between table style.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int type = TableD.getType(data);
 		if (++type > TableD.TYPE_BAS_GLASS)
 		{
@@ -54,7 +56,7 @@ public class Table extends BlockBase
 		}
 		TableD.setType(TE, type);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 	
 	@Override

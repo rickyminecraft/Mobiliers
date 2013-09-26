@@ -31,17 +31,18 @@ public class Tabouret extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
-		return data;
+		return false;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int type = TabouretD.getType(data);
 		if (++type > TabouretD.TYPE_2)
 		{
@@ -49,7 +50,7 @@ public class Tabouret extends BlockBase
 		}
 		TabouretD.setType(TE, type);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override

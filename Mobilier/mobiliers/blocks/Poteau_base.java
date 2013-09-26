@@ -35,8 +35,9 @@ public class Poteau_base extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		if (data == Poteau_baseD.DOWN)
 		{
 			data = Poteau_baseD.UP;
@@ -45,16 +46,17 @@ public class Poteau_base extends BlockBase
 		{
 			data = Poteau_baseD.DOWN;
 		}
-		return data;
+		BlockProperties.setData(TE, data);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
-		return 0;
+		return false;
 	}
 
     @Override
@@ -162,20 +164,21 @@ public class Poteau_base extends BlockBase
 	 */
 	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side)
 	{
-		if (isThis(blockAccess, x, y, z))
-		{
-			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
-
-			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
-			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
-
-			if (haveSharedFaces(TE_adj, TE_src, side))
-				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
-			else
-				return true;
-		}
-
-		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
+//		if (isThis(blockAccess, x, y, z))
+//		{
+//			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
+//
+//			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+//			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
+//
+//			if (haveSharedFaces(TE_adj, TE_src, side))
+//				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
+//			else
+//				return true;
+//		}
+//
+//		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
+		return true;
 	}
 
 	/**

@@ -33,24 +33,26 @@ public class Recipient extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		int tmp = data & 8;
 		data &= 7;
 		if (++data > RecipientD.RECIPIENT_Z_POS)
 			data = RecipientD.CENTRER;
 		
 		data += tmp;
-
-		return data;
+		BlockProperties.setData(TE, data);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int tmp = data & 8;
 		data &= 7;
 		if (data == RecipientD.CENTRER)
@@ -76,8 +78,8 @@ public class Recipient extends BlockBase
 			data = RecipientD.CENTRER;
 		}
 		data += tmp;
-
-		return data;
+		BlockProperties.setData(TE, data);
+		return true;
 	}
 
 	/**

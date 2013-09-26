@@ -34,19 +34,20 @@ public class Escaliers extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		if (++data > EscaliersD.ESCALIER_Z_POS)
 			data = EscaliersD.ESCALIER_X_NEG;
-
-		return data;
+		BlockProperties.setData(TE, data);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
 //		if (data == PlateauD.PLATEAU_X_NEG)
 //		{
@@ -75,7 +76,7 @@ public class Escaliers extends BlockBase
 //		}
 //
 //		return data;
-		return 0;
+		return false;
 	}
 	
 	@Override

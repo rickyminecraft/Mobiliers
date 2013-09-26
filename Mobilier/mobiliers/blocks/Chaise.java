@@ -34,8 +34,9 @@ public class Chaise extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		int tmp = ChaiseD.getRotation(data);
 		if (++tmp > ChaiseD.CHAISE_Z_POS)
 		{
@@ -43,15 +44,16 @@ public class Chaise extends BlockBase
 		}
 		ChaiseD.setRotation(TE, tmp);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int type = ChaiseD.getType(data);
 		if (++type > ChaiseD.TYPE_4)
 		{
@@ -59,7 +61,7 @@ public class Chaise extends BlockBase
 		}
 		ChaiseD.setType(TE, type);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 	
 	@Override

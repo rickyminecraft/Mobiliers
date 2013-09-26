@@ -34,22 +34,24 @@ public class Tangle extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		if (++data > TangleD.TANGLE_Z_POS)
 		{
 			data = TangleD.TANGLE_X_NEG;
 		}
-		return data;
+		BlockProperties.setData(TE, data);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
-		return data;
+		return false;
 	}
 	
 	/**

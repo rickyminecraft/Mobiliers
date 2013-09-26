@@ -25,6 +25,7 @@ import carpentersblocks.CarpentersBlocks;
 import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
+import carpentersblocks.util.handler.BlockHandler;
 
 public class Plateau extends BlockBase
 {
@@ -42,21 +43,23 @@ public class Plateau extends BlockBase
 	/**
 	 * Alter type.
 	 */
-	public int onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data)
+	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
+		int data = BlockProperties.getData(TE);
 		int Rotation = PlateauD.getRotation(data);
 		if (++Rotation > PlateauD.PLATEAU_Z_POS)
 			Rotation = PlateauD.PLATEAU_X_NEG;
 		PlateauD.setRotation(TE, Rotation);
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	public int onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int data, int side)
+	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
 	{
+		int data = BlockProperties.getData(TE);
 		int type = PlateauD.getType(data);
 		if (++type > PlateauD.PETIT)
 		{
@@ -64,7 +67,7 @@ public class Plateau extends BlockBase
 		}
 		PlateauD.setType(TE, type);
 		
-		return BlockProperties.getData(TE);
+		return true;
 	}
 
 	@Override
@@ -171,12 +174,12 @@ public class Plateau extends BlockBase
 			/*
 			 * Match block type with adjacent type if possible
 			 */
-			TECarpentersBlock TE_YN = isThis(world, x, y - 1, z) ? (TECarpentersBlock) world.getBlockTileEntity(x, y - 1, z) : null;
-			TECarpentersBlock TE_YP = isThis(world, x, y + 1, z) ? (TECarpentersBlock) world.getBlockTileEntity(x, y + 1, z) : null;
-			TECarpentersBlock TE_XN = isThis(world, x - 1, y, z) ? (TECarpentersBlock) world.getBlockTileEntity(x - 1, y, z) : null;
-			TECarpentersBlock TE_XP = isThis(world, x + 1, y, z) ? (TECarpentersBlock) world.getBlockTileEntity(x + 1, y, z) : null;
-			TECarpentersBlock TE_ZN = isThis(world, x, y, z - 1) ? (TECarpentersBlock) world.getBlockTileEntity(x, y, z - 1) : null;
-			TECarpentersBlock TE_ZP = isThis(world, x, y, z + 1) ? (TECarpentersBlock) world.getBlockTileEntity(x, y, z + 1) : null;
+			TECarpentersBlock TE_YN = (world.getBlockId(x, y - 1, z) == blockID || world.getBlockId(x, y - 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
+			TECarpentersBlock TE_YP = (world.getBlockId(x, y + 1, z) == blockID || world.getBlockId(x, y + 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
+			TECarpentersBlock TE_XN = (world.getBlockId(x - 1, y, z) == blockID || world.getBlockId(x - 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
+			TECarpentersBlock TE_XP = (world.getBlockId(x + 1, y, z) == blockID || world.getBlockId(x + 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
+			TECarpentersBlock TE_ZN = (world.getBlockId(x, y, z - 1) == blockID || world.getBlockId(x, y, z - 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
+			TECarpentersBlock TE_ZP = (world.getBlockId(x, y, z + 1) == blockID || world.getBlockId(x, y, z + 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
 
 			if (TE_YN != null)
 			{
@@ -268,20 +271,21 @@ public class Plateau extends BlockBase
 	 */
 	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side)
 	{
-		if (isThis(blockAccess, x, y, z))
-		{
-			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
-
-			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
-			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
-
-			if (haveSharedFaces(TE_adj, TE_src, side))
-				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
-			else
-				return true;
-		}
-
-		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
+//		if (isThis(blockAccess, x, y, z))
+//		{
+//			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
+//
+//			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+//			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
+//
+//			if (haveSharedFaces(TE_adj, TE_src, side))
+//				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
+//			else
+//				return true;
+//		}
+//
+//		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
+		return true;
 	}
 
 	/**

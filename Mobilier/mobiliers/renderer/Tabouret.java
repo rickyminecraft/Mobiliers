@@ -75,7 +75,7 @@ public class Tabouret extends BlockHandlerBase
 	 */
 	public boolean renderCarpentersBlock(TECarpentersBlock TE, RenderBlocks renderBlocks, Block srcBlock, int renderPass, int x, int y, int z)
 	{
-		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, sideRendering) : BlockProperties.getCoverBlock(TE, 6);
+		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, coverRendering) : BlockProperties.getCoverBlock(TE, 6);
 
 		int data = BlockProperties.getData(TE);
 		int type = TabouretD.getType(data);
