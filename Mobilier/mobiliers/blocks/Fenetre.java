@@ -1,15 +1,11 @@
 package mobiliers.blocks;
 
-import java.util.List;
-
 import mobiliers.mobilier;
-import mobiliers.data.EscaliersD;
+import mobiliers.data.FenetreD;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,13 +15,13 @@ import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
-public class Escaliers extends BlockBase
+public class Fenetre extends BlockBase
 {
-	public Escaliers(int blockID)
+	public Fenetre(int blockID)
 	{
 		super(blockID, Material.wood);
 		this.setHardness(0.2F);
-		this.setUnlocalizedName("Escaliers");
+		this.setUnlocalizedName("Fenetres");
 		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
 		this.setTextureName("carpentersblocks:general/generic");
 	}
@@ -36,11 +32,12 @@ public class Escaliers extends BlockBase
 	 */
 	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
-		if (++data > EscaliersD.ESCALIER_Z_POS)
-			data = EscaliersD.ESCALIER_X_NEG;
-		BlockProperties.setData(TE, data);
-		return true;
+//		int data = BlockProperties.getData(TE);
+//		if (++data > EscaliersD.ESCALIER_Z_POS)
+//			data = EscaliersD.ESCALIER_X_NEG;
+//		BlockProperties.setData(TE, data);
+//		return true;
+		return false;
 	}
 
 	@Override
@@ -66,74 +63,6 @@ public class Escaliers extends BlockBase
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 	}
 	
-	/**
-	 * Will return stairs boundaries for data.
-	 * @param flag 
-	 */
-	public float[] genBounds(int box, int data)
-	{
-		++box;
-		switch (data)
-		{
-			case EscaliersD.ESCALIER_X_NEG:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.0F, 0.4F, 0.0F, 0.5F, 0.5F, 1.0F };
-					case 2:
-						return new float[] { 0.5F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
-				}
-			case EscaliersD.ESCALIER_X_POS:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.5F, 0.4F, 0.0F, 1.0F, 0.5F, 1.0F };
-					case 2:
-						return new float[] { 0.0F, 0.9F, 0.0F, 0.5F, 1.0F, 1.0F };
-				}
-			case EscaliersD.ESCALIER_Z_NEG:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.0F, 0.4F, 0.0F, 1.0F, 0.5F, 0.5F };
-					case 2:
-						return new float[] { 0.0F, 0.9F, 0.5F, 1.0F, 1.0F, 1.0F };
-				}
-			case EscaliersD.ESCALIER_Z_POS:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.0F, 0.4F, 0.5F, 1.0F, 0.5F, 1.0F };
-					case 2:
-						return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 0.5F };
-				}
-		}
-
-		return null;
-	}
-	
-	@Override
-	/**
-	 * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
-	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
-	 */
-	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
-	{
-		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
-
-		int data = BlockProperties.getData(TE);
-		data &= 7;
-		for (int box = 0; box < 2; ++box) 
-		{
-			float[] bounds = genBounds(box, data);
-			if (bounds != null)
-			{
-				this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
-				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-			}
-		}
-	}
-	
     @Override
 	/**
 	 * Called when the block is placed in the world.
@@ -145,16 +74,16 @@ public class Escaliers extends BlockBase
 		switch (facing)
 		{
 			case 0:
-				facing = 2;
+				facing = FenetreD.FENETRE_X;
 				break;
 			case 1:
-				facing = 1;
+				facing = FenetreD.FENETRE_Z;
 				break;
 			case 2:
-				facing = 3;
+				facing = FenetreD.FENETRE_X;
 				break;
 			case 3:
-				facing = 0;
+				facing = FenetreD.FENETRE_Z;
 		}
 		BlockProperties.setData(TE, facing);
 	}
@@ -194,6 +123,6 @@ public class Escaliers extends BlockBase
 	 */
 	public int getRenderType()
 	{
-		return mobilier.EscalierRenderID;
+		return mobilier.FenetreRenderID;
 	}
 }
