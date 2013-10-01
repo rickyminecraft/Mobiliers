@@ -74,7 +74,7 @@ public class Fenetre extends BlockHandlerBase
 
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
-	
+
 	@Override
 	/**
 	 * Renders barrier
@@ -83,13 +83,29 @@ public class Fenetre extends BlockHandlerBase
 	{
 		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, coverRendering) : BlockProperties.getCoverBlock(TE, 6);
 
-		renderFenetres(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		int data = BlockProperties.getData(TE);
+		int type = FenetreD.getType(data);
+		switch (type)
+		{
+			case FenetreD.TYPE_1:
+				renderFenetres(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case FenetreD.TYPE_2:
+				renderFenetres2(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case FenetreD.TYPE_3:
+				renderFenetres3(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case FenetreD.TYPE_4:
+				renderFenetres4(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		}
 		return true;
 	}
 
 	private void renderFenetres(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getData(tE);
+		data = FenetreD.getRotation(data);
 		switch (data)
 		{
 			case FenetreD.FENETRE_X:
@@ -109,7 +125,7 @@ public class Fenetre extends BlockHandlerBase
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.5D, 0.0D, 0.25D, 0.6D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.775D, 0.0D, 0.0D, 1.0D, 0.05D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.75D, 0.05D, 0.0D, 1.0D, 0.15D, 1.0D);
@@ -126,27 +142,27 @@ public class Fenetre extends BlockHandlerBase
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.75D, 0.5D, 0.0D, 1.0D, 0.6D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.35D, 0.725D, 0.0D, 0.4D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.6D, 0.725D, 0.0D, 0.65D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.0D, 0.35D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.65D, 0.7D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.65D, 0.0D, 0.3D, 0.7D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.7D, 0.65D, 0.0D, 1.0D, 0.7D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.0D, 0.275D, 0.65D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.725D, 0.6D, 0.0D, 1.0D, 0.65D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.4D, 0.75D, 0.0D, 0.6D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 
@@ -168,7 +184,7 @@ public class Fenetre extends BlockHandlerBase
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.5D, 0.0D, 1.0D, 0.6D, 0.25D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.775D, 1.0D, 0.05D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.05D, 0.75D, 1.0D, 0.15D, 1.0D);
@@ -185,30 +201,221 @@ public class Fenetre extends BlockHandlerBase
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.5D, 0.75D, 1.0D, 0.6D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.725D, 0.35D, 1.0D, 1.0D, 0.4D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.725D, 0.6D, 1.0D, 1.0D, 0.65D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.0D, 1.0D, 1.0D, 0.35D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.65D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.65D, 0.0D, 1.0D, 0.7D, 0.3D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.65D, 0.7D, 1.0D, 0.7D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.0D, 1.0D, 0.65D, 0.275D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.725D, 1.0D, 0.65D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				
+
 				renderBlocks.setRenderBounds(0.0D, 0.75D, 0.4D, 1.0D, 1.0D, 0.6D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		}
+	}
+	
+	private void renderFenetres2(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	{
+		int data = BlockProperties.getData(tE);
+		data = FenetreD.getRotation(data);
+		switch (data)
+		{
+			case FenetreD.FENETRE_X:
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.25D, 0.1D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.0D, 0.225D, 0.15D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.15D, 0.0D, 0.25D, 0.25D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.25D, 0.0D, 0.225D, 0.3D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.3D, 0.0D, 0.25D, 0.4D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.4D, 0.0D, 0.225D, 0.45D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.45D, 0.0D, 0.25D, 0.55D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.55D, 0.0D, 0.225D, 0.6D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.0D, 0.25D, 0.7D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.0D, 0.225D, 0.75D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.75D, 0.0D, 0.25D, 0.85D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.85D, 0.0D, 0.225D, 0.9D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 0.25D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+
+				renderBlocks.setRenderBounds(0.75D, 0.0D, 0.0D, 1.0D, 0.1D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.1D, 0.0D, 1.0D, 0.15D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.15D, 0.0D, 1.0D, 0.25D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.25D, 0.0D, 1.0D, 0.3D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.3D, 0.0D, 1.0D, 0.4D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.4D, 0.0D, 1.0D, 0.45D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.45D, 0.0D, 1.0D, 0.55D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.55D, 0.0D, 1.0D, 0.6D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.6D, 0.0D, 1.0D, 0.7D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.7D, 0.0D, 1.0D, 0.75D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.75D, 0.0D, 1.0D, 0.85D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.775D, 0.85D, 0.0D, 1.0D, 0.9D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.75D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 				break;
+			case FenetreD.FENETRE_Z:
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.1D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.0D, 1.0D, 0.15D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.15D, 0.0D, 1.0D, 0.25D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.25D, 0.0D, 1.0D, 0.3D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.3D, 0.0D, 1.0D, 0.4D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.4D, 0.0D, 1.0D, 0.45D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.45D, 0.0D, 1.0D, 0.55D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.55D, 0.0D, 1.0D, 0.6D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.0D, 1.0D, 0.7D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.0D, 1.0D, 0.75D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.75D, 0.0D, 1.0D, 0.85D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.85D, 0.0D, 1.0D, 0.9D, 0.225D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.75D, 1.0D, 0.1D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.775D, 1.0D, 0.15D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.15D, 0.75D, 1.0D, 0.25D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.25D, 0.775D, 1.0D, 0.3D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.3D, 0.75D, 1.0D, 0.4D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.4D, 0.775D, 1.0D, 0.45D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.45D, 0.75D, 1.0D, 0.55D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.55D, 0.775D, 1.0D, 0.6D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.6D, 0.75D, 1.0D, 0.7D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.7D, 0.775D, 1.0D, 0.75D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.75D, 0.75D, 1.0D, 0.85D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.85D, 0.775D, 1.0D, 0.9D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.75D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		}
+	}
+	
+	private void renderFenetres3(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	{
+		int data = BlockProperties.getData(tE);
+		data = FenetreD.getRotation(data);
+		switch (data)
+		{
+			case FenetreD.FENETRE_X:
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.1D, 0.2D, 1.0D, 0.9D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 1.0D, 0.8D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.35D, 1.0D, 0.7D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+
+				renderBlocks.setRenderBounds(0.65D, 0.0D, 0.3D, 0.7D, 1.0D, 0.7D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.7D, 0.0D, 0.2D, 0.8D, 1.0D, 0.8D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.8D, 0.0D, 0.1D, 0.9D, 1.0D, 0.9D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.9D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case FenetreD.FENETRE_Z:
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.1D, 0.9D, 1.0D, 0.2D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.8D, 1.0D, 0.3D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 1.0D, 0.35D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+
+				renderBlocks.setRenderBounds(0.3D, 0.0D, 0.65D, 0.7D, 1.0D, 0.7D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.7D, 0.8D, 1.0D, 0.8D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.8D, 0.9D, 1.0D, 0.9D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.9D, 1.0D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		}
+	}
+	
+	private void renderFenetres4(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
+	{
+		int data = BlockProperties.getData(tE);
+		data = FenetreD.getRotation(data);
+		switch (data)
+		{
+			case FenetreD.FENETRE_X:
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.45D, 1.0D, 0.05D, 0.55D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.95D, 0.45D, 1.0D, 1.0D, 0.55D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.0D, 0.05D, 0.45D, 0.05D, 0.95D, 0.55D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.95D, 0.05D, 0.45D, 1.0D, 0.95D, 0.55D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				break;
+			case FenetreD.FENETRE_Z:
+				renderBlocks.setRenderBounds(0.45D, 0.0D, 0.0D, 0.55D, 0.05D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.45D, 0.95D, 0.0D, 0.55D, 1.0D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.45D, 0.05D, 0.0D, 0.55D, 0.95D, 0.05D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlocks.setRenderBounds(0.45D, 0.05D, 0.95D, 0.55D, 0.95D, 1.0D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		}
 	}
 }

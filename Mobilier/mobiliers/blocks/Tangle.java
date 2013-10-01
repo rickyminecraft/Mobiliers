@@ -11,7 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
@@ -99,16 +100,6 @@ public class Tangle extends BlockBase
 
 		return null;
 	}
-	
-	@Override
-	/**
-	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
-	 */
-	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
-	{
-		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
-		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
-	}
 
 	@Override
 	/**
@@ -130,6 +121,47 @@ public class Tangle extends BlockBase
 				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 			}
 		}
+	}
+	
+	@Override
+	/**
+	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit. Args: world,
+	 * x, y, z, startVec, endVec
+	 */
+	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
+	{
+		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
+
+		MovingObjectPosition finalTrace = null;
+
+		int data = BlockProperties.getData(TE);
+
+		double currDist = 0.0D;
+		double maxDist = 0.0D;
+
+		// Determine if ray trace is a hit on stairs
+		for (int box = 0; box < 4; ++box)
+		{
+			float[] bounds = genBounds(box, data);
+
+			if (bounds != null)
+			{
+				setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
+				MovingObjectPosition traceResult = super.collisionRayTrace(world, x, y, z, startVec, endVec);
+
+				if (traceResult != null)
+				{
+					currDist = traceResult.hitVec.squareDistanceTo(endVec);
+					if (currDist > maxDist) {
+						finalTrace = traceResult;
+						maxDist = currDist;
+					}
+				}
+			}
+		}
+
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		return finalTrace;
 	}
 	
     @Override

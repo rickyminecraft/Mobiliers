@@ -25,7 +25,6 @@ import carpentersblocks.CarpentersBlocks;
 import carpentersblocks.block.BlockBase;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
-import carpentersblocks.util.handler.BlockHandler;
 
 public class Plateau extends BlockBase
 {
@@ -174,13 +173,13 @@ public class Plateau extends BlockBase
 			/*
 			 * Match block type with adjacent type if possible
 			 */
-			TECarpentersBlock TE_YN = (world.getBlockId(x, y - 1, z) == blockID || world.getBlockId(x, y - 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
-			TECarpentersBlock TE_YP = (world.getBlockId(x, y + 1, z) == blockID || world.getBlockId(x, y + 1, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
-			TECarpentersBlock TE_XN = (world.getBlockId(x - 1, y, z) == blockID || world.getBlockId(x - 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
-			TECarpentersBlock TE_XP = (world.getBlockId(x + 1, y, z) == blockID || world.getBlockId(x + 1, y, z) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
-			TECarpentersBlock TE_ZN = (world.getBlockId(x, y, z - 1) == blockID || world.getBlockId(x, y, z - 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
-			TECarpentersBlock TE_ZP = (world.getBlockId(x, y, z + 1) == blockID || world.getBlockId(x, y, z + 1) == BlockHandler.blockCarpentersGateID) ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
-
+			TECarpentersBlock TE_YN = world.getBlockId(x, y - 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
+			TECarpentersBlock TE_YP = world.getBlockId(x, y + 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
+			TECarpentersBlock TE_XN = world.getBlockId(x - 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
+			TECarpentersBlock TE_XP = world.getBlockId(x + 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
+			TECarpentersBlock TE_ZN = world.getBlockId(x, y, z - 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
+			TECarpentersBlock TE_ZP = world.getBlockId(x, y, z + 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
+			
 			if (TE_YN != null)
 			{
 				data = BlockProperties.getData(TE_YN);
