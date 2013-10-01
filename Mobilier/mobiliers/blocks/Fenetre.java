@@ -60,17 +60,7 @@ public class Fenetre extends BlockBase
 		FenetreD.setType(TE, type);
 		return true;
 	}
-	
-//	@Override
-//	/**
-//	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
-//	 */
-//	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
-//	{
-//		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
-//		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
-//	}
-	
+
 	/**
 	 * Will return stairs boundaries for data.
 	 * @param flag 
@@ -165,11 +155,13 @@ public class Fenetre extends BlockBase
 						switch (box)
 						{
 							case 1:
-								return new float[] { 0.0F, 0.0F, 0.0F, 0.3F, 0.7F, 1.0F };
+								return new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 0.1F, 1.0F };
 							case 2:
-								return new float[] { 0.7F, 0.0F, 0.0F, 1.0F, 0.7F, 1.0F };
+								return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 							case 3:
-								return new float[] { 0.0F, 0.7F, 0.0F, 1.0F, 1.0F, 1.0F };
+								return new float[] { 0.0F, 0.1F, 0.0F, 0.1F, 0.9F, 1.0F };
+							case 4:
+								return new float[] { 0.9F, 0.1F, 0.0F, 1.0F, 0.9F, 1.0F };
 							default:	
 						}
 						break;
@@ -177,11 +169,13 @@ public class Fenetre extends BlockBase
 						switch (box)
 						{
 							case 1:
-								return new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 0.7F, 0.3F };
+								return new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 0.1F, 1.0F };
 							case 2:
-								return new float[] { 0.0F, 0.0F, 0.7F, 1.0F, 0.7F, 1.0F };
+								return new float[] { 0.0F, 0.9F, 0.0F, 1.0F, 1.0F, 1.0F };
 							case 3:
-								return new float[] { 0.0F, 0.7F, 0.0F, 1.0F, 1.0F, 1.0F };
+								return new float[] { 0.0F, 0.1F, 0.0F, 1.0F, 0.9F, 0.1F };
+							case 4:
+								return new float[] { 0.0F, 0.1F, 0.9F, 1.0F, 0.9F, 1.0F };
 							default:	
 						}
 						break;
@@ -208,7 +202,7 @@ public class Fenetre extends BlockBase
 		double maxDist = 0.0D;
 
 		// Determine if ray trace is a hit on stairs
-		for (int box = 0; box < 4; ++box)
+		for (int box = 0; box < 5; ++box)
 		{
 			float[] bounds = genBounds(box, data);
 
@@ -243,7 +237,7 @@ public class Fenetre extends BlockBase
 
 		int data = BlockProperties.getData(TE);
 
-		for (int box = 0; box < 4; ++box) 
+		for (int box = 0; box < 5; ++box) 
 		{
 			float[] bounds = genBounds(box, data);
 			if (bounds != null)
@@ -399,12 +393,22 @@ public class Fenetre extends BlockBase
 				switch (rotation)
 				{
 					case FenetreD.FENETRE_X:
+						if (side == ForgeDirection.UP || side == ForgeDirection.EAST || side == ForgeDirection.WEST)
+						{
+							return true;
+						}
+						break;
 					case FenetreD.FENETRE_Z:
+						if (side == ForgeDirection.UP || side == ForgeDirection.NORTH || side == ForgeDirection.SOUTH)
+						{
+							return true;
+						}
+						break;
 				}
 		}
 		return false;
 	}
-	
+
 	@Override
 	/**
 	 * Returns whether block can support cover on side.

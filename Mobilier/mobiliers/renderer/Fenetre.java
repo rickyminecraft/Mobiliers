@@ -4,10 +4,12 @@ import mobiliers.data.FenetreD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.Icon;
 
 import org.lwjgl.opengl.GL11;
 
 import carpentersblocks.renderer.BlockHandlerBase;
+import carpentersblocks.renderer.helper.RenderHelper;
 import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
@@ -395,27 +397,99 @@ public class Fenetre extends BlockHandlerBase
 	{
 		int data = BlockProperties.getData(tE);
 		data = FenetreD.getRotation(data);
+		Icon icon;
+		icon = Block.hopperBlock.getHopperIcon("hopper_outside");
 		switch (data)
 		{
 			case FenetreD.FENETRE_X:
-				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.45D, 1.0D, 0.05D, 0.55D);
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.95D, 0.45D, 1.0D, 1.0D, 0.55D);
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.1D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.05D, 0.45D, 0.05D, 0.95D, 0.55D);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.0D, 0.1D, 0.9D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.95D, 0.05D, 0.45D, 1.0D, 0.95D, 0.55D);
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.0D, 1.0D, 0.9D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				//ici les barres
+				setIconOverride(6, icon);
+				
+				renderBlocks.setRenderBounds(0.2D, 0.1D, 0.05D, 0.25D, 0.9D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.35D, 0.1D, 0.05D, 0.4D, 0.9D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.475D, 0.1D, 0.05D, 0.525D, 0.9D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.6D, 0.1D, 0.05D, 0.65D, 0.9D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.75D, 0.1D, 0.05D, 0.8D, 0.9D, 0.1D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.2D, 0.1D, 0.9D, 0.25D, 0.9D, 0.95D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.35D, 0.1D, 0.9D, 0.4D, 0.9D, 0.95D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.475D, 0.1D, 0.9D, 0.525D, 0.9D, 0.95D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.6D, 0.1D, 0.9D, 0.65D, 0.9D, 0.95D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.75D, 0.1D, 0.9D, 0.8D, 0.9D, 0.95D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				clearIconOverride(6);
 				break;
 			case FenetreD.FENETRE_Z:
-				renderBlocks.setRenderBounds(0.45D, 0.0D, 0.0D, 0.55D, 0.05D, 1.0D);
+				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.45D, 0.95D, 0.0D, 0.55D, 1.0D, 1.0D);
+				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.1D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.45D, 0.05D, 0.0D, 0.55D, 0.95D, 0.05D);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.0D, 1.0D, 0.9D, 0.1D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.45D, 0.05D, 0.95D, 0.55D, 0.95D, 1.0D);
+				renderBlocks.setRenderBounds(0.0D, 0.1D, 0.9D, 1.0D, 0.9D, 1.0D);
 				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				//ici les barres
+				setIconOverride(6, icon);
+				
+				renderBlocks.setRenderBounds(0.05D, 0.1D, 0.2D, 0.1D, 0.9D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.05D, 0.1D, 0.35D, 0.1D, 0.9D, 0.4D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.05D, 0.1D, 0.475D, 0.1D, 0.9D, 0.525D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.05D, 0.1D, 0.6D, 0.1D, 0.9D, 0.65D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.05D, 0.1D, 0.75D, 0.1D, 0.9D, 0.8D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.2D, 0.95D, 0.9D, 0.25D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.35D, 0.95D, 0.9D, 0.4D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.475D, 0.95D, 0.9D, 0.525D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.6D, 0.95D, 0.9D, 0.65D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				renderBlocks.setRenderBounds(0.9D, 0.1D, 0.75D, 0.95D, 0.9D, 0.8D);
+				renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				
+				clearIconOverride(6);
 		}
 	}
 }

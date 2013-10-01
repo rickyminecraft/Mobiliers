@@ -139,10 +139,10 @@ public class Table extends BlockHandlerBase
 		renderBlocks.setRenderBounds(0.45D, 0.9D, 0.45D, 0.55D, 1.0D, 0.55D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		//ici la vitre
-		Tessellator.instance.setBrightness(Block.glass.getMixedBrightnessForBlock(renderBlocks.blockAccess, x, y, z));
-		renderBlocks.setRenderBounds(0.1D, 0.91D, 0.1D, 0.9D, 0.95D, 0.9D);
-		RenderHelper.renderFaceYNeg(renderBlocks, x, y, z, icon);
-		RenderHelper.renderFaceYPos(renderBlocks, x, y, z, icon);
+		setIconOverride(6, icon);
+		renderBlocks.setRenderBounds(0.09D, 0.91D, 0.09D, 0.91D, 0.95D, 0.91D);
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		clearIconOverride(6);
 	}
 	
 	private void renderTableBasse(TECarpentersBlock tE, RenderBlocks renderBlocks, Block coverBlock, Block srcBlock, int x, int y, int z)
@@ -226,17 +226,16 @@ public class Table extends BlockHandlerBase
 		renderBlocks.setRenderBounds(0.45D, 0.5D, 0.45D, 0.55D, 0.6D, 0.55D);
 		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
 		//ici la vitre
-		Tessellator.instance.setBrightness(Block.glass.getMixedBrightnessForBlock(renderBlocks.blockAccess, x, y, z));
+		setIconOverride(6, icon);
 		switch (Rotation)
 		{
 			case TableD.ROTATE_0:
-				renderBlocks.setRenderBounds(0.3D, 0.51D, 0.1D, 0.7D, 0.55D, 0.9D);
+				renderBlocks.setRenderBounds(0.29D, 0.51D, 0.09D, 0.71D, 0.55D, 0.91D);
 				break;
 			case TableD.ROTATE_1:
-				renderBlocks.setRenderBounds(0.1D, 0.51D, 0.3D, 0.9D, 0.55D, 0.7D);
+				renderBlocks.setRenderBounds(0.09D, 0.51D, 0.29D, 0.91D, 0.55D, 0.71D);
 		}
-		RenderHelper.renderFaceYNeg(renderBlocks, x, y, z, icon);
-		RenderHelper.renderFaceYPos(renderBlocks, x, y, z, icon);
-		
+		renderStandardBlock(tE, renderBlocks, coverBlock, srcBlock, x, y, z);
+		clearIconOverride(6);
 	}
 }
