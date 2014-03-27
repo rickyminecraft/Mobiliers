@@ -13,7 +13,7 @@ public class BlockMountable extends Block
 	//This constructor just pass thing on.
 	public BlockMountable(int x, Material material)
 	{
-		super(x, material);
+		super(material);
 	}
 	
 //	//This constructor just pass thing on.

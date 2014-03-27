@@ -9,29 +9,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Tabouret extends BlockBase
+public class Tabouret extends BlockCoverable
 {
 
-	public Tabouret(int blockID)
+	public Tabouret(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("tabouret");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:general/generic");
+		super(material);
 	}
 
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
 		return false;
 	}
@@ -40,9 +36,9 @@ public class Tabouret extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = TabouretD.getType(data);
 		if (++type > TabouretD.TYPE_2)
 		{
@@ -59,9 +55,9 @@ public class Tabouret extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock)blockAccess.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase)blockAccess.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = TabouretD.getType(data);
 		float[] bounds = { 0.2F, 0.0F, 0.2F, 0.8F, 0.5F, 0.8F };
 		switch (type)
@@ -83,9 +79,9 @@ public class Tabouret extends BlockBase
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = TabouretD.getType(data);
 		setBlockBounds(0.2F, 0.0F, 0.2F, 0.3F, 0.4F, 0.3F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
@@ -110,20 +106,20 @@ public class Tabouret extends BlockBase
 	/**
 	 * Let people sit on right click.
 	 */
-	public boolean auxiliaryOnBlockActivated(TECarpentersBlock TE, World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ)
+	public void postOnBlockActivated(TEBase TE, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ, List<Boolean> altered, List<Boolean> decInv)
 	{
-		int data = BlockProperties.getData(TE);
+		World world = TE.getWorldObj();
+		int data = BlockProperties.getMetadata(TE);
 		int type = TabouretD.getType(data);
 		
 		switch (type)
 		{
 			case TabouretD.TYPE_1:
-				return BlockMountable.onBlockActivated(world, x, y, z, 	entityPlayer, 0.5F);
+				BlockMountable.onBlockActivated(world, TE.xCoord, TE.yCoord, TE.zCoord, 	entityPlayer, 0.5F);
+				break;
 			case TabouretD.TYPE_2:
-				return BlockMountable.onBlockActivated(world, x, y, z, 	entityPlayer, 0.8F);
+				BlockMountable.onBlockActivated(world, TE.xCoord, TE.yCoord, TE.zCoord, 	entityPlayer, 0.8F);
 		}
-		
-		return BlockMountable.onBlockActivated(world, x, y, z, 	entityPlayer, 0.5F);
 	}
 
 	@Override
@@ -132,7 +128,7 @@ public class Tabouret extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -141,7 +137,7 @@ public class Tabouret extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
 		return false;
 	}
@@ -150,7 +146,7 @@ public class Tabouret extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

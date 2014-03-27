@@ -1,5 +1,6 @@
 package mobiliers.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,7 +47,8 @@ public class EntityMountableBlock extends Entity
     	orgBlockPosX = i;
     	orgBlockPosY = j;
     	orgBlockPosZ = k;
-    	orgBlockID = world.getBlockId(i, j, k);
+    	Block bl = world.getBlock(i, j, k);
+    	orgBlockID = bl.getIdFromBlock(bl);
     	
         setPosition(mountingX, mountingY, mountingZ);
 	}
@@ -74,11 +76,12 @@ public class EntityMountableBlock extends Entity
     public void onEntityUpdate()
     {
     	this.worldObj.theProfiler.startSection("entityBaseTick");
+    	Block bl = worldObj.getBlock(orgBlockPosX, orgBlockPosY, orgBlockPosZ);
         if(riddenByEntity == null || riddenByEntity.isDead)
         {
 			this.setDead();
         }
-        else if(worldObj.getBlockId(orgBlockPosX, orgBlockPosY, orgBlockPosZ) != orgBlockID)
+        else if(bl.getIdFromBlock(bl) != orgBlockID)
 		{
         	this.interactFirst((EntityPlayer) riddenByEntity);//interact
 		}

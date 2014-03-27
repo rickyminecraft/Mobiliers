@@ -1,6 +1,6 @@
 package mobiliers.data;
 
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
 public class QuartD
@@ -42,12 +42,12 @@ public class QuartD
 	/**
 	 * Sets data (vanilla, picket, etc).
 	 */
-	public final static void setType(TECarpentersBlock TE, int type)
+	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getData(TE) & 0xff0f;
+		int temp = BlockProperties.getMetadata(TE) & 0xff0f;
 		temp |= type <<4;
 		
-		BlockProperties.setData(TE, temp);
+		BlockProperties.setMetadata(TE, temp);
 	}
 	
 	/**
@@ -61,11 +61,11 @@ public class QuartD
 	/**
 	 * Sets data (vanilla, picket, etc).
 	 */
-	public final static void setRotation(TECarpentersBlock TE, int Rotation)
+	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff0;
+		int temp = BlockProperties.getMetadata(TE) & 0xfff0;
 		temp |= Rotation;
 		
-		BlockProperties.setData(TE, temp);
+		BlockProperties.setMetadata(TE, temp);
 	}
 }

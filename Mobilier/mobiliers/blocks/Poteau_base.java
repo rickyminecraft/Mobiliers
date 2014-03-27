@@ -14,30 +14,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Poteau_base extends BlockBase
+public class Poteau_base extends BlockCoverable
 {
-	public Poteau_base(int blockID)
+	public Poteau_base(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("poteau_base");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:general/generic");
+		super(material);
 	}
 
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		if (data == Poteau_baseD.DOWN)
 		{
 			data = Poteau_baseD.UP;
@@ -46,7 +42,7 @@ public class Poteau_base extends BlockBase
 		{
 			data = Poteau_baseD.DOWN;
 		}
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 		return true;
 	}
 
@@ -54,7 +50,7 @@ public class Poteau_base extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
 		return false;
 	}
@@ -89,10 +85,11 @@ public class Poteau_base extends BlockBase
 	/**
 	 * Called when the block is placed in the world.
 	 */
-	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
+		TEBase TE = getTileEntity(world, x, y, z);
 		int data = TE.blockMetadata;
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 	}
     
 	@Override
@@ -112,9 +109,9 @@ public class Poteau_base extends BlockBase
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		switch (data)
 		{
 			case Poteau_baseD.DOWN:
@@ -142,7 +139,7 @@ public class Poteau_base extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -151,7 +148,7 @@ public class Poteau_base extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
 		return false;
 	}
@@ -171,7 +168,7 @@ public class Poteau_base extends BlockBase
 	 * Compares dimensions and coordinates of two opposite sides to determine
 	 * whether they share faces.
 	 */
-	private boolean haveSharedFaces(TECarpentersBlock TE_adj, TECarpentersBlock TE_src, int side)
+	private boolean haveSharedFaces(TEBase TE_adj, TEBase TE_src, int side)
 	{
 		return false;
 	}
@@ -180,7 +177,7 @@ public class Poteau_base extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

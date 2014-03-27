@@ -1,6 +1,6 @@
 package mobiliers.data;
 
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
 public class RecipientD
@@ -27,14 +27,14 @@ public class RecipientD
 	/**
 	 * Sets state.
 	 */
-	public final static void setState(TECarpentersBlock TE, int state)
+	public final static void setState(TEBase TE, int state)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff7;
+		int temp = BlockProperties.getMetadata(TE) & 0xfff7;
 		temp |= state << 3;
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 
 		if (getState(data) != state)
-			BlockProperties.setData(TE, temp);
+			BlockProperties.setMetadata(TE, temp);
 	}
 }

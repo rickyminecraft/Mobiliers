@@ -12,37 +12,34 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
+import carpentersblocks.util.handler.EventHandler;
 
-public class Recipient extends BlockBase
+public class Recipient extends BlockCoverable
 {
-	public Recipient(int blockID)
+	public Recipient(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("recipient");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:general/generic");
+		super(material);
 	}
 
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int tmp = data & 8;
 		data &= 7;
 		if (++data > RecipientD.RECIPIENT_Z_POS)
 			data = RecipientD.CENTRER;
 		
 		data += tmp;
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 		return true;
 	}
 
@@ -50,14 +47,14 @@ public class Recipient extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int tmp = data & 8;
 		data &= 7;
 		if (data == RecipientD.CENTRER)
 		{
-			switch (side)
+			switch (EventHandler.eventFace)
 			{
 				case 2:
 					data = RecipientD.RECIPIENT_Z_NEG;
@@ -78,7 +75,7 @@ public class Recipient extends BlockBase
 			data = RecipientD.CENTRER;
 		}
 		data += tmp;
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 		return true;
 	}
 
@@ -108,9 +105,9 @@ public class Recipient extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		data &= 7;
 
 		float[] bounds = genBounds(data);
@@ -132,7 +129,7 @@ public class Recipient extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
 		return false;
 	}
@@ -143,7 +140,7 @@ public class Recipient extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -152,17 +149,17 @@ public class Recipient extends BlockBase
 	/**
 	 * Called upon block activation (right click on the block.)
 	 */
-	public boolean auxiliaryOnBlockActivated(TECarpentersBlock TE, World world, int x, int y, int z, EntityPlayer entityPlayer, int side, float hitX,
-			float hitY, float hitZ)
+	public void postOnBlockActivated(TEBase TE, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ, List<Boolean> altered, List<Boolean> decInv)
 	{
+		World world = TE.getWorldObj();
 		if (world.isRemote)
         {
-            return true;
+            //do nothing
         }
         else
         {
             ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-            int data = BlockProperties.getData(TE);
+            int data = BlockProperties.getMetadata(TE);
             int State = RecipientD.getState(data);
 
             if (itemstack == null)
@@ -172,23 +169,23 @@ public class Recipient extends BlockBase
             		entityPlayer.getFoodStats().addStats(1, 1.0f);
             		RecipientD.setState(TE, RecipientD.STATE_EMPTY);
             	}
-                return true;
+                
             }
             else
             {
-                if (itemstack.itemID == Item.potion.itemID && itemstack.getItemDamage() == 0)
+                if (itemstack.getItem() == Item.itemRegistry.getObject("potion") && itemstack.getItemDamage() == 0)
                 {
                     if (State == RecipientD.STATE_EMPTY)
                     {
                         if (!entityPlayer.capabilities.isCreativeMode)
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Item.glassBottle));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack((Item)Item.itemRegistry.getObject("glassBottle")));
                         }
 
                         RecipientD.setState(TE, RecipientD.STATE_FULL);
                     }
 
-                    return true;
+                    
                 }
                 else
                 {
@@ -197,7 +194,7 @@ public class Recipient extends BlockBase
                 		entityPlayer.getFoodStats().addStats(1, 1.0f);
                 		RecipientD.setState(TE, RecipientD.STATE_EMPTY);
                 	}
-                    return true;
+                    
                 }
             }
         }
@@ -207,7 +204,7 @@ public class Recipient extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

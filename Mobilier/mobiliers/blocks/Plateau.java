@@ -1,9 +1,9 @@
 package mobiliers.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.EAST;
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-import static net.minecraftforge.common.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.ForgeDirection.WEST;
+import static net.minecraftforge.common.util.ForgeDirection.EAST;
+import static net.minecraftforge.common.util.ForgeDirection.NORTH;
+import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 import java.util.List;
 
@@ -20,31 +20,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Plateau extends BlockBase
+public class Plateau extends BlockCoverable
 {
 
-	public Plateau(int blockID)
+	public Plateau(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("plateau");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:stairs/stairs");
+		super(material);
 	}
 
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int Rotation = PlateauD.getRotation(data);
 		if (++Rotation > PlateauD.PLATEAU_Z_POS)
 			Rotation = PlateauD.PLATEAU_X_NEG;
@@ -56,9 +52,9 @@ public class Plateau extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = PlateauD.getType(data);
 		if (++type > PlateauD.PETIT)
 		{
@@ -75,9 +71,9 @@ public class Plateau extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		float Decalage = 0.0F;
 		int type = PlateauD.getType(data);
 		if (type == PlateauD.PETIT)
@@ -163,8 +159,9 @@ public class Plateau extends BlockBase
 	/**
 	 * Called when the block is placed in the world.
 	 */
-	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
+		TEBase TE = getTileEntity(world, x, y, z);
 		int data = TE.blockMetadata;
 
 		// If shift key is down, skip auto-orientation
@@ -173,39 +170,39 @@ public class Plateau extends BlockBase
 			/*
 			 * Match block type with adjacent type if possible
 			 */
-			TECarpentersBlock TE_YN = world.getBlockId(x, y - 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
-			TECarpentersBlock TE_YP = world.getBlockId(x, y + 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
-			TECarpentersBlock TE_XN = world.getBlockId(x - 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
-			TECarpentersBlock TE_XP = world.getBlockId(x + 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
-			TECarpentersBlock TE_ZN = world.getBlockId(x, y, z - 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
-			TECarpentersBlock TE_ZP = world.getBlockId(x, y, z + 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
+			TEBase TE_YN = world.getBlock(x, y - 1, z) == this ? (TEBase)world.getTileEntity(x, y - 1, z) : null;
+			TEBase TE_YP = world.getBlock(x, y + 1, z) == this ? (TEBase)world.getTileEntity(x, y + 1, z) : null;
+			TEBase TE_XN = world.getBlock(x - 1, y, z) == this ? (TEBase)world.getTileEntity(x - 1, y, z) : null;
+			TEBase TE_XP = world.getBlock(x + 1, y, z) == this ? (TEBase)world.getTileEntity(x + 1, y, z) : null;
+			TEBase TE_ZN = world.getBlock(x, y, z - 1) == this ? (TEBase)world.getTileEntity(x, y, z - 1) : null;
+			TEBase TE_ZP = world.getBlock(x, y, z + 1) == this ? (TEBase)world.getTileEntity(x, y, z + 1) : null;
 			
 			if (TE_YN != null)
 			{
-				data = BlockProperties.getData(TE_YN);
+				data = BlockProperties.getMetadata(TE_YN);
 			}
 			else if (TE_YP != null)
 			{
-				data = BlockProperties.getData(TE_YP);
+				data = BlockProperties.getMetadata(TE_YP);
 			}
 			else if (TE_XN != null)
 			{
-				data = BlockProperties.getData(TE_XN);
+				data = BlockProperties.getMetadata(TE_XN);
 			}
 			else if (TE_XP != null)
 			{
-				data = BlockProperties.getData(TE_XP);
+				data = BlockProperties.getMetadata(TE_XP);
 			}
 			else if (TE_ZN != null)
 			{
-				data = BlockProperties.getData(TE_ZN);
+				data = BlockProperties.getMetadata(TE_ZN);
 			}
 			else if (TE_ZP != null)
 			{
-				data = BlockProperties.getData(TE_ZP);
+				data = BlockProperties.getMetadata(TE_ZP);
 			}
 		}
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 	}
 
 	@Override
@@ -214,7 +211,7 @@ public class Plateau extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -223,11 +220,11 @@ public class Plateau extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = PlateauD.getType(data);
 		if (type == PlateauD.PETIT)
 		{
@@ -291,16 +288,16 @@ public class Plateau extends BlockBase
 	 * Compares dimensions and coordinates of two opposite sides to determine
 	 * whether they share faces.
 	 */
-	private boolean haveSharedFaces(TECarpentersBlock TE_adj, TECarpentersBlock TE_src, int side)
+	private boolean haveSharedFaces(TEBase TE_adj, TEBase TE_src, int side)
 	{
-		Block block_src = Block.blocksList[TE_src.worldObj.getBlockId(TE_src.xCoord, TE_src.yCoord, TE_src.zCoord)];
+		Block block_src = TE_src.getBlockType();
 
-		this.setBlockBoundsBasedOnState(TE_src.worldObj, TE_src.xCoord, TE_src.yCoord, TE_src.zCoord);
+		block_src.setBlockBoundsBasedOnState(TE_src.getWorldObj(), TE_src.xCoord, TE_src.yCoord, TE_src.zCoord);
 
 		double[] bounds_src = new double[] { block_src.getBlockBoundsMinX(), block_src.getBlockBoundsMinY(), block_src.getBlockBoundsMinZ(),
 				block_src.getBlockBoundsMaxX(), block_src.getBlockBoundsMaxY(), block_src.getBlockBoundsMaxZ() };
 
-		this.setBlockBoundsBasedOnState(TE_adj.worldObj, TE_adj.xCoord, TE_adj.yCoord, TE_adj.zCoord);
+		setBlockBoundsBasedOnState(TE_adj.getWorldObj(), TE_adj.xCoord, TE_adj.yCoord, TE_adj.zCoord);
 
 		/*
 		 * Check whether faces meet and their dimensions match.
@@ -340,7 +337,7 @@ public class Plateau extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

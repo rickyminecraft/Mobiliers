@@ -2,26 +2,26 @@ package mobiliers.renderer;
 
 import mobiliers.data.RecipientD;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFluid;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import carpentersblocks.renderer.BlockHandlerBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Recipient extends BlockHandlerBase
 {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks)
 	{
-		Tessellator tessellator = Tessellator.instance;
-		GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-
 		for (int box = 0; box < 5; ++box)
 		{
 			switch (box)
@@ -47,34 +47,8 @@ public class Recipient extends BlockHandlerBase
 				case 6:
 					renderBlocks.setRenderBounds(0.45F, 0.05F, 0.30F, 0.55F, 0.3F, 0.35F);
 			}
-
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(0.0F, -1.0F, 0.0F);
-			renderBlocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(0));
-			tessellator.draw();
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(0.0F, 1.0F, 0.0F);
-			renderBlocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(1));
-			tessellator.draw();
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(0.0F, 0.0F, -1.0F);
-			renderBlocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(2));
-			tessellator.draw();
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(0.0F, 0.0F, 1.0F);
-			renderBlocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(3));
-			tessellator.draw();
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-			renderBlocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(4));
-			tessellator.draw();
-			tessellator.startDrawingQuads();
-			tessellator.setNormal(1.0F, 0.0F, 0.0F);
-			renderBlocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSide(5));
-			tessellator.draw();
+			super.renderInventoryBlock(block, metadata, modelID, renderBlocks);
 		}
-
-		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
 
 	/**
@@ -192,10 +166,10 @@ public class Recipient extends BlockHandlerBase
 	/**
 	 * Renders stairs at the given coordinates
 	 */
-	public boolean renderCarpentersBlock(TECarpentersBlock TE, RenderBlocks renderBlocks, Block srcBlock, int renderPass, int x, int y, int z)
+	public void renderCarpentersBlock(int x, int y, int z)
 	{
-		Icon icon1 = BlockFluid.getFluidIcon("water_still");
-		int data = BlockProperties.getData(TE);
+		IIcon icon1 = BlockLiquid.getLiquidIcon("water_still");
+		int data = BlockProperties.getMetadata(TE);
 		boolean flag = (data & 8) > 0;
 		data &= 7;
 		if (flag)
@@ -207,7 +181,7 @@ public class Recipient extends BlockHandlerBase
 			renderBlocks.overrideBlockTexture = null;
 		}
 		
-		Block coverBlock = isSideCover ? BlockProperties.getCoverBlock(TE, coverRendering) : BlockProperties.getCoverBlock(TE, 6);
+		ItemStack coverBlock = BlockProperties.hasCover(TE, 6) == true ? BlockProperties.getCover(TE, coverRendering) : BlockProperties.getCover(TE, 6);
 
 		for (int box = 0; box < 8; ++box)
 		{
@@ -216,10 +190,8 @@ public class Recipient extends BlockHandlerBase
 			if (bounds != null)
 			{
 				renderBlocks.setRenderBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
-				renderStandardBlock(TE, renderBlocks, coverBlock, srcBlock, x, y, z);
+				renderBlock(coverBlock, x, y, z);
 			}
 		}
-
-		return true;
 	}
 }

@@ -14,28 +14,24 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Quart extends BlockBase
+public class Quart extends BlockCoverable
 {
-	public Quart(int blockID)
+	public Quart(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("Quart");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:stairs/stairs");
+		super(material);
 	}
 	
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int Rotation = QuartD.getRotation(data);
 		if (++Rotation > QuartD.CENTRE)
 			Rotation = QuartD.XPOS;
@@ -47,9 +43,9 @@ public class Quart extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = QuartD.getType(data);
 		if (++type > QuartD.HAUT)
 		{
@@ -66,9 +62,9 @@ public class Quart extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = QuartD.getType(data);
 		float bas = 0.0F, haut = 1.0F;
 		data = QuartD.getRotation(data);
@@ -147,8 +143,9 @@ public class Quart extends BlockBase
 	/**
 	 * Called when the block is placed in the world.
 	 */
-	public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
+    	TEBase TE = getTileEntity(world, x, y, z);
     	int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
     	int data = TE.blockMetadata;
 		// If shift key is down, skip auto-orientation
@@ -157,36 +154,36 @@ public class Quart extends BlockBase
 			/*
 			 * Match block type with adjacent type if possible
 			 */
-			TECarpentersBlock TE_YN = world.getBlockId(x, y - 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
-			TECarpentersBlock TE_YP = world.getBlockId(x, y + 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
-			TECarpentersBlock TE_XN = world.getBlockId(x - 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
-			TECarpentersBlock TE_XP = world.getBlockId(x + 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
-			TECarpentersBlock TE_ZN = world.getBlockId(x, y, z - 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
-			TECarpentersBlock TE_ZP = world.getBlockId(x, y, z + 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
+			TEBase TE_YN = world.getBlock(x, y - 1, z) == this ? (TEBase)world.getTileEntity(x, y - 1, z) : null;
+			TEBase TE_YP = world.getBlock(x, y + 1, z) == this ? (TEBase)world.getTileEntity(x, y + 1, z) : null;
+			TEBase TE_XN = world.getBlock(x - 1, y, z) == this ? (TEBase)world.getTileEntity(x - 1, y, z) : null;
+			TEBase TE_XP = world.getBlock(x + 1, y, z) == this ? (TEBase)world.getTileEntity(x + 1, y, z) : null;
+			TEBase TE_ZN = world.getBlock(x, y, z - 1) == this ? (TEBase)world.getTileEntity(x, y, z - 1) : null;
+			TEBase TE_ZP = world.getBlock(x, y, z + 1) == this ? (TEBase)world.getTileEntity(x, y, z + 1) : null;
 
 			if (TE_YN != null)
 			{
-				data = BlockProperties.getData(TE_YN);
+				data = BlockProperties.getMetadata(TE_YN);
 			}
 			else if (TE_YP != null)
 			{
-				data = BlockProperties.getData(TE_YP);
+				data = BlockProperties.getMetadata(TE_YP);
 			}
 			else if (TE_XN != null)
 			{
-				data = BlockProperties.getData(TE_XN);
+				data = BlockProperties.getMetadata(TE_XN);
 			}
 			else if (TE_XP != null)
 			{
-				data = BlockProperties.getData(TE_XP);
+				data = BlockProperties.getMetadata(TE_XP);
 			}
 			else if (TE_ZN != null)
 			{
-				data = BlockProperties.getData(TE_ZN);
+				data = BlockProperties.getMetadata(TE_ZN);
 			}
 			else if (TE_ZP != null)
 			{
-				data = BlockProperties.getData(TE_ZP);
+				data = BlockProperties.getMetadata(TE_ZP);
 			}
 			else
 			{
@@ -207,7 +204,7 @@ public class Quart extends BlockBase
 			}
 		}
 
-		BlockProperties.setData(TE, data);
+		BlockProperties.setMetadata(TE, data);
 	}
     
     @Override
@@ -216,7 +213,7 @@ public class Quart extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -225,7 +222,7 @@ public class Quart extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

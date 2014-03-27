@@ -10,30 +10,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Table extends BlockBase
+public class Table extends BlockCoverable
 {
-	public Table(int blockID)
+	public Table(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("Table");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:stairs/stairs");
+		super(material);
 	}
 	
 	/**
 	 * Alter type.
 	 */
 	@Override
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int tmp = TableD.getRotation(data);
 		if (++tmp > TableD.ROTATE_1)
 			tmp = TableD.ROTATE_0;
@@ -46,9 +42,9 @@ public class Table extends BlockBase
 	/**
 	 * Alternate between table style.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = TableD.getType(data);
 		if (++type > TableD.TYPE_BAS_GLASS)
 		{
@@ -65,9 +61,9 @@ public class Table extends BlockBase
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = TableD.getType(data);
 		int Rotation = TableD.getRotation(data);
 		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
@@ -149,7 +145,7 @@ public class Table extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -158,11 +154,11 @@ public class Table extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE) & 0xC >>2;
+		int data = BlockProperties.getMetadata(TE) & 0xC >>2;
 
 		if (data < TableD.TYPE_BAS && side == ForgeDirection.UP)
 		{
@@ -175,7 +171,7 @@ public class Table extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}

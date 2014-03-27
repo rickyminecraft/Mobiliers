@@ -1,6 +1,6 @@
 package mobiliers.data;
 
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
 public class PlateauD
@@ -38,12 +38,12 @@ public class PlateauD
 	/**
 	 * Sets data (vanilla, picket, etc).
 	 */
-	public final static void setType(TECarpentersBlock TE, int type)
+	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff7;
+		int temp = BlockProperties.getMetadata(TE) & 0xfff7;
 		temp |= type <<3;
 		
-		BlockProperties.setData(TE, temp);
+		BlockProperties.setMetadata(TE, temp);
 	}
 	
 	/**
@@ -57,11 +57,11 @@ public class PlateauD
 	/**
 	 * Sets data (vanilla, picket, etc).
 	 */
-	public final static void setRotation(TECarpentersBlock TE, int Rotation)
+	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getData(TE) & 0xfff8;
+		int temp = BlockProperties.getMetadata(TE) & 0xfff8;
 		temp |= Rotation;
 		
-		BlockProperties.setData(TE, temp);
+		BlockProperties.setMetadata(TE, temp);
 	}
 }

@@ -1,5 +1,7 @@
 package mobiliers.proxy;
 
+import net.minecraftforge.common.MinecraftForge;
+import carpentersblocks.util.registry.IconRegistry;
 import mobiliers.mobilier;
 import mobiliers.renderer.*;
 import cpw.mods.fml.client.registry.RenderingRegistry;

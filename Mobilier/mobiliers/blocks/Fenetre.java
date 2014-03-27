@@ -13,31 +13,28 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.CarpentersBlocks;
-import carpentersblocks.block.BlockBase;
-import carpentersblocks.tileentity.TECarpentersBlock;
+import carpentersblocks.block.BlockCoverable;
+import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Fenetre extends BlockBase
+public class Fenetre extends BlockCoverable
 {
-	public Fenetre(int blockID)
+	public Fenetre(Material material)
 	{
-		super(blockID, Material.wood);
-		this.setHardness(0.2F);
-		this.setUnlocalizedName("Fenetres");
-		this.setCreativeTab(CarpentersBlocks.tabCarpentersBlocks);
-		this.setTextureName("carpentersblocks:general/generic");
+		super(material);
 	}
 	
 	@Override
 	/**
 	 * Alter type.
 	 */
-	protected boolean onHammerLeftClick(TECarpentersBlock TE, EntityPlayer entityPlayer)
+	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int tmp = FenetreD.getRotation(data);
 		if (++tmp > FenetreD.FENETRE_Z)
 			tmp = FenetreD.FENETRE_X;
@@ -49,9 +46,9 @@ public class Fenetre extends BlockBase
 	/**
 	 * Alternate between full 1m cube and slab.
 	 */
-	protected boolean onHammerRightClick(TECarpentersBlock TE, EntityPlayer entityPlayer, int side)
+	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
 	{
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = FenetreD.getType(data);
 		if (++type > FenetreD.TYPE_4)
 		{
@@ -192,11 +189,11 @@ public class Fenetre extends BlockBase
 	 */
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
 
 		MovingObjectPosition finalTrace = null;
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 
 		double currDist = 0.0D;
 		double maxDist = 0.0D;
@@ -233,9 +230,9 @@ public class Fenetre extends BlockBase
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
 
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 
 		for (int box = 0; box < 5; ++box) 
 		{
@@ -252,8 +249,9 @@ public class Fenetre extends BlockBase
 		/**
 		 * Called when the block is placed in the world.
 		 */
-		public void auxiliaryOnBlockPlacedBy(TECarpentersBlock TE, World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
+		public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 		{
+		 	TEBase TE = getTileEntity(world, x, y, z);
 	    	int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 	    	int data = TE.blockMetadata;
 			// If shift key is down, skip auto-orientation
@@ -262,36 +260,36 @@ public class Fenetre extends BlockBase
 				/*
 				 * Match block type with adjacent type if possible
 				 */
-				TECarpentersBlock TE_YN = world.getBlockId(x, y - 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y - 1, z) : null;
-				TECarpentersBlock TE_YP = world.getBlockId(x, y + 1, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y + 1, z) : null;
-				TECarpentersBlock TE_XN = world.getBlockId(x - 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x - 1, y, z) : null;
-				TECarpentersBlock TE_XP = world.getBlockId(x + 1, y, z) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x + 1, y, z) : null;
-				TECarpentersBlock TE_ZN = world.getBlockId(x, y, z - 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z - 1) : null;
-				TECarpentersBlock TE_ZP = world.getBlockId(x, y, z + 1) == blockID ? (TECarpentersBlock)world.getBlockTileEntity(x, y, z + 1) : null;
+				TEBase TE_YN = world.getBlock(x, y - 1, z) == this ? (TEBase)world.getTileEntity(x, y - 1, z) : null;
+				TEBase TE_YP = world.getBlock(x, y + 1, z) == this ? (TEBase)world.getTileEntity(x, y + 1, z) : null;
+				TEBase TE_XN = world.getBlock(x - 1, y, z) == this ? (TEBase)world.getTileEntity(x - 1, y, z) : null;
+				TEBase TE_XP = world.getBlock(x + 1, y, z) == this ? (TEBase)world.getTileEntity(x + 1, y, z) : null;
+				TEBase TE_ZN = world.getBlock(x, y, z - 1) == this ? (TEBase)world.getTileEntity(x, y, z - 1) : null;
+				TEBase TE_ZP = world.getBlock(x, y, z + 1) == this ? (TEBase)world.getTileEntity(x, y, z + 1) : null;
 
 				if (TE_YN != null)
 				{
-					data = BlockProperties.getData(TE_YN);
+					data = BlockProperties.getMetadata(TE_YN);
 				}
 				else if (TE_YP != null)
 				{
-					data = BlockProperties.getData(TE_YP);
+					data = BlockProperties.getMetadata(TE_YP);
 				}
 				else if (TE_XN != null)
 				{
-					data = BlockProperties.getData(TE_XN);
+					data = BlockProperties.getMetadata(TE_XN);
 				}
 				else if (TE_XP != null)
 				{
-					data = BlockProperties.getData(TE_XP);
+					data = BlockProperties.getMetadata(TE_XP);
 				}
 				else if (TE_ZN != null)
 				{
-					data = BlockProperties.getData(TE_ZN);
+					data = BlockProperties.getMetadata(TE_ZN);
 				}
 				else if (TE_ZP != null)
 				{
-					data = BlockProperties.getData(TE_ZP);
+					data = BlockProperties.getMetadata(TE_ZP);
 				}
 				else
 				{
@@ -313,7 +311,7 @@ public class Fenetre extends BlockBase
 				}
 			}
 
-			BlockProperties.setData(TE, data);
+			BlockProperties.setMetadata(TE, data);
 		}
 	
 	@Override
@@ -322,7 +320,7 @@ public class Fenetre extends BlockBase
 	 * determines indirect power state, entity ejection from blocks, and a few
 	 * others.
 	 */
-	public boolean isBlockNormalCube(World world, int x, int y, int z)
+	public boolean isBlockNormalCube()
 	{
 		return false;
 	}
@@ -331,11 +329,11 @@ public class Fenetre extends BlockBase
 	/**
 	 * Checks if the block is a solid face on the given side, used by placement logic.
 	 */
-	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side)
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TECarpentersBlock TE = (TECarpentersBlock) world.getBlockTileEntity(x, y, z);
+		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
 		
-		int data = BlockProperties.getData(TE);
+		int data = BlockProperties.getMetadata(TE);
 		int type = FenetreD.getType(data);
 		int rotation = FenetreD.getRotation(data);
 
@@ -413,7 +411,7 @@ public class Fenetre extends BlockBase
 	/**
 	 * Returns whether block can support cover on side.
 	 */
-	public boolean canCoverSide(TECarpentersBlock TE, World world, int x, int y, int z, int side)
+	public boolean canCoverSide(TEBase TE, World world, int x, int y, int z, int side)
 	{
 		return true;
 	}
