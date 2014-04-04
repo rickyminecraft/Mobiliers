@@ -4,8 +4,8 @@ import carpentersblocks.CarpentersBlocks;
 import mobiliers.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import mobiliers.proxy.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -17,7 +17,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid = "mobilier", name = "extensions carpenter", version = "v1.0", dependencies = "required-after:CarpentersBlocks")
 
@@ -29,9 +28,25 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau;
 
-	public static int Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID, RecipientRenderID, EscalierRenderID, TableRenderID, TangleRenderID, ChaiseRenderID, QuartRenderID, FenetreRenderID;
+	public static int 	Poteau_baseRenderID,
+						TabouretRenderID,
+						SupportRenderID,
+						PlateauRenderID,
+						RecipientRenderID,
+						EscalierRenderID,
+						TableRenderID,
+						TangleRenderID,
+						ChaiseRenderID,
+						QuartRenderID,
+						FenetreRenderID,
+						BancID,
+						BancBordID,
+						CommodeID,
+						CreuxID,
+						Support_TorcheID,
+						PoteauID;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -79,6 +94,32 @@ public class mobilier
 		Fenetre = new Fenetre(Material.wood).setHardness(0.2F).setBlockName("blockFenetre").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
 		GameRegistry.registerBlock(Fenetre, "blockFenetre");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Fenetre, 2), "XXX", "X X", "X X", 'X', "stickWood"));
+		
+		Banc = new Banc(Material.wood).setHardness(0.2F).setBlockName("blockBanc").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Banc, "blockBanc");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Banc, 3), "XX ", "X X", "X X", 'X', "stickWood"));
+		
+		Banc_Bord = new Banc_bord(Material.wood).setHardness(0.2F).setBlockName("blockBancBord").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Banc_Bord, "blockBancBord");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Banc_Bord, 2), "XX ", "U  ", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock, 'U', "stickWood"));
+		
+		Commode = new Commode(Material.wood).setHardness(0.2F).setBlockName("blockCommode").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Commode, "blockCommode");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Commode, 1), "XX ", "XX ", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
+		
+		Creux = new Creux(Material.wood).setHardness(0.2F).setBlockName("blockCreux").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
+		GameRegistry.registerBlock(Creux, "blockCreux");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Creux, 2), " X ", "X X", " X ", 'X', "stickWood"));
+		
+		Storche = new Support_Torche(Material.wood).setHardness(0.2F).setBlockName("blockStorche").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Storche, "blockStorche");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Storche, 2), " XY", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock, 'Y', "stickWood"));
+
+		Poteau = new Poteau_indicateur(Material.wood).setHardness(0.2F).setBlockName("blockPoteau_Indicateur").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Poteau, "blockPoteau_Indicateur");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau, 2), "UXU", " U ", 'U', Block.blockRegistry.getObject("fence"), 'X', "stickWood"));
+		
+		GameRegistry.addRecipe(new ItemStack(Block.getBlockFromName("web"), 3), new Object[] { "X X", " X ", "X X", Character.valueOf('X'), Item.itemRegistry.getObject("string")});
 		
 		EntityRegistry.registerModEntity(EntityMountableBlock.class, "EntityMountableBlock", 1,  this, 250, 5, false); //pour s'asseoir
 		proxy.registerRenderInformation();

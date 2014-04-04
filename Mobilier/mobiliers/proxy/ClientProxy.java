@@ -1,7 +1,5 @@
 package mobiliers.proxy;
 
-import net.minecraftforge.common.MinecraftForge;
-import carpentersblocks.util.registry.IconRegistry;
 import mobiliers.mobilier;
 import mobiliers.renderer.*;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -34,5 +32,17 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(mobilier.QuartRenderID, new Quart());
 		mobilier.FenetreRenderID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(mobilier.FenetreRenderID, new Fenetre());
+		mobilier.BancID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.BancID, new Banc());
+		mobilier.BancBordID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.BancBordID, new Banc_bord());
+		mobilier.CommodeID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.CommodeID, new Commode());
+		mobilier.CreuxID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.CreuxID, new Creux());
+		mobilier.Support_TorcheID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.Support_TorcheID, new Support_torche());
+		mobilier.PoteauID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.PoteauID, new Poteau_indicateur());
 	}
 }

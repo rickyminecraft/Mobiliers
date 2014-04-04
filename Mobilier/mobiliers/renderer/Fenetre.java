@@ -3,17 +3,13 @@ package mobiliers.renderer;
 import mobiliers.data.FenetreD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-
-import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import carpentersblocks.renderer.BlockHandlerBase;
-import carpentersblocks.renderer.helper.RenderHelper;
 import carpentersblocks.util.BlockProperties;
 
 @SideOnly(Side.CLIENT)

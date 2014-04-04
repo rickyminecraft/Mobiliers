@@ -48,7 +48,7 @@ public class EntityMountableBlock extends Entity
     	orgBlockPosY = j;
     	orgBlockPosZ = k;
     	Block bl = world.getBlock(i, j, k);
-    	orgBlockID = bl.getIdFromBlock(bl);
+    	orgBlockID = Block.getIdFromBlock(bl);
     	
         setPosition(mountingX, mountingY, mountingZ);
 	}
@@ -81,7 +81,7 @@ public class EntityMountableBlock extends Entity
         {
 			this.setDead();
         }
-        else if(bl.getIdFromBlock(bl) != orgBlockID)
+        else if(Block.getIdFromBlock(bl) != orgBlockID)
 		{
         	this.interactFirst((EntityPlayer) riddenByEntity);//interact
 		}

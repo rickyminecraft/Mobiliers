@@ -11,7 +11,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import carpentersblocks.CarpentersBlocks;
 import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;

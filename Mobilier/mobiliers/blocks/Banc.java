@@ -3,7 +3,7 @@ package mobiliers.blocks;
 import java.util.List;
 
 import mobiliers.mobilier;
-import mobiliers.data.ChaiseD;
+import mobiliers.data.BancD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,47 +18,51 @@ import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Chaise extends BlockCoverable
+public class Banc extends BlockCoverable
 {
-	public Chaise(Material material)
+
+	public Banc(Material material) 
 	{
 		super(material);
 	}
-	
-	@Override
-	/**
-	 * Alter type.
-	 */
-	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
-	{
-		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		if (++tmp > ChaiseD.CHAISE_Z_POS)
-		{
-			tmp = ChaiseD.CHAISE_X_NEG;
-		}
-		ChaiseD.setRotation(TE, tmp);
-		
-		return true;
-	}
 
-	@Override
-	/**
-	 * Alternate between full 1m cube and slab.
-	 */
-	protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
-	{
+    @Override
+    /**
+     * Toggles post.
+     */
+    protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
+    {
 		int data = BlockProperties.getMetadata(TE);
-		int type = ChaiseD.getType(data);
-		if (++type > ChaiseD.TYPE_4)
+		int Rotation = BancD.getRotation(data);
+		if (Rotation == BancD.BANC_X_NEG)
 		{
-			type = ChaiseD.TYPE_1;
+			Rotation = BancD.BANC_Z_NEG;
 		}
-		ChaiseD.setType(TE, type);
-		
-		return true;
-	}
-	
+		else
+		{
+			Rotation = BancD.BANC_X_NEG;
+		}
+		BancD.setRotation(TE, Rotation);
+        return true;
+    }
+    
+    @Override
+    /**
+     * Alters barrier type or sub-type.
+     */
+    protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
+    {
+//		int data = BlockProperties.getMetadata(TE);
+//		int type = BancD.getType(data);
+//		if (++type > BancD.BANC)
+//		{
+//			type = BancD.BORD;
+//		}
+//		BancD.setType(TE, type);
+//		
+        return false;
+    }
+    
 	@Override
 	/**
 	 * Let people sit on right click.
@@ -69,60 +73,26 @@ public class Chaise extends BlockCoverable
 		BlockMountable.onBlockActivated(world, TE.xCoord, TE.yCoord, TE.zCoord, entityPlayer, 0.5F);
 	}
 	
-	/**
-	 * Will return stairs boundaries for data.
-	 * @param flag 
-	 */
-	public float[] genBounds(int box, int data)
-	{
-		++box;
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
-		{
-			case ChaiseD.CHAISE_X_NEG:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.7F, 0.5F, 0.3F, 0.8F, 1.0F, 0.7F };
-					case 2:
-						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
-				}
-			case ChaiseD.CHAISE_X_POS:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.2F, 0.5F, 0.3F, 0.3F, 1.0F, 0.7F };
-					case 2:
-						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
-				}
-			case ChaiseD.CHAISE_Z_NEG:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.3F, 0.5F, 0.7F, 0.7F, 1.0F, 0.8F };
-					case 2:
-						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
-				}
-			case ChaiseD.CHAISE_Z_POS:
-				switch (box)
-				{
-					case 1:
-						return new float[] { 0.3F, 0.5F, 0.2F, 0.7F, 1.0F, 0.3F };
-					case 2:
-						return new float[] { 0.2F, 0.4F, 0.2F, 0.8F, 0.5F, 0.8F };
-				}
-		}
-
-		return null;
-	}
-	
 	@Override
 	/**
 	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		float[] bounds = { 0.2F, 0.0F, 0.2F, 0.8F, 1.0F, 0.8F };
+		TEBase TE = (TEBase)blockAccess.getTileEntity(x, y, z);
+
+		int data = BlockProperties.getMetadata(TE);
+		int Rotation = BancD.getRotation(data);
+		float[] bounds = { 0.15F, 0.4F, 0.0F, 0.85F, 0.5F, 1.0F };
+		switch (Rotation)
+		{
+			case BancD.BANC_X_NEG:
+				bounds = new float[] { 0.15F, 0.4F, 0.0F, 0.85F, 0.5F, 1.0F };
+				break;
+			case BancD.BANC_Z_NEG:
+				bounds = new float[] { 0.0F, 0.4F, 0.15F, 1.0F, 0.5F, 0.85F };
+		}
+		
 		this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
 	}
 
@@ -136,16 +106,16 @@ public class Chaise extends BlockCoverable
 		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
-
-		for (int box = 0; box < 2; ++box) 
+		int Rotation = BancD.getRotation(data);
+		switch (Rotation)
 		{
-			float[] bounds = genBounds(box, data);
-			if (bounds != null)
-			{
-				this.setBlockBounds(bounds[0], bounds[1], bounds[2], bounds[3], bounds[4], bounds[5]);
-				super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-			}
+			case BancD.BANC_X_NEG:
+				setBlockBounds(0.15F, 0.4F, 0.0F, 0.85F, 0.5F, 1.0F);
+				break;
+			case BancD.BANC_Z_NEG:
+				setBlockBounds(0.0F, 0.4F, 0.15F, 1.0F, 0.5F, 0.85F);
 		}
+		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 	}
 	
     @Override
@@ -160,29 +130,20 @@ public class Chaise extends BlockCoverable
 		switch (facing)
 		{
 			case 0:
-				facing = 2;
+				facing = BancD.BANC_Z_NEG;
 				break;
 			case 1:
-				facing = 1;
+				facing = BancD.BANC_X_NEG;
 				break;
 			case 2:
-				facing = 3;
+				facing = BancD.BANC_Z_NEG;
 				break;
 			case 3:
-				facing = 0;
+				facing = BancD.BANC_X_NEG;
 		}
 		BlockProperties.setMetadata(TE, facing);
 	}
-    
-	@Override
-	/**
-	 * Checks if the block is a solid face on the given side, used by placement logic.
-	 */
-	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
-	{
-		return false;
-	}
-
+	
 	@Override
 	/**
 	 * Return true if the block is a normal, solid cube.  This
@@ -193,7 +154,16 @@ public class Chaise extends BlockCoverable
 	{
 		return false;
 	}
-	
+
+	@Override
+	/**
+	 * Checks if the block is a solid face on the given side, used by placement logic.
+	 */
+	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
+	{
+		return false;
+	}
+
 	@Override
 	/**
 	 * Returns whether block can support cover on side.
@@ -209,6 +179,6 @@ public class Chaise extends BlockCoverable
 	 */
 	public int getRenderType()
 	{
-		return mobilier.ChaiseRenderID;
+		return mobilier.BancID;
 	}
 }

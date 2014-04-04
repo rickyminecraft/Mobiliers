@@ -16,7 +16,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import carpentersblocks.CarpentersBlocks;
 import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
@@ -190,10 +189,8 @@ public class Fenetre extends BlockCoverable
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 	{
 		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
-
-		MovingObjectPosition finalTrace = null;
-
 		int data = BlockProperties.getMetadata(TE);
+		MovingObjectPosition finalTrace = null;
 
 		double currDist = 0.0D;
 		double maxDist = 0.0D;

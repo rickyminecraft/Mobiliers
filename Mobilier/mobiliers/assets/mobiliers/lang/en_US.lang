@@ -1,0 +1,23 @@
+﻿# Carpenter's Blocks extension mobilier Language File = UNITED STATES ENGLISH
+
+
+# BLOCKS
+tile.blockPoteau.name=Poteau base
+tile.blockTabouret.name=Tabouret
+tile.blockSupport.name=Support mural
+tile.blockPlateau.name=Plateau
+tile.blockRecipient.name=Recipient
+tile.blockEscalier.name=Escalier
+tile.blockTable.name=Table
+tile.blockTangle.name=Table angle
+tile.blockChaise.name=Chaise
+tile.blockQuart.name=quart de bloc
+tile.blockFenetre.name=Fenetre
+tile.blockBanc.name=Banc
+tile.blockBancBord.name=Banc bord
+tile.blockCommode.name=Commode
+tile.blockCreux.name=Bloc creux
+tile.blockStorche.name=Support de torche
+tile.blockPoteau_Indicateur.name=Poteau indicateur
+
+# </file>
