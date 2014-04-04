@@ -30,9 +30,9 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines, Effets;
 
-	public static IIcon Chaines1, Chaines2;
+	public static IIcon Chaines1, Chaines2, Fog, Smoke, Brume;
 	
 	public static int 	Poteau_baseRenderID,
 						TabouretRenderID,
@@ -132,6 +132,9 @@ public class mobilier
 		Chaines = new Chaines(Material.wood).setHardness(5.0F).setBlockName("blockChaines").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Chaines, "blockChaines");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaines, 2), "X", "X", 'X', "iron_ingot"));
+		
+		Effets = new Effets(Material.wood).setHardness(5.0F).setBlockName("blockEffets").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Effets, "blockEffets");
 		
 		
 		GameRegistry.addRecipe(new ItemStack(Block.getBlockFromName("web"), 3), new Object[] { "X X", " X ", "X X", Character.valueOf('X'), Item.itemRegistry.getObject("string")});
