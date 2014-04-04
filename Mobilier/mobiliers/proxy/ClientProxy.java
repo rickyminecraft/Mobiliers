@@ -2,6 +2,9 @@ package mobiliers.proxy;
 
 import mobiliers.mobilier;
 import mobiliers.renderer.*;
+import mobiliers.tileEntity.TileBookRenderer;
+import mobiliers.tileEntity.TileEntityBook;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import mobiliers.proxy.CommonProxy;
 
@@ -44,5 +47,11 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(mobilier.Support_TorcheID, new Support_torche());
 		mobilier.PoteauID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(mobilier.PoteauID, new Poteau_indicateur());
+		mobilier.PupitreID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.PupitreID, new Pupitre());
+		mobilier.ChainesID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.ChainesID, new Chaines());
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBook.class, new TileBookRenderer());
 	}
 }

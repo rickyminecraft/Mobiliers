@@ -1,19 +1,18 @@
 package mobiliers.renderer;
 
-import mobiliers.data.BancD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import org.lwjgl.opengl.GL11;
-
-import Nouveau.blocks.BlocksNames;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Poteau_indicateur extends BlockHandlerBase
 {
 	@Override

@@ -3,7 +3,6 @@ package mobiliers.blocks;
 import java.util.List;
 
 import mobiliers.mobilier;
-import mobiliers.data.BancD;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -14,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
-import carpentersblocks.util.BlockProperties;
 
 public class Poteau_indicateur extends BlockCoverable
 {

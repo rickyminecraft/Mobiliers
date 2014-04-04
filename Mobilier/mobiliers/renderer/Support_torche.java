@@ -1,5 +1,7 @@
 package mobiliers.renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.data.StorcheD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -10,6 +12,7 @@ import net.minecraft.util.IIcon;
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Support_torche extends BlockHandlerBase
 {
 	@Override

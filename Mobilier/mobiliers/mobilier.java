@@ -6,8 +6,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import mobiliers.proxy.CommonProxy;
+import mobiliers.tileEntity.TileEntityBook;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -28,8 +30,10 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines;
 
+	public static IIcon Chaines1, Chaines2;
+	
 	public static int 	Poteau_baseRenderID,
 						TabouretRenderID,
 						SupportRenderID,
@@ -46,14 +50,16 @@ public class mobilier
 						CommodeID,
 						CreuxID,
 						Support_TorcheID,
-						PoteauID;
+						PoteauID,
+						PupitreID,
+						ChainesID;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Poteau_base = new Poteau_base(Material.wood).setHardness(0.2F).setBlockName("blockPoteau").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
 		GameRegistry.registerBlock(Poteau_base, "blockPoteau");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau_base, 2), " X ", " U ", 'X', Block.blockRegistry.getObject("fence"), 'U', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau_base, 2), " X ", " U ", 'X', "fence", 'U', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
 
 		Tabouret = new Tabouret(Material.wood).setHardness(0.2F).setBlockName("blockTabouret").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Tabouret, "blockTabouret");
@@ -61,7 +67,7 @@ public class mobilier
 
 		Support = new Support(Material.wood).setHardness(0.2F).setBlockName("blockSupport").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Support, "blockSupport");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Support, 2), "XXX", "X  ", "X  ", 'X', "plankWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Support, 2), "XXX", "X  ", "X  ", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
 
 		Plateau = new Plateau(Material.wood).setHardness(0.2F).setBlockName("blockPlateau").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
 		GameRegistry.registerBlock(Plateau, "blockPlateau");
@@ -117,11 +123,21 @@ public class mobilier
 
 		Poteau = new Poteau_indicateur(Material.wood).setHardness(0.2F).setBlockName("blockPoteau_Indicateur").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Poteau, "blockPoteau_Indicateur");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau, 2), "UXU", " U ", 'U', Block.blockRegistry.getObject("fence"), 'X', "stickWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Poteau, 2), "UXU", " U ", 'U', "fence", 'X', "stickWood"));
+		
+		Pupitre = new Pupitre(Material.wood).setHardness(0.2F).setBlockName("blockPupitre").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Pupitre, "blockPupitre");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Pupitre, 2), "X", "Y", 'X', "book", 'Y', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
+		
+		Chaines = new Chaines(Material.wood).setHardness(5.0F).setBlockName("blockChaines").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		GameRegistry.registerBlock(Chaines, "blockChaines");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaines, 2), "X", "X", 'X', "iron_ingot"));
+		
 		
 		GameRegistry.addRecipe(new ItemStack(Block.getBlockFromName("web"), 3), new Object[] { "X X", " X ", "X X", Character.valueOf('X'), Item.itemRegistry.getObject("string")});
 		
 		EntityRegistry.registerModEntity(EntityMountableBlock.class, "EntityMountableBlock", 1,  this, 250, 5, false); //pour s'asseoir
+		GameRegistry.registerTileEntity(TileEntityBook.class, "TileBook"); //livre du pupitre
 		proxy.registerRenderInformation();
 	}
 

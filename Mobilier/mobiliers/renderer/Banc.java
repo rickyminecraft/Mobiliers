@@ -1,5 +1,7 @@
 package mobiliers.renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.data.BancD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -7,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Banc extends BlockHandlerBase
 {
 	@Override

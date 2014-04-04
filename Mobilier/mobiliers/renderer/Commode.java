@@ -1,5 +1,7 @@
 package mobiliers.renderer;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
@@ -8,6 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Commode extends BlockHandlerBase
 {
 	@Override

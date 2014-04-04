@@ -20,7 +20,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
-import carpentersblocks.util.handler.EventHandler;
 
 public class Creux extends BlockCoverable
 {

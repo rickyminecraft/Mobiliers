@@ -19,5 +19,6 @@ tile.blockCommode.name=Commode
 tile.blockCreux.name=Bloc creux
 tile.blockStorche.name=Support de torche
 tile.blockPoteau_Indicateur.name=Poteau indicateur
-
+tile.blockPupitre.name=Pupitre
+tile.blockChaines.name=Chaines
 # </file>

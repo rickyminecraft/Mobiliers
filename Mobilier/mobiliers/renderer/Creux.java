@@ -1,6 +1,7 @@
 package mobiliers.renderer;
 
-import mobiliers.data.BancD;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mobiliers.data.CreuxD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -8,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import carpentersblocks.renderer.BlockHandlerBase;
 import carpentersblocks.util.BlockProperties;
 
+@SideOnly(Side.CLIENT)
 public class Creux extends BlockHandlerBase
 {
 	@Override
