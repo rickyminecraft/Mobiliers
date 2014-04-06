@@ -22,5 +22,7 @@ tile.blockPoteau_Indicateur.name=Poteau indicateur
 tile.blockPupitre.name=Pupitre
 tile.blockChaines.name=Chaines
 tile.blockEffets.name=Effets
+tile.blockArmoire.name=Armoire
+tile.blockBuffet.name=Buffet
 
 # </file>

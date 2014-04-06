@@ -86,7 +86,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             renderBlocks.setRenderBounds(0.0D, 0.6D, 0.4D, 0.1D, 0.8D, 0.6D);
             renderBlock(coverBlock, x, y, z);
-            renderBlocks.clearOverrideBlockTexture();
+            //renderBlocks.clearOverrideBlockTexture();
         } else
         if(meta == ForgeDirection.EAST)//4
         {
@@ -103,7 +103,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             renderBlocks.setRenderBounds(0.9D, 0.6D, 0.4D, 1.0D, 0.8D, 0.6D);
             renderBlock(coverBlock, x, y, z);
-            renderBlocks.clearOverrideBlockTexture();
+            //renderBlocks.clearOverrideBlockTexture();
         } else
         if(meta == ForgeDirection.NORTH)//8
         {
@@ -120,7 +120,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             renderBlocks.setRenderBounds(0.4D, 0.6D, 0.0D, 0.6D, 0.8D, 0.1D);
             renderBlock(coverBlock, x, y, z);
-            renderBlocks.clearOverrideBlockTexture();
+            //renderBlocks.clearOverrideBlockTexture();
         } else
         if(meta == ForgeDirection.SOUTH)//12
         {
@@ -137,7 +137,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             renderBlocks.setRenderBounds(0.4D, 0.6D, 0.9D, 0.6D, 0.8D, 1.0D);
             renderBlock(coverBlock, x, y, z);
-            renderBlocks.clearOverrideBlockTexture();
+            //renderBlocks.clearOverrideBlockTexture();
         }
 	}
 }

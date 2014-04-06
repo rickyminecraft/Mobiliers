@@ -34,6 +34,7 @@ public class Support_Torche extends BlockCoverable
 	public Support_Torche(Material material)
 	{
 		super(material);
+		//this.setLightLevel(0.0F);
 	}
 
 	@Override
@@ -381,6 +382,16 @@ public class Support_Torche extends BlockCoverable
 		}
 	}
 
+    @Override
+    /**
+     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
+     */
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+    {
+    	this.setLightLevel(0.0F);
+    	return metadata;
+    }
+	
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase EntityLivingBase, ItemStack par6ItemStack)
 	{

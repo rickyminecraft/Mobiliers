@@ -30,9 +30,9 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines, Effets;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines, Effets, Armoire, Buffet;
 
-	public static IIcon Chaines1, Chaines2, Fog, Smoke, Brume;
+	public static IIcon Chaines1, Chaines2, Fog, Smoke, Brume, IArmoire, IdefautArmoire, IBuffet;
 	
 	public static int 	Poteau_baseRenderID,
 						TabouretRenderID,
@@ -52,7 +52,9 @@ public class mobilier
 						Support_TorcheID,
 						PoteauID,
 						PupitreID,
-						ChainesID;
+						ChainesID,
+						ArmoireID,
+						BuffetID;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -133,9 +135,16 @@ public class mobilier
 		GameRegistry.registerBlock(Chaines, "blockChaines");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Chaines, 2), "X", "X", 'X', "iron_ingot"));
 		
-		Effets = new Effets(Material.wood).setHardness(5.0F).setBlockName("blockEffets").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		Effets = new Effets(Material.wood).setHardness(0.2F).setBlockName("blockEffets").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Effets, "blockEffets");
 		
+		Armoire = new Armoire(Material.wood).setHardness(0.2F).setBlockName("blockArmoire").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
+		GameRegistry.registerBlock(Armoire, "blockArmoire");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Armoire, 2), "XX ", "XY ", "XX ", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock, 'Y', "stickWood"));
+		
+		Buffet = new Buffet(Material.wood).setHardness(0.2F).setBlockName("blockBuffet").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
+		GameRegistry.registerBlock(Buffet, "blockBuffet");
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Buffet, 2), "XXX", "XXX", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
 		
 		GameRegistry.addRecipe(new ItemStack(Block.getBlockFromName("web"), 3), new Object[] { "X X", " X ", "X X", Character.valueOf('X'), Item.itemRegistry.getObject("string")});
 		

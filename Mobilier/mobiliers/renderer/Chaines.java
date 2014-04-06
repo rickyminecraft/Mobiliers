@@ -1,13 +1,10 @@
 package mobiliers.renderer;
 
-import carpentersblocks.renderer.BlockHandlerBase;
-import carpentersblocks.util.BlockProperties;
 import mobiliers.mobilier;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -51,6 +48,7 @@ public class Chaines implements ISimpleBlockRenderingHandler// extends BlockHand
 //		}
 //	}
 	
+	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
 			Block block, int modelId, RenderBlocks renderer)
 	{

@@ -51,6 +51,10 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerBlockHandler(mobilier.PupitreID, new Pupitre());
 		mobilier.ChainesID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(mobilier.ChainesID, new Chaines());
+		mobilier.ArmoireID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.ArmoireID, new Armoire());
+		mobilier.BuffetID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(mobilier.BuffetID, new Buffet());
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityBook.class, new TileBookRenderer());
 	}
