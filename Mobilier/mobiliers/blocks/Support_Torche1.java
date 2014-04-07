@@ -253,29 +253,22 @@ public class Support_Torche1 extends BlockCoverable
 			par1World.notifyBlocksOfNeighborChange(par2, par3, par4 - 1, this);
 		}
 		BlockProperties.ejectEntity(TE, new ItemStack(Block.getBlockFromName("torch"), 1, 0));
+		BlockProperties.ejectEntity(TE, new ItemStack(mobilier.Storche, 1, 0));
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
-	private int getMeta(ItemStack itemstack)
-	{
-		Item i = itemstack.getItem();
-		Block j = (Block) Block.blockRegistry.getObject("torch");
-		String s1 = i.getUnlocalizedName();
-		String s2 = j.getUnlocalizedName();
-		
-		if ( s1.equalsIgnoreCase(s2))
-		{
-			return 1;
-		}
-		return 0;
-	}
-
+	//sert a dropper un autre bloc que celui d'origine - ici le support de torche sans la torche -
 	@Override
-	@SideOnly(Side.CLIENT)
-
+	public Item getItemDropped(int par1, Random par2random, int par3)
+	{
+		return null;
+	}
+	
 	/**
 	 * A randomly called display update to be able to add particles or other items for display
 	 */
+	@Override
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
 	{
 		TEBase TE = getTileEntity(par1World, par2, par3, par4);
