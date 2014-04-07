@@ -28,9 +28,10 @@ import carpentersblocks.block.BlockCoverable;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.util.BlockProperties;
 
-public class Support_Torche extends BlockCoverable
+public class Support_Torche1 extends BlockCoverable
 {
-	public Support_Torche(Material material)
+	
+	public Support_Torche1(Material material)
 	{
 		super(material);
 	}
@@ -128,7 +129,7 @@ public class Support_Torche extends BlockCoverable
 	@Override
 	public int isProvidingWeakPower(IBlockAccess world, int par2, int par3, int par4, int par5)
 	{
-		return 0;
+		return 15;
 	}
 
 	/**
@@ -138,7 +139,7 @@ public class Support_Torche extends BlockCoverable
 	@Override
 	public int isProvidingStrongPower(IBlockAccess world, int par2, int par3, int par4, int par5)
 	{
-		return 0;
+		return 15;
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class Support_Torche extends BlockCoverable
 	@Override
 	public boolean canProvidePower()
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -225,55 +226,6 @@ public class Support_Torche extends BlockCoverable
 	}
 
 	/**
-	 * Called upon block activation (right click on the block.)
-	 */
-	@Override
-	public void postOnBlockActivated(TEBase TE, EntityPlayer entityPlayer, int side, float hitX, float hitY, float hitZ, List<Boolean> altered, List<Boolean> decInv)
-	{
-		ItemStack itemstack = entityPlayer.inventory.getCurrentItem();
-		World world = TE.getWorldObj();
-
-		int Meta = TE.getBlockMetadata();
-		int Direction = StorcheD.getRotation(Meta);
-		if (itemstack == null)
-		{
-
-		}
-		else
-		{
-			if (getMeta(itemstack))
-			{
-				world.playSoundEffect(TE.xCoord + 0.5D, TE.yCoord + 0.5D, TE.zCoord + 0.5D, "random.click", 0.3F, 0.6F);
-				world.setBlock(TE.xCoord, TE.yCoord, TE.zCoord, mobilier.Storche2, TE.getBlockMetadata(), 2);
-				Block bl = world.getBlock(TE.xCoord, TE.yCoord, TE.zCoord);
-				bl.onBlockPlaced(world, TE.xCoord, TE.yCoord, TE.zCoord, 0, 0.0f, 0.0f, 0.0f, TE.getBlockMetadata());
-
-				if (!entityPlayer.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
-				{
-					entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, (ItemStack)null);
-				}
-				world.notifyBlocksOfNeighborChange(TE.xCoord, TE.yCoord, TE.zCoord, this);
-				if (Direction == StorcheD.STORCHE_X_NEG)
-				{
-					world.notifyBlocksOfNeighborChange(TE.xCoord + 1, TE.yCoord, TE.zCoord, this);
-				}
-				else if (Direction == StorcheD.STORCHE_X_POS)
-				{
-					world.notifyBlocksOfNeighborChange(TE.xCoord - 1, TE.yCoord, TE.zCoord, this);
-				}
-				else if (Direction == StorcheD.STORCHE_Z_NEG)
-				{
-					world.notifyBlocksOfNeighborChange(TE.xCoord, TE.yCoord, TE.zCoord + 1, this);
-				}
-				else if (Direction == StorcheD.STORCHE_Z_POS)
-				{
-					world.notifyBlocksOfNeighborChange(TE.xCoord, TE.yCoord, TE.zCoord - 1, this);
-				}
-			}
-		}
-	}
-
-	/**
 	 * ejects contained items into the world, and notifies neighbours of an update, as appropriate
 	 */
 	@Override
@@ -300,10 +252,11 @@ public class Support_Torche extends BlockCoverable
 		{
 			par1World.notifyBlocksOfNeighborChange(par2, par3, par4 - 1, this);
 		}
+		BlockProperties.ejectEntity(TE, new ItemStack(Block.getBlockFromName("torch"), 1, 0));
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}
 
-	private boolean getMeta(ItemStack itemstack)
+	private int getMeta(ItemStack itemstack)
 	{
 		Item i = itemstack.getItem();
 		Block j = (Block) Block.blockRegistry.getObject("torch");
@@ -312,9 +265,63 @@ public class Support_Torche extends BlockCoverable
 		
 		if ( s1.equalsIgnoreCase(s2))
 		{
-			return true;
+			return 1;
 		}
-		return false;
+		return 0;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+
+	/**
+	 * A randomly called display update to be able to add particles or other items for display
+	 */
+	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+	{
+		TEBase TE = getTileEntity(par1World, par2, par3, par4);
+		int Meta = BlockProperties.getMetadata(TE);
+		int Direction = StorcheD.getRotation(Meta);
+		double d0 = par2 + 0.5F;
+		double d1 = par3 + 0.7F;
+		double d2 = par4 + 0.5F;
+		double d3 = 0.2199999988079071D;
+		double d4 = 0.27000001072883606D;
+
+		if (StorcheD.getType(Meta) == StorcheD.ALLUME)
+		{
+			if (Direction == StorcheD.STORCHE_X_NEG)
+			{
+				par1World.spawnParticle("smoke", d0 - d4+0.45D, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+				par1World.spawnParticle("flame", d0 - d4+0.45D, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+			}
+			if (Direction == StorcheD.STORCHE_X_POS)
+			{
+				par1World.spawnParticle("smoke", d0 - d4+0.1D, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+				par1World.spawnParticle("flame", d0 - d4+0.1D, d1 + d3, d2, 0.0D, 0.0D, 0.0D);
+			}
+			if (Direction == StorcheD.STORCHE_Z_NEG)
+			{
+				par1World.spawnParticle("smoke", d0 - d4+0.255D, d1 + d3, d2+0.2D, 0.0D, 0.0D, 0.0D);
+				par1World.spawnParticle("flame", d0 - d4+0.255D, d1 + d3, d2+0.2D, 0.0D, 0.0D, 0.0D);
+			}
+			if (Direction == StorcheD.STORCHE_Z_POS)
+			{
+				par1World.spawnParticle("smoke", d0 - d4+0.255D, d1 + d3, d2-0.2D, 0.0D, 0.0D, 0.0D);
+				par1World.spawnParticle("flame", d0 - d4+0.255D, d1 + d3, d2-0.2D, 0.0D, 0.0D, 0.0D);
+			}
+		}
+	}
+	
+	@Override
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
+	{
+		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		if (TE != null)
+		{
+			BlockProperties.setMetadata(TE, TE.getBlockMetadata());
+			StorcheD.setType(TE, StorcheD.ALLUME);
+		}
+		return metadata;
 	}
 	
 	@Override
@@ -339,5 +346,6 @@ public class Support_Torche extends BlockCoverable
 		}
 		world.setBlockMetadataWithNotify(i, j, k, facing, 1);
 		BlockProperties.setMetadata(TE, facing);
+		StorcheD.setType(TE, StorcheD.ALLUME);
 	}
 }

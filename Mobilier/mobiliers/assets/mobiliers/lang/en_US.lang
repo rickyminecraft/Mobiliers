@@ -18,6 +18,7 @@ tile.blockBancBord.name=Banc bord
 tile.blockCommode.name=Commode
 tile.blockCreux.name=Bloc creux
 tile.blockStorche.name=Support de torche
+tile.blockStorche1.name=Support de torche allumé
 tile.blockPoteau_Indicateur.name=Poteau indicateur
 tile.blockPupitre.name=Pupitre
 tile.blockChaines.name=Chaines

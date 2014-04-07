@@ -30,7 +30,7 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Poteau, Pupitre, Chaines, Effets, Armoire, Buffet;
+	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Storche2, Poteau, Pupitre, Chaines, Effets, Armoire, Buffet;
 
 	public static IIcon Chaines1, Chaines2, Fog, Smoke, Brume, IArmoire, IdefautArmoire, IBuffet;
 	
@@ -119,8 +119,10 @@ public class mobilier
 		GameRegistry.registerBlock(Creux, "blockCreux");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Creux, 2), " X ", "X X", " X ", 'X', "stickWood"));
 		
-		Storche = new Support_Torche(Material.wood).setHardness(0.2F).setBlockName("blockStorche").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		Storche = new Support_Torche(Material.wood).setLightLevel(0.0F).setHardness(0.2F).setBlockName("blockStorche").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
+		Storche2 = new Support_Torche1(Material.wood).setLightLevel(1.0F).setHardness(0.2F).setBlockName("blockStorche1").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Storche, "blockStorche");
+		GameRegistry.registerBlock(Storche2, "blockStorche1");
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Storche, 2), " XY", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock, 'Y', "stickWood"));
 
 		Poteau = new Poteau_indicateur(Material.wood).setHardness(0.2F).setBlockName("blockPoteau_Indicateur").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
