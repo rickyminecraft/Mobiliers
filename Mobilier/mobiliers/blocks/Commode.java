@@ -20,6 +20,7 @@ import carpentersblocks.data.Safe;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.tileentity.TECarpentersSafe;
 import carpentersblocks.util.BlockProperties;
+import carpentersblocks.util.PlayerPermissions;
 import carpentersblocks.util.handler.ChatHandler;
 import carpentersblocks.util.handler.EventHandler;
 
@@ -30,19 +31,6 @@ public class Commode extends BlockCoverable
 	{
 		super(material);
 	}
-
-//	   @SideOnly(Side.CLIENT)
-//	    @Override
-//	    /**
-//	     * When this method is called, your block should register all the icons it needs with the given IconRegister. This
-//	     * is the only chance you get to register icons.
-//	     */
-//	    public void registerBlockIcons(IIconRegister iconRegister)
-//	    {
-//	        IconRegistry.icon_safe_light = iconRegister.registerIcon(CarpentersBlocks.MODID + ":" + "safe/safe_light");
-//	        
-//	        super.registerBlockIcons(iconRegister);
-//	    }
 	    
 	/**
 	 * Returns whether player is allowed to make alterations to this block.
@@ -51,7 +39,7 @@ public class Commode extends BlockCoverable
 	@Override
 	protected boolean canPlayerEdit(TEBase TE, EntityPlayer entityPlayer)
 	{
-		if (isOp(entityPlayer)) 
+		if (PlayerPermissions.isOp(entityPlayer)) 
 		{
 			return true;
 		} 
@@ -68,7 +56,7 @@ public class Commode extends BlockCoverable
 	@Override
 	protected boolean canPlayerActivate(TEBase TE, EntityPlayer entityPlayer)
 	{
-		return isOp(entityPlayer) || TE.isOwner(entityPlayer) || !Safe.isLocked(TE);
+		return PlayerPermissions.isOp(entityPlayer) || TE.isOwner(entityPlayer) || !Safe.isLocked(TE);
 	}
 
 	@Override

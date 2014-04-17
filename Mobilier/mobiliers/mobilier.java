@@ -146,7 +146,7 @@ public class mobilier
 		
 		Buffet = new Buffet(Material.wood).setHardness(0.2F).setBlockName("blockBuffet").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
 		GameRegistry.registerBlock(Buffet, "blockBuffet");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Buffet, 2), "XXX", "XXX", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Buffet, 2), "XYX", "XXX", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock, 'Y', "stickWood"));
 		
 		GameRegistry.addRecipe(new ItemStack(Block.getBlockFromName("web"), 3), new Object[] { "X X", " X ", "X X", Character.valueOf('X'), Item.itemRegistry.getObject("string")});
 		

@@ -25,6 +25,7 @@ import carpentersblocks.data.Safe;
 import carpentersblocks.tileentity.TEBase;
 import carpentersblocks.tileentity.TECarpentersSafe;
 import carpentersblocks.util.BlockProperties;
+import carpentersblocks.util.PlayerPermissions;
 import carpentersblocks.util.handler.ChatHandler;
 import carpentersblocks.util.handler.EventHandler;
 
@@ -43,7 +44,7 @@ public class Buffet extends BlockCoverable
 	@Override
 	protected boolean canPlayerEdit(TEBase TE, EntityPlayer entityPlayer)
 	{
-		if (isOp(entityPlayer)) 
+		if (PlayerPermissions.isOp(entityPlayer)) 
 		{
 			return true;
 		} 
@@ -60,7 +61,7 @@ public class Buffet extends BlockCoverable
 	@Override
 	protected boolean canPlayerActivate(TEBase TE, EntityPlayer entityPlayer)
 	{
-		return isOp(entityPlayer) || TE.isOwner(entityPlayer) || !Safe.isLocked(TE);
+		return PlayerPermissions.isOp(entityPlayer) || TE.isOwner(entityPlayer) || !Safe.isLocked(TE);
 	}
 
 	@Override

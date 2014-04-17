@@ -7,7 +7,7 @@ import mobiliers.data.RecipientD;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
@@ -172,13 +172,13 @@ public class Recipient extends BlockCoverable
             }
             else
             {
-                if (itemstack.getItem() == Item.itemRegistry.getObject("potion") && itemstack.getItemDamage() == 0)
+                if (itemstack.getItem() == Items.potionitem && itemstack.getItemDamage() == 0)
                 {
                     if (State == RecipientD.STATE_EMPTY)
                     {
                         if (!entityPlayer.capabilities.isCreativeMode)
                         {
-                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack((Item)Item.itemRegistry.getObject("glassBottle")));
+                            entityPlayer.inventory.setInventorySlotContents(entityPlayer.inventory.currentItem, new ItemStack(Items.glass_bottle));
                         }
 
                         RecipientD.setState(TE, RecipientD.STATE_FULL);

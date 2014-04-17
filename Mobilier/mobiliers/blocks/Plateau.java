@@ -266,20 +266,6 @@ public class Plateau extends BlockCoverable
 	 */
 	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side)
 	{
-//		if (isThis(blockAccess, x, y, z))
-//		{
-//			ForgeDirection side_adj = ForgeDirection.getOrientation(ForgeDirection.OPPOSITES[side]);
-//
-//			TECarpentersBlock TE_adj = (TECarpentersBlock) blockAccess.getBlockTileEntity(x, y, z);
-//			TECarpentersBlock TE_src = (TECarpentersBlock) blockAccess.getBlockTileEntity(x + side_adj.offsetX, y + side_adj.offsetY, z + side_adj.offsetZ);
-//
-//			if (haveSharedFaces(TE_adj, TE_src, side))
-//				return BlockProperties.shouldRenderSharedFaceBasedOnCovers(TE_adj, TE_src);
-//			else
-//				return true;
-//		}
-//
-//		return super.shouldSideBeRendered(blockAccess, x, y, z, side);
 		return true;
 	}
 

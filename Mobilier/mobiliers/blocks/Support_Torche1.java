@@ -17,6 +17,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
@@ -252,7 +253,7 @@ public class Support_Torche1 extends BlockCoverable
 		{
 			par1World.notifyBlocksOfNeighborChange(par2, par3, par4 - 1, this);
 		}
-		BlockProperties.ejectEntity(TE, new ItemStack(Block.getBlockFromName("torch"), 1, 0));
+		BlockProperties.ejectEntity(TE, new ItemStack(Blocks.torch, 1, 0));
 		BlockProperties.ejectEntity(TE, new ItemStack(mobilier.Storche, 1, 0));
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 	}

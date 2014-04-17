@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -99,7 +100,7 @@ public class Poteau_indicateur extends BlockCoverable
 	{
 		Block block = world.getBlock(i, j+1, k);
 
-		if (block != Block.blockRegistry.getObjectById(0))
+		if (block != Blocks.air)
 		{
 			setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		}
@@ -123,23 +124,23 @@ public class Poteau_indicateur extends BlockCoverable
 			setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.7F, 0.625F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);    		
 		}
-		if (world.getBlock(x, y, z-1) == Block.getBlockFromName("wall_sign"))
+		if (world.getBlock(x, y, z-1) == Blocks.wall_sign)
 		{
 			setBlockBounds(0.4F, 0.4F, 0.0F, 0.6F, 0.6F, 0.4F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		}
-		if (world.getBlock(x-1, y, z) == Block.getBlockFromName("wall_sign"))
+		if (world.getBlock(x-1, y, z) == Blocks.wall_sign)
 		{
 			setBlockBounds(0.0F, 0.4F, 0.4F, 0.4F, 0.6F, 0.6F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		}
-		if (world.getBlock(x+1, y, z) == Block.getBlockFromName("wall_sign"))
+		if (world.getBlock(x+1, y, z) == Blocks.wall_sign)
 		{
 			setBlockBounds(0.6F, 0.4F, 0.4F, 1.0F, 0.6F, 0.6F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		}
 
-		if (world.getBlock(x, y, z+1) == Block.getBlockFromName("wall_sign"))
+		if (world.getBlock(x, y, z+1) == Blocks.wall_sign)
 		{
 			setBlockBounds(0.4F, 0.4F, 0.6F, 0.6F, 0.6F, 1.0F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);

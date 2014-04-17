@@ -6,6 +6,7 @@ import mobiliers.data.StorcheD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -79,11 +80,9 @@ public class Support_torche extends BlockHandlerBase
 	{
 		int data = BlockProperties.getMetadata(TE);
 		int Direction = StorcheD.getRotation(data);
-		Block torch = (Block) Block.blockRegistry.getObject("torch");
+		Block torch = Blocks.torch;
 		Tessellator tessellator = Tessellator.instance;
-        tessellator.setBrightness(torch.getMixedBrightnessForBlock(TE.getWorldObj(), x, y, z));
-        tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
-		IIcon icon = renderBlocks.getBlockIconFromSideAndMetadata(Block.getBlockFromName("torch"), 0, 0);
+		IIcon icon = renderBlocks.getBlockIconFromSideAndMetadata(torch, 0, 0);
     	double d5 = icon.getMinU();
     	double d6 = icon.getMinV();
     	double d7 = icon.getMaxU();
@@ -97,9 +96,7 @@ public class Support_torche extends BlockHandlerBase
     	double d15 = icon.getInterpolatedU(9.0D);
     	double d16 = icon.getInterpolatedV(15.0D);
     	
-        //int j = world.getBlockMetadata(x, y, z);
         boolean i = StorcheD.getType(data) == StorcheD.ALLUME? true : false;
-        //j &=12;
         if(Direction == StorcheD.STORCHE_X_NEG)
         {
 			renderBlocks.setRenderBounds(0.9D, 0.2D, 0.4D, 1.0D, 0.4D, 0.6D);
@@ -116,6 +113,8 @@ public class Support_torche extends BlockHandlerBase
 			renderBlock(coverBlock, x, y, z);
             if (i == true)//est
             {
+                tessellator.setBrightness(srcBlock.getMixedBrightnessForBlock(renderBlocks.blockAccess, TE.xCoord, TE.yCoord, TE.zCoord));
+                tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             	x += 0.0D;
             	z += 0.0D;
             	double d17 = x - 0.5D;
@@ -173,6 +172,8 @@ public class Support_torche extends BlockHandlerBase
 			renderBlock(coverBlock, x, y, z);
             if (i == true)
             {
+                tessellator.setBrightness(srcBlock.getMixedBrightnessForBlock(renderBlocks.blockAccess, TE.xCoord, TE.yCoord, TE.zCoord));
+                tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             	x += 1.0D;
             	z += 1.0D;
             	double d17 = x - 0.5D;
@@ -224,6 +225,8 @@ public class Support_torche extends BlockHandlerBase
 			renderBlock(coverBlock, x, y, z);
             if (i == true)
             {
+                tessellator.setBrightness(srcBlock.getMixedBrightnessForBlock(renderBlocks.blockAccess, TE.xCoord, TE.yCoord, TE.zCoord));
+                tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             	x += 1.0D;
             	z += 1.0D;
             	double d17 = x - 0.5D;
@@ -275,6 +278,8 @@ public class Support_torche extends BlockHandlerBase
 			renderBlock(coverBlock, x, y, z);
             if (i == true)//nord
             {
+                tessellator.setBrightness(srcBlock.getMixedBrightnessForBlock(renderBlocks.blockAccess, TE.xCoord, TE.yCoord, TE.zCoord));
+                tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
             	x += 0.5D;
             	z += 0.0D;
             	double d17 = x - 0.5D;

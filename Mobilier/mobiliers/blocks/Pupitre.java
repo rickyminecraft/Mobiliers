@@ -10,7 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
@@ -158,7 +158,7 @@ public class Pupitre extends BlockCoverable
 
 	private boolean getMeta(ItemStack itemstack)
 	{
-		if (itemstack.getItem() == Item.itemRegistry.getObject("book"))
+		if (itemstack.getItem() == Items.book)
 		{
 			return true;
 		}
@@ -184,7 +184,7 @@ public class Pupitre extends BlockCoverable
     	int Meta = TE.getBlockMetadata();
     	if (PupitreD.getType(Meta) ==  PupitreD.PLEIN)
     	{
-    		BlockProperties.ejectEntity(TE, new ItemStack((Item)Item.itemRegistry.getObject("book"), 1, 0));
+    		BlockProperties.ejectEntity(TE, new ItemStack(Items.book, 1, 0));
     	}
     }
 }
