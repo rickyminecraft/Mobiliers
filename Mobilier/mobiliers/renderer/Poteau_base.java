@@ -47,8 +47,8 @@ public class Poteau_base extends BlockHandlerBase
 
 	private void renderPoteau(ItemStack coverBlock, int x, int y, int z)
 	{
-		int data = BlockProperties.getMetadata(TE);
-		switch (data)
+		int position = BlockProperties.getMetadata(TE);
+		switch (position)
 		{
 			case Poteau_baseD.DOWN:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.8D, 0.1D, 0.8D);

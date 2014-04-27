@@ -41,35 +41,35 @@ public class Tangle extends BlockHandlerBase
 
 		renderTableAngle(coverBlock, x, y, z);
 	}
-	
+
 	private void renderTableAngle(ItemStack coverBlock, int x, int y, int z)
 	{
-		int data = BlockProperties.getMetadata(TE);
-		switch (data)
+		int rotation = BlockProperties.getMetadata(TE);
+		switch (rotation)
 		{
-			case TangleD.TANGLE_X_NEG:
-				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.1D, 0.2D, 0.9D, 0.2D);
-				renderBlock(coverBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-				renderBlock(coverBlock, x, y, z);
-				break;
-			case TangleD.TANGLE_X_POS:
-				renderBlocks.setRenderBounds(0.8D, 0.0D, 0.8D, 0.9D, 0.9D, 0.9D);
-				renderBlock(coverBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-				renderBlock(coverBlock, x, y, z);
-				break;
-			case TangleD.TANGLE_Z_NEG:
-				renderBlocks.setRenderBounds(0.8D, 0.0D, 0.1D, 0.9D, 0.9D, 0.2D);
-				renderBlock(coverBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-				renderBlock(coverBlock, x, y, z);
-				break;
-			case TangleD.TANGLE_Z_POS:
-				renderBlocks.setRenderBounds(0.1D, 0.0D, 0.8D, 0.2D, 0.9D, 0.9D);
-				renderBlock(coverBlock, x, y, z);
-				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
-				renderBlock(coverBlock, x, y, z);
+		case TangleD.TANGLE_X_NEG:
+			renderBlocks.setRenderBounds(0.1D, 0.0D, 0.1D, 0.2D, 0.9D, 0.2D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			break;
+		case TangleD.TANGLE_X_POS:
+			renderBlocks.setRenderBounds(0.8D, 0.0D, 0.8D, 0.9D, 0.9D, 0.9D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			break;
+		case TangleD.TANGLE_Z_NEG:
+			renderBlocks.setRenderBounds(0.8D, 0.0D, 0.1D, 0.9D, 0.9D, 0.2D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			break;
+		case TangleD.TANGLE_Z_POS:
+			renderBlocks.setRenderBounds(0.1D, 0.0D, 0.8D, 0.2D, 0.9D, 0.9D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
 		}
 	}
 }

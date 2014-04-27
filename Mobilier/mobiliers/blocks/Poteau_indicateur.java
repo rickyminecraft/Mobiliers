@@ -114,7 +114,7 @@ public class Poteau_indicateur extends BlockCoverable
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
 		Block i = world.getBlock(x, y+1, z);
-		if (i != Block.blockRegistry.getObjectById(0))
+		if (i != Blocks.air)
 		{
 			setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 			super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);

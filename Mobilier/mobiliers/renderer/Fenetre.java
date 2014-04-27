@@ -3,6 +3,7 @@ package mobiliers.renderer;
 import mobiliers.data.FenetreD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -76,8 +77,8 @@ public class Fenetre extends BlockHandlerBase
 	private void renderFenetres(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		data = FenetreD.getRotation(data);
-		switch (data)
+		int rotation = FenetreD.getRotation(data);
+		switch (rotation)
 		{
 			case FenetreD.FENETRE_X:
 				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.225D, 0.05D, 1.0D);
@@ -201,8 +202,8 @@ public class Fenetre extends BlockHandlerBase
 	private void renderFenetres2(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		data = FenetreD.getRotation(data);
-		switch (data)
+		int rotation = FenetreD.getRotation(data);
+		switch (rotation)
 		{
 			case FenetreD.FENETRE_X:
 				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.25D, 0.1D, 1.0D);
@@ -319,8 +320,8 @@ public class Fenetre extends BlockHandlerBase
 	private void renderFenetres3(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		data = FenetreD.getRotation(data);
-		switch (data)
+		int rotation = FenetreD.getRotation(data);
+		switch (rotation)
 		{
 			case FenetreD.FENETRE_X:
 				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 1.0D);
@@ -365,11 +366,11 @@ public class Fenetre extends BlockHandlerBase
 	private void renderFenetres4(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		data = FenetreD.getRotation(data);
-		Block bl = (Block) Block.blockRegistry.getObject("hopper");
+		int rotation = FenetreD.getRotation(data);
+		Block block = Blocks.hopper;
 		IIcon icon;
-		icon = bl.getBlockTextureFromSide(DOWN);//Block.hopperBlock.getHopperIcon("hopper_outside");
-		switch (data)
+		icon = block.getBlockTextureFromSide(DOWN);//Block.hopperBlock.getHopperIcon("hopper_outside");
+		switch (rotation)
 		{
 			case FenetreD.FENETRE_X:
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);

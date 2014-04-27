@@ -102,7 +102,7 @@ public class Escaliers extends BlockCoverable
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		data &= 7;
@@ -124,7 +124,7 @@ public class Escaliers extends BlockCoverable
 	 */
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		MovingObjectPosition finalTrace = null;
 
@@ -165,7 +165,7 @@ public class Escaliers extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-    	TEBase TE = getTileEntity(world, x, y, z);
+    	TEBase TE = getTileEntityStrict(world, x, y, z);
 		int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		switch (facing)
 		{

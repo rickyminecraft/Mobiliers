@@ -170,7 +170,7 @@ public class Support_Torche extends BlockCoverable
 
 	public void setBlockBoundsBasedOnState(World world, int i, int j, int k)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(i, j, k);
+		TEBase TE = getTileEntityStrict(world, i, j, k);
 		int data = BlockProperties.getMetadata(TE);
 		int Direction = StorcheD.getRotation(data);
 		if(Direction == StorcheD.STORCHE_X_NEG)
@@ -193,30 +193,30 @@ public class Support_Torche extends BlockCoverable
 	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
 	 */
 	@Override
-	public void addCollisionBoxesToList(World par1World, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
+	public void addCollisionBoxesToList(World world, int par2, int par3, int par4, AxisAlignedBB par5AxisAlignedBB, List par6List, Entity par7Entity)
 	{
-		TEBase TE = (TEBase) par1World.getTileEntity(par2, par3, par4);
+		TEBase TE = getTileEntityStrict(world, par2, par3, par4);
         int data = BlockProperties.getMetadata(TE);
         int Direction = StorcheD.getRotation(data);
 		if(Direction == StorcheD.STORCHE_X_NEG)
 		{ //nord
 			setBlockBounds(0.6F, 0.2F, 0.4F, 1.0F, 0.4F, 0.6F);
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(world, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 		} 
 		else if(Direction == StorcheD.STORCHE_X_POS)
 		{ //sud
 			setBlockBounds(0.0F, 0.2F, 0.4F, 0.4F, 0.4F, 0.6F);
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(world, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 		} 
 		else if(Direction == StorcheD.STORCHE_Z_NEG)
 		{ //est
 			setBlockBounds(0.4F, 0.2F, 0.6F, 0.6F, 0.4F, 1.0F);
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(world, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 		} 
 		else if(Direction == StorcheD.STORCHE_Z_POS)
 		{ //ouest
 			setBlockBounds(0.4F, 0.2F, 0.0F, 0.6F, 0.4F, 0.4F);
-			super.addCollisionBoxesToList(par1World, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
+			super.addCollisionBoxesToList(world, par2, par3, par4, par5AxisAlignedBB, par6List, par7Entity);
 		}
 		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
@@ -274,30 +274,30 @@ public class Support_Torche extends BlockCoverable
 	 * ejects contained items into the world, and notifies neighbours of an update, as appropriate
 	 */
 	@Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
 	{
-		TEBase TE = getTileEntity(par1World, par2, par3, par4);
+		TEBase TE = getTileEntityStrict(world, par2, par3, par4);
 		int Meta = TE.getBlockMetadata();
-		par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this);
+		world.notifyBlocksOfNeighborChange(par2, par3, par4, this);
 		int j1 = par6;
 
 		if (j1 == 1)
 		{
-			par1World.notifyBlocksOfNeighborChange(par2 + 1, par3, par4, this);
+			world.notifyBlocksOfNeighborChange(par2 + 1, par3, par4, this);
 		}
 		else if (j1 == 5)
 		{
-			par1World.notifyBlocksOfNeighborChange(par2 - 1, par3, par4, this);
+			world.notifyBlocksOfNeighborChange(par2 - 1, par3, par4, this);
 		}
 		else if (j1 == 9)
 		{
-			par1World.notifyBlocksOfNeighborChange(par2, par3, par4 + 1, this);
+			world.notifyBlocksOfNeighborChange(par2, par3, par4 + 1, this);
 		}
 		else if (j1 == 13)
 		{
-			par1World.notifyBlocksOfNeighborChange(par2, par3, par4 - 1, this);
+			world.notifyBlocksOfNeighborChange(par2, par3, par4 - 1, this);
 		}
-		super.breakBlock(par1World, par2, par3, par4, par5, par6);
+		super.breakBlock(world, par2, par3, par4, par5, par6);
 	}
 
 	private boolean getMeta(ItemStack itemstack)
@@ -318,7 +318,7 @@ public class Support_Torche extends BlockCoverable
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase EntityLivingBase, ItemStack par6ItemStack)
 	{
 		int facing = MathHelper.floor_double((EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		TEBase TE = (TEBase) world.getTileEntity(i, j, k);
+		TEBase TE = getTileEntityStrict(world, i, j, k);
 		switch (facing)
 		{
 			case 0:

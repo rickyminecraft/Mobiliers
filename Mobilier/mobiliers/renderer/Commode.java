@@ -16,9 +16,9 @@ public class Commode extends BlockHandlerBase
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks)
 	{
-		for(int l = 0; l < 5; l++)
+		for(int box = 0; box < 5; box++)
 		{
-			switch (l)
+			switch (box)
 			{
 				case 0:
 					renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 1.0D);
@@ -68,10 +68,9 @@ public class Commode extends BlockHandlerBase
 	public void renderCommode(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE) & 0x3;
-		
-		ForgeDirection meta = BlockProperties.getDirectionFromFacing(data);
+		ForgeDirection rotation = BlockProperties.getDirectionFromFacing(data);
         //IIcon icon = renderBlocks.getBlockIconFromSideAndMetadata(Block.getBlockFromName("planks"), 0, meta);
-        if(meta == ForgeDirection.WEST)
+        if(rotation == ForgeDirection.WEST)
         {
         	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1D);
         	renderBlock(coverBlock, x, y, z);
@@ -88,7 +87,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             //renderBlocks.clearOverrideBlockTexture();
         } else
-        if(meta == ForgeDirection.EAST)//4
+        if(rotation == ForgeDirection.EAST)//4
         {
         	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1D);
         	renderBlock(coverBlock, x, y, z);
@@ -105,7 +104,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             //renderBlocks.clearOverrideBlockTexture();
         } else
-        if(meta == ForgeDirection.NORTH)//8
+        if(rotation == ForgeDirection.NORTH)//8
         {
         	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 1.0D);
         	renderBlock(coverBlock, x, y, z);
@@ -122,7 +121,7 @@ public class Commode extends BlockHandlerBase
             renderBlock(coverBlock, x, y, z);
             //renderBlocks.clearOverrideBlockTexture();
         } else
-        if(meta == ForgeDirection.SOUTH)//12
+        if(rotation == ForgeDirection.SOUTH)//12
         {
         	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 1.0D);
         	renderBlock(coverBlock, x, y, z);

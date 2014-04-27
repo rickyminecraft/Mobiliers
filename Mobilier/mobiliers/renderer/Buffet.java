@@ -66,11 +66,11 @@ public class Buffet extends BlockHandlerBase
 	private void renderBuffet(ItemStack coverBlock, int x, int y, int z) 
 	{
 		int data = BlockProperties.getMetadata(TE) & 0x3;
-		int Droite = BuffetD.getType(BlockProperties.getMetadata(TE));
-		ForgeDirection meta = BlockProperties.getDirectionFromFacing(data);
-		if (Droite == BuffetD.DROITE)
+		int position = BuffetD.getType(BlockProperties.getMetadata(TE));
+		ForgeDirection rotation = BlockProperties.getDirectionFromFacing(data);
+		if (position == BuffetD.DROITE)
 		{
-			if(meta == ForgeDirection.WEST)
+			if(rotation == ForgeDirection.WEST)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -87,7 +87,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.05D, 0.4D, 0.6D, 0.1D, 0.5D, 0.8D);
 				renderBlock(coverBlock, x, y, z);
 			} 
-			else if(meta == ForgeDirection.EAST)
+			else if(rotation == ForgeDirection.EAST)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -104,7 +104,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.9D, 0.4D, 0.2D, 0.95D, 0.5D, 0.4D);
 				renderBlock(coverBlock, x, y, z);
 			} 
-			else if(meta == ForgeDirection.NORTH)
+			else if(rotation == ForgeDirection.NORTH)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -121,7 +121,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.2D, 0.4D, 0.05D, 0.4D, 0.5D, 0.1D);
 				renderBlock(coverBlock, x, y, z);
 			} 
-			else if(meta == ForgeDirection.SOUTH)
+			else if(rotation == ForgeDirection.SOUTH)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -141,7 +141,7 @@ public class Buffet extends BlockHandlerBase
 		}
 		else
 		{
-			if(meta == ForgeDirection.WEST)
+			if(rotation == ForgeDirection.WEST)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -160,7 +160,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.05D, 0.4D, 0.75D, 0.1D, 0.5D, 0.95D);
 				renderBlock(coverBlock, x, y, z);
 			} 
-			else if(meta == ForgeDirection.EAST)
+			else if(rotation == ForgeDirection.EAST)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -179,7 +179,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.9D, 0.4D, 0.05D, 0.95D, 0.5D, 0.25D);
 				renderBlock(coverBlock, x, y, z);
 			}
-			else if(meta == ForgeDirection.NORTH)
+			else if(rotation == ForgeDirection.NORTH)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);
@@ -198,7 +198,7 @@ public class Buffet extends BlockHandlerBase
 				renderBlocks.setRenderBounds(0.05D, 0.4D, 0.05D, 0.25D, 0.5D, 0.1D);
 				renderBlock(coverBlock, x, y, z);
 			} 
-			else if(meta == ForgeDirection.SOUTH)
+			else if(rotation == ForgeDirection.SOUTH)
 			{
 				renderBlocks.setRenderBounds(0.0D, 0.9D, 0.0D, 1.0D, 1.0D, 1.0D);
 				renderBlock(coverBlock, x, y, z);

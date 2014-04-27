@@ -44,8 +44,8 @@ public class Escaliers extends BlockHandlerBase
 
 	private void renderEscaliers(ItemStack coverBlock, int x, int y, int z)
 	{
-		int data = BlockProperties.getMetadata(TE);
-		switch (data)
+		int rotation = BlockProperties.getMetadata(TE);
+		switch (rotation)
 		{
 			case EscaliersD.ESCALIER_X_NEG:
 				renderBlocks.setRenderBounds(0.0D, 0.4D, 0.0D, 0.5D, 0.5D, 1.0D);

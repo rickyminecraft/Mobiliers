@@ -70,7 +70,7 @@ public class Plateau extends BlockCoverable
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(blockAccess, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		float Decalage = 0.0F;
@@ -79,11 +79,11 @@ public class Plateau extends BlockCoverable
 		{
 			Decalage = 0.35F;
 		}
- 		data = PlateauD.getRotation(data);
+ 		int rotation = PlateauD.getRotation(data);
 
 		float[] bounds = { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F };
 
-		switch (data)
+		switch (rotation)
 		{
 			case PlateauD.PLATEAU_X_NEG:
 				bounds = new float[] { 0.0F, 0.0F + Decalage, 0.0F + Decalage, 0.1F, 1.0F - Decalage, 1.0F - Decalage};
@@ -160,7 +160,7 @@ public class Plateau extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		int data = TE.blockMetadata;
 
 		// If shift key is down, skip auto-orientation
@@ -221,7 +221,7 @@ public class Plateau extends BlockCoverable
 	 */
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		int type = PlateauD.getType(data);
@@ -229,29 +229,29 @@ public class Plateau extends BlockCoverable
 		{
 			return false;
 		}
-		data = PlateauD.getRotation(data);
+		int rotation = PlateauD.getRotation(data);
 
-		if (data == PlateauD.PLATEAU_Y_NEG && side == ForgeDirection.DOWN)
+		if (rotation == PlateauD.PLATEAU_Y_NEG && side == ForgeDirection.DOWN)
 		{
 			return true;
 		}
-		else if (data == PlateauD.PLATEAU_Y_POS && side == ForgeDirection.UP)
+		else if (rotation == PlateauD.PLATEAU_Y_POS && side == ForgeDirection.UP)
 		{
 			return true;
 		}
-		else if (data == PlateauD.PLATEAU_Z_NEG && side == ForgeDirection.NORTH)
+		else if (rotation == PlateauD.PLATEAU_Z_NEG && side == ForgeDirection.NORTH)
 		{
 			return true;
 		}
-		else if (data == PlateauD.PLATEAU_Z_POS && side == ForgeDirection.SOUTH)
+		else if (rotation == PlateauD.PLATEAU_Z_POS && side == ForgeDirection.SOUTH)
 		{
 			return true;
 		}
-		else if (data == PlateauD.PLATEAU_X_NEG && side == ForgeDirection.WEST)
+		else if (rotation == PlateauD.PLATEAU_X_NEG && side == ForgeDirection.WEST)
 		{
 			return true;
 		}
-		else if (data == PlateauD.PLATEAU_X_POS && side == ForgeDirection.EAST)
+		else if (rotation == PlateauD.PLATEAU_X_POS && side == ForgeDirection.EAST)
 		{
 			return true;
 		}

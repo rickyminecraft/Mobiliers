@@ -3,6 +3,7 @@ package mobiliers.renderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -19,24 +20,22 @@ public class Poteau_indicateur extends BlockHandlerBase
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks) 
 	{
 		Tessellator tessellator = Tessellator.instance;
-        for(int i1 = 0; i1 < 4; i1++)
+        for(int box = 0; box < 4; box++)
         {
-            if(i1 == 0)
-            {
-				renderBlocks.setRenderBounds(0.4D, 0.0D, 0.4D, 0.6D, 0.7D, 0.6D);
-            }
-            if(i1 == 1)
-            {
-				renderBlocks.setRenderBounds(0.4D, 0.4D, 0.0D, 0.6D, 0.6D, 1.0D);
-            }
-            if(i1 == 2)
-            {
-				renderBlocks.setRenderBounds(0.0D, 0.4D, 0.4D, 0.4D, 0.6D, 0.6D);
-            }
-            if(i1 == 3)
-            {
-				renderBlocks.setRenderBounds(0.6D, 0.4D, 0.4D, 1.0D, 0.6D, 0.6D);
-            }
+        	switch (box)
+        	{
+        	case 0:
+        		renderBlocks.setRenderBounds(0.4D, 0.0D, 0.4D, 0.6D, 0.7D, 0.6D);
+        		break;
+        	case 1:
+        		renderBlocks.setRenderBounds(0.4D, 0.4D, 0.0D, 0.6D, 0.6D, 1.0D);
+        		break;
+        	case 2:
+        		renderBlocks.setRenderBounds(0.0D, 0.4D, 0.4D, 0.4D, 0.6D, 0.6D);
+        		break;
+        	case 3:
+        		renderBlocks.setRenderBounds(0.6D, 0.4D, 0.4D, 1.0D, 0.6D, 0.6D);
+        	}
             super.renderInventoryBlock(block, metadata, modelID, renderBlocks);
         }
 	}
@@ -70,8 +69,8 @@ public class Poteau_indicateur extends BlockHandlerBase
 	private void renderPoteau(ItemStack coverBlock, int x, int y, int z)
 	{
 		World world = TE.getWorldObj();
-		Block block = (Block) Block.blockRegistry.getObject("wall_sign");
-     	if (world.getBlock(x, y+1, z) != Block.blockRegistry.getObjectById(0))
+		Block block = Blocks.wall_sign;
+     	if (world.getBlock(x, y+1, z) != Blocks.air)
     	{
     		renderBlocks.setRenderBounds(0.375D, 0.0D, 0.375D, 0.625D, 1.0D, 0.625D);
     		renderBlock(coverBlock, x, y, z);

@@ -48,15 +48,14 @@ public class Banc_bord extends BlockCoverable
      */
     protected boolean onHammerRightClick(TEBase TE, EntityPlayer entityPlayer)
     {
-//		int data = BlockProperties.getMetadata(TE);
-//		int type = BancD.getType(data);
-//		if (++type > BancD.BANC)
-//		{
-//			type = BancD.BORD;
-//		}
-//		BancD.setType(TE, type);
-//		
-        return false;
+		int data = BlockProperties.getMetadata(TE);
+		int type = BancD.getType(data);
+		if (++type > BancD.BANC_4)
+		{
+			type = BancD.BANC_1;
+		}
+		BancD.setType(TE, type);
+        return true;
     }
     
 	@Override
@@ -75,7 +74,7 @@ public class Banc_bord extends BlockCoverable
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TEBase TE = (TEBase)blockAccess.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(blockAccess, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		int Rotation = BancD.getRotation(data);
@@ -105,7 +104,7 @@ public class Banc_bord extends BlockCoverable
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		int Rotation = BancD.getRotation(data);
@@ -145,7 +144,7 @@ public class Banc_bord extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-    	TEBase TE = getTileEntity(world, x, y, z);
+    	TEBase TE = getTileEntityStrict(world, x, y, z);
 		int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		switch (facing)
 		{

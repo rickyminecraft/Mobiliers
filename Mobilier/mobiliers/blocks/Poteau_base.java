@@ -86,7 +86,7 @@ public class Poteau_base extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		int data = TE.blockMetadata;
 		BlockProperties.setMetadata(TE, data);
 	}
@@ -108,7 +108,7 @@ public class Poteau_base extends BlockCoverable
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		switch (data)

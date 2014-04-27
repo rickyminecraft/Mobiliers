@@ -78,8 +78,8 @@ public class Chaise extends BlockHandlerBase
 	private void renderChaise(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
+		int rotation = ChaiseD.getRotation(data);
+		switch (rotation)
 		{
 			case ChaiseD.CHAISE_X_NEG:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.3D);
@@ -194,8 +194,8 @@ public class Chaise extends BlockHandlerBase
 	private void renderChaise_2(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
+		int rotation = ChaiseD.getRotation(data);
+		switch (rotation)
 		{
 			case ChaiseD.CHAISE_X_NEG:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.3D);
@@ -322,8 +322,8 @@ public class Chaise extends BlockHandlerBase
 	private void renderChaise_3(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
+		int rotation = ChaiseD.getRotation(data);
+		switch (rotation)
 		{
 			case ChaiseD.CHAISE_X_NEG:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.3D);
@@ -438,8 +438,8 @@ public class Chaise extends BlockHandlerBase
 	private void renderChaise_4(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
+		int rotation = ChaiseD.getRotation(data);
+		switch (rotation)
 		{
 			case ChaiseD.CHAISE_X_NEG:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.3D);

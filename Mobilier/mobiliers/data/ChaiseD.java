@@ -31,10 +31,10 @@ public class ChaiseD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff3;
-		temp |= type <<2;
+		int data = BlockProperties.getMetadata(TE) & 0xfff3;
+		data |= type <<2;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 	
 	/**
@@ -50,9 +50,9 @@ public class ChaiseD
 	 */
 	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfffc;
-		temp |= Rotation;
+		int data = BlockProperties.getMetadata(TE) & 0xfffc;
+		data |= Rotation;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

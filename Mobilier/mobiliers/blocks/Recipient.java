@@ -104,7 +104,7 @@ public class Recipient extends BlockCoverable
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(blockAccess, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		data &= 7;

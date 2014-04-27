@@ -32,12 +32,12 @@ public class Chaise extends BlockCoverable
 	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = ChaiseD.getRotation(data);
-		if (++tmp > ChaiseD.CHAISE_Z_POS)
+		int rotation = ChaiseD.getRotation(data);
+		if (++rotation > ChaiseD.CHAISE_Z_POS)
 		{
-			tmp = ChaiseD.CHAISE_X_NEG;
+			rotation = ChaiseD.CHAISE_X_NEG;
 		}
-		ChaiseD.setRotation(TE, tmp);
+		ChaiseD.setRotation(TE, rotation);
 		
 		return true;
 	}
@@ -76,8 +76,8 @@ public class Chaise extends BlockCoverable
 	public float[] genBounds(int box, int data)
 	{
 		++box;
-		int tmp = ChaiseD.getRotation(data);
-		switch (tmp)
+		int rotation = ChaiseD.getRotation(data);
+		switch (rotation)
 		{
 			case ChaiseD.CHAISE_X_NEG:
 				switch (box)
@@ -133,7 +133,7 @@ public class Chaise extends BlockCoverable
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 
@@ -155,7 +155,7 @@ public class Chaise extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-    	TEBase TE = getTileEntity(world, x, y, z);
+    	TEBase TE = getTileEntityStrict(world, x, y, z);
 		int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		switch (facing)
 		{

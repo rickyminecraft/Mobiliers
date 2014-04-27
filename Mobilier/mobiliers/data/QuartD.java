@@ -44,10 +44,10 @@ public class QuartD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xff0f;
-		temp |= type <<4;
+		int data = BlockProperties.getMetadata(TE) & 0xff0f;
+		data |= type <<4;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 	
 	/**
@@ -63,9 +63,9 @@ public class QuartD
 	 */
 	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff0;
-		temp |= Rotation;
+		int data = BlockProperties.getMetadata(TE) & 0xfff0;
+		data |= Rotation;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

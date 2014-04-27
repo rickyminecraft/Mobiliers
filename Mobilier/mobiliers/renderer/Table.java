@@ -3,6 +3,7 @@ package mobiliers.renderer;
 import mobiliers.data.TableD;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
@@ -83,9 +84,9 @@ public class Table extends BlockHandlerBase
 	
 	private void renderTableGlass(ItemStack coverBlock, int x, int y, int z)
 	{
-		Block bl = (Block)Block.blockRegistry.getObject("glass");
+		Block block = Blocks.glass;
 		IIcon icon;
-		icon = bl.getIcon(0, 0);
+		icon = block.getIcon(0, 0);
 		
 		renderBlocks.setRenderBounds(0.7D, 0.85D, 0.7D, 0.3D, 0.9D, 0.3D);
 		renderBlock(coverBlock, x, y, z);
@@ -159,9 +160,9 @@ public class Table extends BlockHandlerBase
 	private void renderTableBasseGlass(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		Block bl = (Block)Block.blockRegistry.getObject("glass");
+		Block block = Blocks.glass;
 		IIcon icon;
-		icon = bl.getIcon(0, 0);
+		icon = block.getIcon(0, 0);
 		int Rotation = TableD.getRotation(data);
 
 		renderBlocks.setRenderBounds(0.6D, 0.45D, 0.6D, 0.4D, 0.5D, 0.4D);

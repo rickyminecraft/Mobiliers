@@ -38,10 +38,10 @@ public class PupitreD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff7;
-		temp |= type <<3;
+		int data = BlockProperties.getMetadata(TE) & 0xfff7;
+		data |= type <<3;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class PupitreD
 	 */
 	public final static int getRotation(int data)
 	{
-		return data & 0x7;
+		return data & 0x3;
 	}
 	
 	/**
@@ -57,9 +57,9 @@ public class PupitreD
 	 */
 	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff8;
-		temp |= Rotation;
+		int data = BlockProperties.getMetadata(TE) & 0xfffc;
+		data |= Rotation;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

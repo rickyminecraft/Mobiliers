@@ -8,6 +8,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -29,10 +31,10 @@ public class Table extends BlockCoverable
 	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = TableD.getRotation(data);
-		if (++tmp > TableD.ROTATE_1)
-			tmp = TableD.ROTATE_0;
-		TableD.setRotation(TE, tmp);
+		int rotation = TableD.getRotation(data);
+		if (++rotation > TableD.ROTATE_1)
+			rotation = TableD.ROTATE_0;
+		TableD.setRotation(TE, rotation);
 		
 		return true;
 	}
@@ -60,7 +62,7 @@ public class Table extends BlockCoverable
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(blockAccess, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		int type = TableD.getType(data);
@@ -97,6 +99,49 @@ public class Table extends BlockCoverable
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 	}
 	
+//	/**
+//	 * Will return stairs boundaries for data.
+//	 * @param flag 
+//	 */
+//	public float[] genBounds(int box, int data)
+//	{
+//		++box;
+//		switch (data)
+//		{
+//
+//		case TableD.TYPE_NORMAL:
+//			switch (box)
+//			{
+//			case 1:
+//				return new float[] { 0.0F, 0.0F, 0.2F, 0.2F, 1.0F, 1.0F };
+//			case 2:
+//				return new float[] { 0.8F, 0.0F, 0.2F, 1.0F, 1.0F, 1.0F };
+//			case 3:
+//				return new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.2F };
+//			case 4:
+//				return new float[] { 0.2F, 0.0F, 0.8F, 0.8F, 1.0F, 1.0F };
+//			default:	
+//			}
+//			break;
+//		case TableD.TYPE_GLASS:
+//			switch (box)
+//			{
+//			case 1:
+//				return new float[] { 0.0F, 0.0F, 0.0F, 1.0F, 0.2F, 1.0F };
+//			case 2:
+//				return new float[] { 0.0F, 0.8F, 0.0F, 1.0F, 1.0F, 1.0F };
+//			case 3:
+//				return new float[] { 0.0F, 0.2F, 0.0F, 1.0F, 0.8F, 0.2F };
+//			case 4:
+//				return new float[] { 0.0F, 0.2F, 0.8F, 1.0F, 0.8F, 1.0F };
+//			default:	
+//			}
+//			break;
+//		}
+//
+//		return null;
+//	}
+//	
 //	@Override
 //	/**
 //	 * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit. Args: world,
@@ -104,17 +149,15 @@ public class Table extends BlockCoverable
 //	 */
 //	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 //	{
-//		TECarpentersBlock TE = (TECarpentersBlock)world.getBlockTileEntity(x, y, z);
-//
+//		TEBase TE = getTileEntityStrict(world, x, y, z);
+//		int data = BlockProperties.getMetadata(TE);
 //		MovingObjectPosition finalTrace = null;
-//
-//		int data = BlockProperties.getData(TE);
 //
 //		double currDist = 0.0D;
 //		double maxDist = 0.0D;
 //
 //		// Determine if ray trace is a hit on stairs
-//		for (int box = 0; box < 4; ++box)
+//		for (int box = 0; box < 5; ++box)
 //		{
 //			float[] bounds = genBounds(box, data);
 //
@@ -155,7 +198,7 @@ public class Table extends BlockCoverable
 	 */
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE) & 0xC >>2;
 

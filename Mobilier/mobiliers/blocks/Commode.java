@@ -31,33 +31,15 @@ public class Commode extends BlockCoverable
 	{
 		super(material);
 	}
-	    
-	/**
-	 * Returns whether player is allowed to make alterations to this block.
-	 * This does not include block activation.  For that, use canPlayerActivate().
-	 */
-	@Override
-	protected boolean canPlayerEdit(TEBase TE, EntityPlayer entityPlayer)
-	{
-		if (PlayerPermissions.isOp(entityPlayer)) 
-		{
-			return true;
-		} 
-		else 
-		{
-			return entityPlayer.canPlayerEdit(TE.xCoord, TE.yCoord, TE.zCoord, EventHandler.eventFace, entityPlayer.getHeldItem()) &&
-					TE.isOwner(entityPlayer);
-		}
-	}
 
-	/**
-	 * Returns whether player is allowed to activate this block.
-	 */
-	@Override
-	protected boolean canPlayerActivate(TEBase TE, EntityPlayer entityPlayer)
-	{
-		return PlayerPermissions.isOp(entityPlayer) || TE.isOwner(entityPlayer) || !Safe.isLocked(TE);
-	}
+    /**
+     * Returns whether player is allowed to activate this block.
+     */
+    @Override
+    protected boolean canPlayerActivate(TEBase TE, EntityPlayer entityPlayer)
+    {
+        return PlayerPermissions.canPlayerEdit(TE, TE.xCoord, TE.yCoord, TE.zCoord, entityPlayer) || !Safe.isLocked(TE);
+    }
 
 	@Override
 	/**
@@ -150,7 +132,7 @@ public class Commode extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		Safe.setFacing(TE, BlockProperties.getOppositeFacing(entityLiving));
 
@@ -231,7 +213,7 @@ public class Commode extends BlockCoverable
 	 */
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		if (TE != null) 
 		{
@@ -250,7 +232,7 @@ public class Commode extends BlockCoverable
 	 */
 	public void breakBlock(World world, int x, int y, int z, Block block, int metadata)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		if (TE != null) 
 		{
@@ -274,24 +256,21 @@ public class Commode extends BlockCoverable
 		super.breakBlock(world, x, y, z, block, metadata);
 	}
 
-	@Override
-	/**
-	 * Gets the hardness of block at the given coordinates in the given world, relative to the ability of the given
-	 * EntityPlayer.
-	 */
-	public float getPlayerRelativeBlockHardness(EntityPlayer entityPlayer, World world, int x, int y, int z)
-	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
-
-		if (Safe.isOpen(TE) || !canPlayerEdit(TE, entityPlayer)) 
-		{
-			return -1; // Unbreakable
-		} 
-		else 
-		{
-			return super.getPlayerRelativeBlockHardness(entityPlayer, world, x, y, z);
-		}
-	}
+    @Override
+    /**
+     * Gets the hardness of block at the given coordinates in the given world, relative to the ability of the given
+     * EntityPlayer.
+     */
+    public float getPlayerRelativeBlockHardness(EntityPlayer entityPlayer, World world, int x, int y, int z)
+    {
+        TEBase TE = getTileEntityStrict(world, x, y, z);
+        
+        if (Safe.isOpen(TE) || !PlayerPermissions.canPlayerEdit(TE, TE.xCoord, TE.yCoord, TE.zCoord, entityPlayer)) {
+            return -1; // Unbreakable
+        } else {
+            return super.getPlayerRelativeBlockHardness(entityPlayer, world, x, y, z);
+        }
+    }
 
 	@Override
 	/**

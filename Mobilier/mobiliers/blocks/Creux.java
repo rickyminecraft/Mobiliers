@@ -150,7 +150,7 @@ public class Creux extends BlockCoverable
 	 */
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		int data = BlockProperties.getMetadata(TE);
 		MovingObjectPosition finalTrace = null;
 
@@ -248,7 +248,7 @@ public class Creux extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-		TEBase TE = getTileEntity(world, x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 		//solution pour savoir si l'on clique dessus ou dessous un bloc
 		int HautBas = world.getBlockMetadata(x, y, z);

@@ -66,11 +66,11 @@ public class Armoire extends BlockHandlerBase
 	private void renderArmoire(ItemStack coverBlock, int x, int y, int z) 
 	{
 		int data = BlockProperties.getMetadata(TE) & 0x3;
-		int Haut = ArmoireD.getType(BlockProperties.getMetadata(TE));
-		ForgeDirection meta = BlockProperties.getDirectionFromFacing(data);
-        if (Haut == ArmoireD.HAUT)
+		int position = ArmoireD.getType(BlockProperties.getMetadata(TE));
+		ForgeDirection rotation = BlockProperties.getDirectionFromFacing(data);
+        if (position == ArmoireD.HAUT)
         {
-            if(meta == ForgeDirection.WEST)
+            if(rotation == ForgeDirection.WEST)
             {
             	renderBlocks.setRenderBounds(0.15D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1D);
             	renderBlock(coverBlock, x, y, z);
@@ -83,7 +83,7 @@ public class Armoire extends BlockHandlerBase
                	renderBlocks.setRenderBounds(0.0D, 0.1D, 0.2D, 0.1D, 0.2D, 0.4D);
                 renderBlock(coverBlock, x, y, z);
             } 
-            else if(meta == ForgeDirection.EAST)
+            else if(rotation == ForgeDirection.EAST)
             {
             	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.85D, 1.0D, 0.1D);
             	renderBlock(coverBlock, x, y, z);
@@ -96,7 +96,7 @@ public class Armoire extends BlockHandlerBase
                 renderBlocks.setRenderBounds(0.9D, 0.1D, 0.6D, 1.0D, 0.2D, 0.8D);
                 renderBlock(coverBlock, x, y, z);
             } 
-            else if(meta == ForgeDirection.NORTH)
+            else if(rotation == ForgeDirection.NORTH)
             {
             	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.15D, 0.1D, 1.0D, 1.0D);
             	renderBlock(coverBlock, x, y, z);
@@ -109,7 +109,7 @@ public class Armoire extends BlockHandlerBase
                 renderBlocks.setRenderBounds(0.6D, 0.1D, 0.0D, 0.8D, 0.2D, 0.1D);
                 renderBlock(coverBlock, x, y, z);
             } 
-            else if(meta == ForgeDirection.SOUTH)
+            else if(rotation == ForgeDirection.SOUTH)
             {
             	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 0.85D);
             	renderBlock(coverBlock, x, y, z);
@@ -126,7 +126,7 @@ public class Armoire extends BlockHandlerBase
         else
         {
         	//bas
-        	if(meta == ForgeDirection.WEST)
+        	if(rotation == ForgeDirection.WEST)
         	{
         		renderBlocks.setRenderBounds(0.15D, 0.0D, 0.0D, 1.0D, 1.0D, 0.1D);
         		renderBlock(coverBlock, x, y, z);
@@ -137,7 +137,7 @@ public class Armoire extends BlockHandlerBase
         		renderBlocks.setRenderBounds(0.1D, 0.3D, 0.1D, 0.2D, 1.0D, 0.9D);
         		renderBlock(coverBlock, x, y, z);
         	} 
-        	else if(meta == ForgeDirection.EAST)//4
+        	else if(rotation == ForgeDirection.EAST)//4
         	{
         		renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.85D, 1.0D, 0.1D);
         		renderBlock(coverBlock, x, y, z);
@@ -148,7 +148,7 @@ public class Armoire extends BlockHandlerBase
         		renderBlocks.setRenderBounds(0.8D, 0.3D, 0.1D, 0.9D, 1.0D, 0.9D);
         		renderBlock(coverBlock, x, y, z);
         	} 
-        	else if(meta == ForgeDirection.NORTH)//8
+        	else if(rotation == ForgeDirection.NORTH)//8
         	{
         		renderBlocks.setRenderBounds(0.0D, 0.0D, 0.15D, 0.1D, 1.0D, 1.0D);
         		renderBlock(coverBlock, x, y, z);
@@ -159,7 +159,7 @@ public class Armoire extends BlockHandlerBase
         		renderBlocks.setRenderBounds(0.1D, 0.3D, 0.1D, 0.9D, 1.0D, 0.2D);
         		renderBlock(coverBlock, x, y, z);
         	} 
-        	else if(meta == ForgeDirection.SOUTH)//12
+        	else if(rotation == ForgeDirection.SOUTH)//12
         	{
         		renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.1D, 1.0D, 0.85D);
         		renderBlock(coverBlock, x, y, z);

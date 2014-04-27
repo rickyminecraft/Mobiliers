@@ -34,10 +34,10 @@ public class Fenetre extends BlockCoverable
 	protected boolean onHammerLeftClick(TEBase TE, EntityPlayer entityPlayer)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = FenetreD.getRotation(data);
-		if (++tmp > FenetreD.FENETRE_Z)
-			tmp = FenetreD.FENETRE_X;
-		FenetreD.setRotation(TE, tmp);
+		int rotation = FenetreD.getRotation(data);
+		if (++rotation > FenetreD.FENETRE_Z)
+			rotation = FenetreD.FENETRE_X;
+		FenetreD.setRotation(TE, rotation);
 		return true;
 	}
 
@@ -188,7 +188,7 @@ public class Fenetre extends BlockCoverable
 	 */
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 startVec, Vec3 endVec)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		int data = BlockProperties.getMetadata(TE);
 		MovingObjectPosition finalTrace = null;
 
@@ -227,7 +227,7 @@ public class Fenetre extends BlockCoverable
 	 */
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity)
 	{
-		TEBase TE = (TEBase)world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 
@@ -248,7 +248,7 @@ public class Fenetre extends BlockCoverable
 		 */
 		public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 		{
-		 	TEBase TE = getTileEntity(world, x, y, z);
+		 	TEBase TE = getTileEntityStrict(world, x, y, z);
 	    	int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
 	    	int data = TE.blockMetadata;
 			// If shift key is down, skip auto-orientation
@@ -328,7 +328,7 @@ public class Fenetre extends BlockCoverable
 	 */
 	public boolean isSideSolid(IBlockAccess world, int x, int y, int z, ForgeDirection side)
 	{
-		TEBase TE = (TEBase) world.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(world, x, y, z);
 		
 		int data = BlockProperties.getMetadata(TE);
 		int type = FenetreD.getType(data);

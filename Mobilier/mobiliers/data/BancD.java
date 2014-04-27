@@ -12,8 +12,6 @@ public class BancD
 								BANC_X_POS = 1,
 								BANC_Z_NEG = 2,
 								BANC_Z_POS = 3;
-//								BANC_Y_NEG = 4,
-//								BANC_Y_POS = 5;
 	// xpos south
 	// xneg north
 	// zpos west
@@ -24,15 +22,17 @@ public class BancD
 	/*
 	 * Type definitions
 	 */
-	public final static byte	BANC = 0,
-								BORD = 1;
+	public final static byte	BANC_1 = 0,
+								BANC_2 = 1,
+								BANC_3 = 2,
+								BANC_4 = 3;
 
 	/**
 	 * Returns data.
 	 */
 	public final static int getType(int data)
 	{
-		return data >>3;
+		return data >>2 & 0x3; //xxxxoxxx le o est le bit qui nous interesse -> xxxxooxx
 	}
 	
 	/**
@@ -40,10 +40,10 @@ public class BancD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff7;
-		temp |= type <<3;
+		int data = BlockProperties.getMetadata(TE) & 0xFFF3; //11110111 -> 11110011
+		data |= type <<2;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class BancD
 	 */
 	public final static int getRotation(int data)
 	{
-		return data & 0x7;
+		return data & 0x3; //xxxxxooo -> xxxxxxoo
 	}
 	
 	/**
@@ -59,9 +59,9 @@ public class BancD
 	 */
 	public final static void setRotation(TEBase TE, int Rotation)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff8;
-		temp |= Rotation;
+		int data = BlockProperties.getMetadata(TE) & 0xFFFC; //11111000 -> 11111100
+		data |= Rotation;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

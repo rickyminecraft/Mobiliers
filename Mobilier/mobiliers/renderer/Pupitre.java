@@ -20,18 +20,17 @@ public class Pupitre extends BlockHandlerBase
 			RenderBlocks renderBlocks)
 	{
 		Tessellator tessellator = Tessellator.instance;
-		for(int l = 0; l < 3; l++)
+		for(int box = 0; box < 3; box++)
 		{
-			if(l == 0)
+			switch (box)
 			{
+			case 0:
 				renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 0.1D, 0.7D);
-			}
-			if(l == 1)
-			{
+				break;
+			case 1:
 				renderBlocks.setRenderBounds(0.4D, 0.1D, 0.4D, 0.6D, 0.7D, 0.6D);
-			}
-			if(l == 2)
-			{
+				break;
+			case 2:
 				renderBlocks.setRenderBounds(0.2D, 0.7D, 0.2D, 0.8D, 0.8D, 0.8D);
 			}
 			super.renderInventoryBlock(block, metadata, modelID, renderBlocks);
@@ -67,7 +66,7 @@ public class Pupitre extends BlockHandlerBase
 	private void renderPupitre(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = PupitreD.getRotation(data);
+		int rotation = PupitreD.getRotation(data);
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(srcBlock.getMixedBrightnessForBlock(renderBlocks.blockAccess, TE.xCoord, TE.yCoord, TE.zCoord));
 		tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
@@ -96,22 +95,34 @@ public class Pupitre extends BlockHandlerBase
 		double d31 = icon.getInterpolatedV(2.5D);
 		double d32 = icon.getInterpolatedU(16.0D);
 		double d33 = icon.getInterpolatedV(4.0D);
-		if(tmp == PupitreD.PUPITRE_Z_NEG)
+		
+		double d17 = 0.0D;
+		double d18 = 0.0D;
+		double d19 = 0.0D;
+		double d20 = 0.0D;
+		double d21 = 0.0D;
+		double d22 = 0.0D;
+		double d23 = 0.0D;
+		double d24 = 0.0D;
+		double d25 = 0.0D;
+		double d26 = 0.0D;
+		switch (rotation)
 		{
+		case PupitreD.PUPITRE_Z_NEG:
 			renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 0.1D, 0.7D);
 			renderBlock(coverBlock, x, y, z);
 			renderBlocks.setRenderBounds(0.4D, 0.1D, 0.4D, 0.6D, 0.7D, 0.6D);
 			renderBlock(coverBlock, x, y, z);
-			double d17 = x - 0.5D;
-			double d18 = x + 0.5D;
-			double d19 = z - 0.5D;
-			double d20 = z + 0.5D;
-			double d21 = 0.2D;
-			double d22 = 0.75D; //haut 1
-			double d23 = 0.7D; //bas
-			double d24 = 0.3D; //pour la largeur
-			double d25 = 0.5D; //pour centrer
-			double d26 = 0.85D; //haut 2
+			d17 = x - 0.5D;
+			d18 = x + 0.5D;
+			d19 = z - 0.5D;
+			d20 = z + 0.5D;
+			d21 = 0.2D;
+			d22 = 0.75D; //haut 1
+			d23 = 0.7D; //bas
+			d24 = 0.3D; //pour la largeur
+			d25 = 0.5D; //pour centrer
+			d26 = 0.85D; //haut 2
 			//haut
 			tessellator.addVertexWithUV(x - d24 + d25, y + d22, z - d24 + d25, d7, d6);
 			tessellator.addVertexWithUV(x - d24 + d25, y + d22, z + d24 + d25, d7, d8);
@@ -142,23 +153,22 @@ public class Pupitre extends BlockHandlerBase
 			tessellator.addVertexWithUV(d18 + d25 - d21, y + d23, z - d24 + d25, d13, d16);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d23, z - d24 + d25, d15, d16);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d22, z - d24 + d25, d15, d34);
-		} 
-		else if(tmp == PupitreD.PUPITRE_X_POS)//4
-		{
+			break;
+		case PupitreD.PUPITRE_X_POS:
 			renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 0.1D, 0.7D);
 			renderBlock(coverBlock, x, y, z);
 			renderBlocks.setRenderBounds(0.4D, 0.1D, 0.4D, 0.6D, 0.7D, 0.6D);
 			renderBlock(coverBlock, x, y, z);
-			double d17 = x - 0.5D;
-			double d18 = x + 0.5D;
-			double d19 = z - 0.5D;
-			double d20 = z + 0.5D;
-			double d21 = 0.2D;
-			double d22 = 0.75D; //haut 1
-			double d23 = 0.7D; //bas
-			double d24 = 0.3D; //pour la largeur
-			double d25 = 0.5D; //pour centrer
-			double d26 = 0.85D; //haut 2
+			d17 = x - 0.5D;
+			d18 = x + 0.5D;
+			d19 = z - 0.5D;
+			d20 = z + 0.5D;
+			d21 = 0.2D;
+			d22 = 0.75D; //haut 1
+			d23 = 0.7D; //bas
+			d24 = 0.3D; //pour la largeur
+			d25 = 0.5D; //pour centrer
+			d26 = 0.85D; //haut 2
 			//haut
 			tessellator.addVertexWithUV(x - d24 + d25, y + d26, z - d24 + d25, d7, d6);
 			tessellator.addVertexWithUV(x - d24 + d25, y + d26, z + d24 + d25, d7, d8);
@@ -189,23 +199,22 @@ public class Pupitre extends BlockHandlerBase
 			tessellator.addVertexWithUV(d18 + d25 - d21, y + d23, z - d24 + d25, d13, d16);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d23, z - d24 + d25, d15, d16);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d26, z - d24 + d25, d15, d14);
-		} 
-		else if(tmp == PupitreD.PUPITRE_Z_POS)//8
-		{
+			break;
+		case PupitreD.PUPITRE_Z_POS:
 			renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 0.1D, 0.7D);
 			renderBlock(coverBlock, x, y, z);
 			renderBlocks.setRenderBounds(0.4D, 0.1D, 0.4D, 0.6D, 0.7D, 0.6D);
 			renderBlock(coverBlock, x, y, z);
-			double d17 = x - 0.5D;
-			double d18 = x + 0.5D;
-			double d19 = z - 0.5D;
-			double d20 = z + 0.5D;
-			double d21 = 0.2D;
-			double d22 = 0.75D; //haut 1
-			double d23 = 0.7D; //bas
-			double d24 = 0.3D; //pour la largeur
-			double d25 = 0.5D; //pour centrer
-			double d26 = 0.85D; //haut 2
+			d17 = x - 0.5D;
+			d18 = x + 0.5D;
+			d19 = z - 0.5D;
+			d20 = z + 0.5D;
+			d21 = 0.2D;
+			d22 = 0.75D; //haut 1
+			d23 = 0.7D; //bas
+			d24 = 0.3D; //pour la largeur
+			d25 = 0.5D; //pour centrer
+			d26 = 0.85D; //haut 2
 			//haut
 			tessellator.addVertexWithUV(x - d24 + d25, y + d22, z - d24 + d25, d7, d6);
 			tessellator.addVertexWithUV(x - d24 + d25, y + d26, z + d24 + d25, d7, d8);
@@ -236,23 +245,22 @@ public class Pupitre extends BlockHandlerBase
 			tessellator.addVertexWithUV(d18 + d25 - d21, y + d23, z - d24 + d25, d30, d33);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d23, z - d24 + d25, d32, d33);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d22, z - d24 + d25, d32, d31);
-		} 
-		else if(tmp == PupitreD.PUPITRE_X_NEG)//12
-		{
+			break;
+		case PupitreD.PUPITRE_X_NEG:
 			renderBlocks.setRenderBounds(0.3D, 0.0D, 0.3D, 0.7D, 0.1D, 0.7D);
 			renderBlock(coverBlock, x, y, z);
 			renderBlocks.setRenderBounds(0.4D, 0.1D, 0.4D, 0.6D, 0.7D, 0.6D);
 			renderBlock(coverBlock, x, y, z);
-			double d17 = x - 0.5D;
-			double d18 = x + 0.5D;
-			double d19 = z - 0.5D;
-			double d20 = z + 0.5D;
-			double d21 = 0.2D;
-			double d22 = 0.75D; //haut 1
-			double d23 = 0.7D; //bas
-			double d24 = 0.3D; //pour la largeur
-			double d25 = 0.5D; //pour centrer
-			double d26 = 0.85D; //haut 2
+			d17 = x - 0.5D;
+			d18 = x + 0.5D;
+			d19 = z - 0.5D;
+			d20 = z + 0.5D;
+			d21 = 0.2D;
+			d22 = 0.75D; //haut 1
+			d23 = 0.7D; //bas
+			d24 = 0.3D; //pour la largeur
+			d25 = 0.5D; //pour centrer
+			d26 = 0.85D; //haut 2
 			//haut
 			tessellator.addVertexWithUV(x - d24 + d25, y + d26, z - d24 + d25, d7, d6);
 			tessellator.addVertexWithUV(x - d24 + d25, y + d22, z + d24 + d25, d7, d8);
@@ -283,6 +291,7 @@ public class Pupitre extends BlockHandlerBase
 			tessellator.addVertexWithUV(d18 + d25 - d21, y + d23, z - d24 + d25, d9, d12);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d23, z - d24 + d25, d11, d12);
 			tessellator.addVertexWithUV(d17 + d25 + d21, y + d26, z - d24 + d25, d11, d10);
+			break;
 		}
 	}
 }

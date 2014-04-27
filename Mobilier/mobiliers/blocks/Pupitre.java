@@ -178,9 +178,9 @@ public class Pupitre extends BlockCoverable
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
     @Override
-	public void breakBlock(World par1World, int par2, int par3, int par4, Block par5, int par6)
+	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
     {
-    	TEBase TE = getTileEntity(par1World, par2, par3, par4);
+    	TEBase TE = getTileEntityStrict(world, par2, par3, par4);
     	int Meta = TE.getBlockMetadata();
     	if (PupitreD.getType(Meta) ==  PupitreD.PLEIN)
     	{

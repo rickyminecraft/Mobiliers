@@ -18,8 +18,7 @@ public class Chaines implements ISimpleBlockRenderingHandler// extends BlockHand
 	public void renderInventoryBlock(Block block, int metadata, int modelID,
 			RenderBlocks renderer)
 	{
-		// TODO Auto-generated method stub
-		
+
 	}
 
 //	@Override
@@ -83,7 +82,7 @@ public class Chaines implements ISimpleBlockRenderingHandler// extends BlockHand
     {
         Tessellator tessellator = Tessellator.instance;
         IIcon icon = renderer.getBlockIconFromSideAndMetadata(par1Block, 0, par2);
-      IIcon icon2 = renderer.getBlockIconFromSideAndMetadata(par1Block, 1, par2);
+        IIcon icon2 = renderer.getBlockIconFromSideAndMetadata(par1Block, 1, par2);
         if (renderer.hasOverrideBlockTexture())
         {
             icon = renderer.overrideBlockTexture;

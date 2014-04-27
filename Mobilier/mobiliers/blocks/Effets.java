@@ -138,9 +138,9 @@ public class Effets extends BlockCoverable
     /**
      * A randomly called display update to be able to add particles or other items for display
      */
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    public void randomDisplayTick(World world, int par2, int par3, int par4, Random par5Random)
     {
-    	TEBase TE = (TEBase)par1World.getTileEntity(par2, par3, par4);
+    	TEBase TE = getTileEntityStrict(world, par2, par3, par4);
     	int data = BlockProperties.getMetadata(TE);
     	if (EffetsD.getEffet(data) == EffetsD.FOG)
     	{
@@ -154,8 +154,8 @@ public class Effets extends BlockCoverable
     			f = par2 + par5Random.nextFloat();
     			f1 = par3;// + par5Random.nextFloat();
     			f2 = par4 + par5Random.nextFloat();
-    			par1World.spawnParticle("reddust", f, f1, f2, 0.0D, 0.0D, 0.0D);
-    			par1World.spawnParticle("witchMagic", f, f1, f2, 0.0D, 0.0D, 0.0D);
+    			world.spawnParticle("reddust", f, f1, f2, 0.0D, 0.0D, 0.0D);
+    			world.spawnParticle("witchMagic", f, f1, f2, 0.0D, 0.0D, 0.0D);
     		}
     	}
     	if (EffetsD.getEffet(data) == EffetsD.BRUME)
@@ -172,7 +172,7 @@ public class Effets extends BlockCoverable
         			f = par2 + par5Random.nextFloat();
         			f1 = par3 + par5Random.nextFloat();
         			f2 = par4 + par5Random.nextFloat();
-        			entityfx = new BrumeFX(par1World, f, f1, f2, 0.0D, 0.0D, 0.0D,2.0f, this);
+        			entityfx = new BrumeFX(world, f, f1, f2, 0.0D, 0.0D, 0.0D,2.0f, this);
         			mc.effectRenderer.addEffect(entityfx);
         		}
         		Compteur = -1;
@@ -189,7 +189,7 @@ public class Effets extends BlockCoverable
                 f = par2 + par5Random.nextFloat();
                 f1 = par3 + par5Random.nextFloat();
                 f2 = par4 + par5Random.nextFloat();
-                par1World.spawnParticle("largesmoke", f, f1, f2, 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("largesmoke", f, f1, f2, 0.0D, 0.0D, 0.0D);
             }
     	}
     }

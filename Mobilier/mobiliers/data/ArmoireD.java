@@ -24,9 +24,9 @@ public class ArmoireD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xffbf;
-		temp |= type <<5;
+		int data = BlockProperties.getMetadata(TE) & 0xffbf;
+		data |= type <<5;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

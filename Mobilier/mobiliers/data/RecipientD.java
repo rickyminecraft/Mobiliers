@@ -8,7 +8,11 @@ public class RecipientD
 	/*
 	 * Type definitions
 	 */
-	public final static byte CENTRER = 0, RECIPIENT_X_NEG = 1, RECIPIENT_X_POS = 2, RECIPIENT_Z_NEG = 3, RECIPIENT_Z_POS = 4;
+	public final static byte CENTRER = 0, 
+							RECIPIENT_X_NEG = 1, 
+							RECIPIENT_X_POS = 2, 
+							RECIPIENT_Z_NEG = 3, 
+							RECIPIENT_Z_POS = 4;
 
 	/*
 	 * State (on/off).
@@ -20,8 +24,8 @@ public class RecipientD
 	 */
 	public final static int getState(int data)
 	{
-		int temp = data & 0x8;
-		return temp >> 3;
+		int data1 = data & 0x8;
+		return data1 >> 3;
 	}
 
 	/**
@@ -29,12 +33,12 @@ public class RecipientD
 	 */
 	public final static void setState(TEBase TE, int state)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfff7;
-		temp |= state << 3;
+		int data1 = BlockProperties.getMetadata(TE) & 0xfff7;
+		data1 |= state << 3;
 
 		int data = BlockProperties.getMetadata(TE);
 
 		if (getState(data) != state)
-			BlockProperties.setMetadata(TE, temp);
+			BlockProperties.setMetadata(TE, data1);
 	}
 }

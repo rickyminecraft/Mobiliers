@@ -24,9 +24,9 @@ public class TabouretD
 	 */
 	public final static void setType(TEBase TE, int type)
 	{
-		int temp = BlockProperties.getMetadata(TE) & 0xfffC;
-		temp |= type;
+		int data = BlockProperties.getMetadata(TE) & 0xfffC;
+		data |= type;
 		
-		BlockProperties.setMetadata(TE, temp);
+		BlockProperties.setMetadata(TE, data);
 	}
 }

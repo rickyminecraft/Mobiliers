@@ -61,7 +61,7 @@ public class Quart extends BlockCoverable
 	 */
 	public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
 	{
-		TEBase TE = (TEBase) blockAccess.getTileEntity(x, y, z);
+		TEBase TE = getTileEntityStrict(blockAccess, x, y, z);
 
 		int data = BlockProperties.getMetadata(TE);
 		int type = QuartD.getType(data);
@@ -144,7 +144,7 @@ public class Quart extends BlockCoverable
 	 */
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entityLiving, ItemStack itemStack)
 	{
-    	TEBase TE = getTileEntity(world, x, y, z);
+    	TEBase TE = getTileEntityStrict(world, x, y, z);
     	int facing = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
     	int data = TE.blockMetadata;
 		// If shift key is down, skip auto-orientation

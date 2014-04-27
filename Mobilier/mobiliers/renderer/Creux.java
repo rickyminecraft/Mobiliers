@@ -15,9 +15,9 @@ public class Creux extends BlockHandlerBase
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderBlocks)
 	{
-		for(int l = 0; l < 4; l++)
+		for(int box = 0; box < 4; box++)
 		{
-			switch (l)
+			switch (box)
 			{
 				case 0:
 					renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 0.2D, 1.0D, 1.0D);
@@ -44,61 +44,61 @@ public class Creux extends BlockHandlerBase
 		ItemStack coverBlock = BlockProperties.hasCover(TE, 6) == true ? BlockProperties.getCover(TE, coverRendering) : BlockProperties.getCover(TE, 6);
 		renderCreux(coverBlock, x, y, z);
 //		int data = BlockProperties.getMetadata(TE);
-//		int type = ChaiseD.getType(data);
+//		int type = CreuxD.getType(data);
 //		switch (type)
 //		{
-//			case ChaiseD.TYPE_1:
-//				renderChaise(coverBlock, x, y, z);
+//			case CreuxD.TYPE_1:
+//				renderCreux(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_2:
-//				renderChaise_2(coverBlock, x, y, z);
+//			case CreuxD.TYPE_2:
+//				renderCreux_1(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_3:
-//				renderChaise_3(coverBlock, x, y, z);
+//			case CreuxD.TYPE_3:
+//				renderCreux_2(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_4:
-//				renderChaise_4(coverBlock, x, y, z);
+//			case CreuxD.TYPE_4:
+//				renderCreux_3(coverBlock, x, y, z);
 //		}
 	}
 	
 	private void renderCreux(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = CreuxD.getRotation(data);
-		switch (tmp)
+		int rotation = CreuxD.getRotation(data);
+		switch (rotation)
 		{
-			case CreuxD.CREUX_X_NEG:
-			case CreuxD.CREUX_X_POS:
-		    	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.2D, 0.2D, 1.0D, 1.0D);
-		    	renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.8D, 0.0D, 0.2D, 1.0D, 1.0D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.2D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.2D, 0.0D, 0.8D, 0.8D, 1.0D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-				break;
-			case CreuxD.CREUX_Y_NEG:
-			case CreuxD.CREUX_Y_POS:
-				renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.2D, 1.0D);
-				renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.8D, 0.0D, 1.0D, 1.0D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.2D, 0.0D, 1.0D, 0.8D, 0.2D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.2D, 0.8D, 1.0D, 0.8D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-				break;
-			case CreuxD.CREUX_Z_NEG:
-			case CreuxD.CREUX_Z_POS:
-		    	renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.2D, 1.0D);
-		    	renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.8D, 0.0D, 1.0D, 1.0D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.0D, 0.2D, 0.0D, 0.2D, 0.8D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
-		        renderBlocks.setRenderBounds(0.8D, 0.2D, 0.0D, 1.0D, 0.8D, 1.0D);
-		        renderBlock(coverBlock, x, y, z);
+		case CreuxD.CREUX_X_NEG:
+		case CreuxD.CREUX_X_POS:
+			renderBlocks.setRenderBounds(0.0D, 0.0D, 0.2D, 0.2D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.8D, 0.0D, 0.2D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.2D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.2D, 0.0D, 0.8D, 0.8D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			break;
+		case CreuxD.CREUX_Y_NEG:
+		case CreuxD.CREUX_Y_POS:
+			renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.2D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.8D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.2D, 0.0D, 1.0D, 0.8D, 0.2D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.2D, 0.8D, 1.0D, 0.8D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			break;
+		case CreuxD.CREUX_Z_NEG:
+		case CreuxD.CREUX_Z_POS:
+			renderBlocks.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 0.2D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.8D, 0.0D, 1.0D, 1.0D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.0D, 0.2D, 0.0D, 0.2D, 0.8D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
+			renderBlocks.setRenderBounds(0.8D, 0.2D, 0.0D, 1.0D, 0.8D, 1.0D);
+			renderBlock(coverBlock, x, y, z);
 		}
 	}
 }

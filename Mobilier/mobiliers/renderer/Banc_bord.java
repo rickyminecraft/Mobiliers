@@ -30,28 +30,28 @@ public class Banc_bord extends BlockHandlerBase
 		ItemStack coverBlock = BlockProperties.hasCover(TE, 6) == true ? BlockProperties.getCover(TE, coverRendering) : BlockProperties.getCover(TE, 6);
 		renderBancBord(coverBlock, x, y, z);
 //		int data = BlockProperties.getMetadata(TE);
-//		int type = ChaiseD.getType(data);
+//		int type = BancD.getType(data);
 //		switch (type)
 //		{
-//			case ChaiseD.TYPE_1:
-//				renderChaise(coverBlock, x, y, z);
+//			case BancD.BANC_1:
+//				renderBancBord(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_2:
-//				renderChaise_2(coverBlock, x, y, z);
+//			case BancD.BANC_2:
+//				renderBancBord_2(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_3:
-//				renderChaise_3(coverBlock, x, y, z);
+//			case BancD.BANC_3:
+//				renderBancBorde_3(coverBlock, x, y, z);
 //				break;
-//			case ChaiseD.TYPE_4:
-//				renderChaise_4(coverBlock, x, y, z);
+//			case BancD.BANC_4:
+//				renderBancBord_4(coverBlock, x, y, z);
 //		}
 	}
 	
 	private void renderBancBord(ItemStack coverBlock, int x, int y, int z)
 	{
 		int data = BlockProperties.getMetadata(TE);
-		int tmp = BancD.getRotation(data);
-		switch (tmp)
+		int rotation = BancD.getRotation(data);
+		switch (rotation)
 		{	
 			case BancD.BANC_X_NEG:
 				renderBlocks.setRenderBounds(0.2D, 0.0D, 0.2D, 0.3D, 0.4D, 0.8D);

@@ -30,30 +30,20 @@ public class mobilier
 	@SidedProxy(clientSide = "mobiliers.proxy.ClientProxy", serverSide = "mobiliers.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static Block Poteau_base, Tabouret, Support, Plateau, Recipient, Escalier, Table, Tangle, Chaise, Quart, Fenetre, Banc, Banc_Bord, Commode, Creux, Storche, Storche2, Poteau, Pupitre, Chaines, Effets, Armoire, Buffet;
+	public static Block Poteau_base, Tabouret, Support, Plateau,
+						Recipient, Escalier, Table, Tangle,
+						Chaise,	Quart, Fenetre, Banc, 
+						Banc_Bord, Commode, Creux, Storche, 
+						Storche2, Poteau, Pupitre, Chaines, 
+						Effets, Armoire, Buffet;
 
 	public static IIcon Chaines1, Chaines2, Fog, Smoke, Brume, IArmoire, IdefautArmoire, IBuffet;
 	
-	public static int 	Poteau_baseRenderID,
-						TabouretRenderID,
-						SupportRenderID,
-						PlateauRenderID,
-						RecipientRenderID,
-						EscalierRenderID,
-						TableRenderID,
-						TangleRenderID,
-						ChaiseRenderID,
-						QuartRenderID,
-						FenetreRenderID,
-						BancID,
-						BancBordID,
-						CommodeID,
-						CreuxID,
-						Support_TorcheID,
-						PoteauID,
-						PupitreID,
-						ChainesID,
-						ArmoireID,
+	public static int 	Poteau_baseRenderID, TabouretRenderID, SupportRenderID, PlateauRenderID,
+						RecipientRenderID, EscalierRenderID, TableRenderID, TangleRenderID,
+						ChaiseRenderID, QuartRenderID, FenetreRenderID, BancID,
+						BancBordID, CommodeID, CreuxID, Support_TorcheID,
+						PoteauID, PupitreID, ChainesID, ArmoireID,
 						BuffetID;
 
 	@EventHandler
@@ -69,7 +59,7 @@ public class mobilier
 
 		Support = new Support(Material.wood).setHardness(0.2F).setBlockName("blockSupport").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/solid");
 		GameRegistry.registerBlock(Support, "blockSupport");
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Support, 2), "XXX", "X  ", "X  ", 'X', carpentersblocks.util.registry.BlockRegistry.blockCarpentersBlock));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Support, 2), "XXX", "X  ", "X  ", 'X', "stickWood"));
 
 		Plateau = new Plateau(Material.wood).setHardness(0.2F).setBlockName("blockPlateau").setCreativeTab(CarpentersBlocks.creativeTab).setBlockTextureName(CarpentersBlocks.MODID + ":" + "general/quartered_frame");
 		GameRegistry.registerBlock(Plateau, "blockPlateau");
